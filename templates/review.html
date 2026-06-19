@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review — {{ context.session_name }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        h1 { font-size: 1.5rem; margin-bottom: 4px; color: #1a1a2e; }
+        .session-type { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .theory_heavy { background: #e8eaf6; color: #3f51b5; }
+        .code_heavy { background: #e8f5e9; color: #2e7d32; }
+        .mixed { background: #fff3e0; color: #e65100; }
+        .header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; }
+        .score-badge { font-size: 2rem; font-weight: 700; }
+        .score-pass { color: #2e7d32; }
+        .score-fail { color: #c62828; }
+        .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+        .metric { text-align: center; padding: 12px; background: #fafafa; border-radius: 8px; }
+        .metric-value { font-size: 1.3rem; font-weight: 700; color: #333; }
+        .metric-label { font-size: 0.75rem; color: #888; margin-top: 2px; }
+        .outcomes { list-style: none; padding: 0; }
+        .outcomes li { padding: 4px 0; font-size: 0.9rem; }
+        .outcomes li:before { content: "-> "; color: #4caf50; font-weight: bold; }
+        .source-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+        .source-curriculum { background: #e3f2fd; color: #1565c0; }
+        .source-interview_db { background: #e8f5e9; color: #2e7d32; }
+        .source-web { background: #fff3e0; color: #e65100; }
+        .source-generated { background: #f3e5f5; color: #7b1fa2; }
+        .diff-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+        .diff-Easy { background: #e8f5e9; color: #2e7d32; }
+        .diff-Medium { background: #fff3e0; color: #e65100; }
+        .diff-Hard { background: #ffebee; color: #c62828; }
+        .critique { background: #fff8e1; border-left: 4px solid #ffc107; padding: 12px 16px; margin-top: 12px; font-size: 0.85rem; }
+        .approved-banner { background: #e8f5e9; border: 2px solid #4caf50; padding: 16px; border-radius: 8px; text-align: center; font-weight: 600; color: #2e7d32; }
+        .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 12px; color: #555; }
+        .flash { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; }
+        .flash.success { background: #e0ffe0; color: #060; }
+        .flash.warning { background: #fff3e0; color: #a60; }
+        .flash.error { background: #ffe0e0; color: #c00; }
+
+        /* Question cards */
+        .q-card { border: 1.5px solid #e8e8e8; border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: border-color 0.2s; }
+        .q-card.accepted { border-color: #4caf50; background: #f9fdf9; }
+        .q-card.rejected { border-color: #ef5350; background: #fef9f9; }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .q-number { font-weight: 700; color: #888; font-size: 0.85rem; }
+        .q-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .q-content { font-size: 0.92rem; line-height: 1.5; margin-bottom: 10px; color: #333; }
+        .code-content { margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 6px; font-size: 0.85rem; border-left: 3px solid #4361ee; }
+        .code-content h4 { font-size: 0.9rem; color: #1a1a2e; margin: 8px 0 4px 0; }
+        .q-details { display: flex; gap: 12px; flex-wrap: wrap; font-size: 0.8rem; color: #888; margin-bottom: 10px; }
+        .q-details span { display: flex; align-items: center; gap: 4px; }
+        .q-actions { display: flex; gap: 8px; align-items: center; }
+        .btn-sm { padding: 5px 14px; border: 1.5px solid #ddd; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: white; transition: all 0.2s; }
+        .btn-accept { color: #2e7d32; border-color: #4caf50; }
+        .btn-accept:hover, .btn-accept.active { background: #4caf50; color: white; }
+        .btn-reject-q { color: #c62828; border-color: #ef5350; }
+        .btn-reject-q:hover, .btn-reject-q.active { background: #ef5350; color: white; }
+        .q-feedback { width: 100%; padding: 8px 12px; border: 1.5px solid #ddd; border-radius: 6px; font-size: 0.85rem; margin-top: 8px; display: none; resize: vertical; }
+        .q-feedback.visible { display: block; }
+        .q-status { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+        .status-accepted { background: #e8f5e9; color: #2e7d32; }
+        .status-rejected { background: #ffebee; color: #c62828; }
+
+        /* Global actions */
+        .global-actions { display: flex; gap: 12px; margin-top: 20px; }
+        .btn {
+            padding: 12px 28px; border: none; border-radius: 8px; font-size: 0.95rem;
+            font-weight: 600; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-approve { background: #4caf50; color: white; flex: 1; }
+        .btn-approve:hover { background: #43a047; }
+        .btn-back { background: #e0e0e0; color: #333; text-decoration: none; text-align: center; }
+        .btn-back:hover { background: #bdbdbd; }
+        .summary-bar { display: flex; gap: 16px; align-items: center; font-size: 0.85rem; color: #666; padding: 12px 0; }
+        .summary-bar .count { font-weight: 700; }
+        .summary-bar .accepted-count { color: #2e7d32; }
+        .summary-bar .rejected-count { color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        {% if result.approved %}
+        <div class="approved-banner">Approved — Ready for Google Sheets export</div>
+        <br>
+        {% endif %}
+
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h1>{{ context.session_name }}</h1>
+                <span class="session-type {{ context.session_type }}">{{ context.session_type }}</span>
+                <span style="color:#888; font-size:0.8rem; margin-left:8px;">Run: {{ run_id[:8] }}...</span>
+            </div>
+            <div style="text-align:right;">
+                <div class="score-badge {{ 'score-pass' if report.pass_fail == 'pass' else 'score-fail' }}">
+                    {{ "%.0f"|format(report.composite_score * 100) }}%
+                </div>
+                <div style="font-size:0.8rem; color:#888;">Quality Score</div>
+            </div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="card">
+            <div class="section-title">Quality Metrics</div>
+            <div class="metrics">
+                {% for name, value in report.metric_scores.items() %}
+                <div class="metric">
+                    {% if value is number and value <= 1.0 %}
+                    <div class="metric-value">{{ "%.0f"|format(value * 100) }}%</div>
+                    {% else %}
+                    <div class="metric-value">{{ value }}</div>
+                    {% endif %}
+                    <div class="metric-label">{{ name.replace('_', ' ').title() }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if report.critique %}
+            <div class="critique">
+                <strong>Improvement Notes:</strong>
+                <ul style="margin-top:6px; padding-left:20px;">
+                {% for c in report.critique %}
+                    <li>{{ c }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Learning Outcomes -->
+        <div class="card">
+            <div class="section-title">Learning Outcomes</div>
+            <ul class="outcomes">
+                {% for o in context.learning_outcomes %}
+                <li>{{ o }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Questions (card-based with per-question actions) -->
+        <form method="POST" action="/approve/{{ run_id }}" id="reviewForm">
+
+        {% if output.question_details %}
+        <div class="card">
+            <div class="section-title">Questions ({{ output.question_details|length }})</div>
+            <div class="summary-bar">
+                <span>Total: <span class="count">{{ output.question_details|length + output.coding_questions|length }}</span></span>
+                <span>Accepted: <span class="count accepted-count" id="acceptedCount">0</span></span>
+                <span>Rejected: <span class="count rejected-count" id="rejectedCount">0</span></span>
+            </div>
+
+            {% for q in output.question_details %}
+            <div class="q-card" id="qcard_{{ q.question_id }}" data-status="pending">
+                <div class="q-header">
+                    <div>
+                        <span class="q-number">Q{{ loop.index }}</span>
+                        <span class="q-status" id="qstatus_{{ q.question_id }}"></span>
+                    </div>
+                    <div class="q-meta">
+                        <span class="diff-tag diff-{{ q.difficulty }}">{{ q.difficulty }}</span>
+                        <span class="source-tag source-{{ q.source }}">{{ q.source }}</span>
+                        {% if q.asked_in_company and q.asked_in_company != 'nan' %}
+                        <span style="font-size:0.75rem; color:#666;">{{ q.asked_in_company }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="q-content">{{ q.content[:400] }}{% if q.content|length > 400 %}...{% endif %}</div>
+                <div class="q-details">
+                    <span>Category: {{ q.category }}</span>
+                    {% if q.kp_label %}<span>KP: {{ q.kp_label }}</span>{% endif %}
+                    <span>Topic: {{ q.topic }}</span>
+                </div>
+                <div class="q-actions">
+                    <button type="button" class="btn-sm btn-accept" onclick="setQuestionStatus('{{ q.question_id }}', 'accepted')">Accept</button>
+                    <button type="button" class="btn-sm btn-reject-q" onclick="setQuestionStatus('{{ q.question_id }}', 'rejected')">Reject</button>
+                </div>
+                <textarea class="q-feedback" id="feedback_{{ q.question_id }}"
+                          name="feedback_{{ q.question_id }}"
+                          placeholder="Why reject? (e.g., off-topic, too easy, duplicate...)"></textarea>
+                <input type="hidden" name="status_{{ q.question_id }}" id="status_{{ q.question_id }}" value="pending">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Coding Questions -->
+        {% if output.coding_questions %}
+        <div class="card">
+            <div class="section-title">Coding Questions ({{ output.coding_questions|length }})</div>
+            {% for q in output.coding_questions %}
+            <div class="q-card" id="qcard_{{ q.id }}" data-status="pending">
+                <div class="q-header">
+                    <div>
+                        <span class="q-number">C{{ loop.index }}</span>
+                        <span class="q-status" id="qstatus_{{ q.id }}"></span>
+                    </div>
+                    <div class="q-meta">
+                        <span class="diff-tag diff-{{ q.difficulty }}">{{ q.difficulty }}</span>
+                        <span class="source-tag source-{{ q.source }}">{{ q.source }}</span>
+                    </div>
+                </div>
+                <div class="q-content">
+                    <strong>{{ q.title }}</strong>
+                    <div class="code-content">{{ q.content[:500] | replace("## ", "<h4>") | replace("\n- ", "<br>- ") | replace("\n", "<br>") | safe }}{% if q.content|length > 500 %}...{% endif %}</div>
+                </div>
+                <div class="q-details">
+                    <span>Language: {{ q.language }}</span>
+                    <span>Category: {{ q.category }}</span>
+                </div>
+                <div class="q-actions">
+                    <button type="button" class="btn-sm btn-accept" onclick="setQuestionStatus('{{ q.id }}', 'accepted')">Accept</button>
+                    <button type="button" class="btn-sm btn-reject-q" onclick="setQuestionStatus('{{ q.id }}', 'rejected')">Reject</button>
+                </div>
+                <textarea class="q-feedback" id="feedback_{{ q.id }}"
+                          name="feedback_{{ q.id }}"
+                          placeholder="Why reject? (e.g., off-topic, wrong language...)"></textarea>
+                <input type="hidden" name="status_{{ q.id }}" id="status_{{ q.id }}" value="pending">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Run Summary -->
+        <div class="card">
+            <div class="section-title">Run Summary</div>
+            <p style="font-size:0.85rem; color:#666;">
+                Total: {{ output.question_details|length + output.coding_questions|length }} questions |
+                Candidates evaluated: {{ output.metadata.total_candidates }} |
+                Duplicates removed: {{ output.metadata.dedup_removed }} |
+                From web: {{ output.metadata.questions_from_web }} |
+                Eval loops: {{ report.loops_used }}
+            </p>
+        </div>
+
+        <!-- Global Actions -->
+        {% if not result.approved %}
+        <div class="card">
+            <div class="section-title">Final Decision</div>
+            <p style="font-size:0.85rem; color:#666; margin-bottom:12px;">
+                Review each question above, then approve the set or reject with global feedback.
+            </p>
+            <div class="form-group" style="margin-bottom:12px;">
+                <label style="font-size:0.85rem;">Global Feedback (optional)</label>
+                <textarea name="global_feedback" style="width:100%; padding:10px; border:1.5px solid #ddd; border-radius:8px; font-size:0.9rem; resize:vertical;"
+                          rows="3" placeholder="Overall notes, suggestions for re-generation..."></textarea>
+            </div>
+            <div class="global-actions">
+                <button type="submit" name="action" value="approve" class="btn btn-approve">Approve Accepted Questions</button>
+                <button type="submit" name="action" value="reject" class="btn" style="background:#ef5350; color:white; flex:1;">Reject & Re-generate</button>
+            </div>
+        </div>
+        {% endif %}
+
+        </form>
+
+        <div style="margin-top:20px; text-align:center;">
+            <a href="/" class="btn btn-back" style="display:inline-block; padding:12px 28px;">Back to Input</a>
+        </div>
+    </div>
+
+    <script>
+        function setQuestionStatus(qId, status) {
+            const card = document.getElementById('qcard_' + qId);
+            const statusInput = document.getElementById('status_' + qId);
+            const statusLabel = document.getElementById('qstatus_' + qId);
+            const feedback = document.getElementById('feedback_' + qId);
+
+            // Toggle: clicking same status again resets to pending
+            const current = card.dataset.status;
+            if (current === status) {
+                card.dataset.status = 'pending';
+                card.className = 'q-card';
+                statusInput.value = 'pending';
+                statusLabel.textContent = '';
+                statusLabel.className = 'q-status';
+                feedback.classList.remove('visible');
+            } else {
+                card.dataset.status = status;
+                card.className = 'q-card ' + status;
+                statusInput.value = status;
+
+                if (status === 'accepted') {
+                    statusLabel.textContent = 'Accepted';
+                    statusLabel.className = 'q-status status-accepted';
+                    feedback.classList.remove('visible');
+                } else {
+                    statusLabel.textContent = 'Rejected';
+                    statusLabel.className = 'q-status status-rejected';
+                    feedback.classList.add('visible');
+                    feedback.focus();
+                }
+            }
+
+            // Update highlight on buttons
+            card.querySelectorAll('.btn-accept, .btn-reject-q').forEach(btn => btn.classList.remove('active'));
+            if (card.dataset.status !== 'pending') {
+                const activeBtn = card.querySelector(status === 'accepted' ? '.btn-accept' : '.btn-reject-q');
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+
+            updateCounts();
+        }
+
+        function updateCounts() {
+            const accepted = document.querySelectorAll('.q-card[data-status="accepted"]').length;
+            const rejected = document.querySelectorAll('.q-card[data-status="rejected"]').length;
+            document.getElementById('acceptedCount').textContent = accepted;
+            document.getElementById('rejectedCount').textContent = rejected;
+        }
+    </script>
+</body>
+</html>

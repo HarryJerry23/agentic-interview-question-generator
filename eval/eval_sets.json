@@ -1,0 +1,3203 @@
+{
+  "metadata": {
+    "version": "3.0",
+    "built_at": "2026-06-17",
+    "description": "Eval sets for all 45 sessions: theory + coding, good + bad, format rules",
+    "total_sessions": 46,
+    "total_good_theory": 122,
+    "total_bad_theory": 102,
+    "total_good_coding": 72,
+    "total_bad_coding": 46,
+    "total_questions": 342
+  },
+  "eval_sessions": [
+    {
+      "session_name": "AI In The Real World",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0753",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0761"
+      ],
+      "expected_outcomes": [
+        "Understand Implement memory systems in AI agents",
+        "Understand Understand tool usage and function calling in LLMs",
+        "Understand Integrate tool calling into prompt structures",
+        "Understand Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          },
+          {
+            "content": "Explain Understand tool usage and function calling in LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand tool usage and function calling in LLMs"
+          },
+          {
+            "content": "Explain Integrate tool calling into prompt structures and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Integrate tool calling into prompt structures"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement memory systems in AI agents Implementation",
+            "content": "Write a function that demonstrates Implement memory systems in AI agents. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_memory_systems_in_ai():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement memory systems in AI agents, concise content, proper starter code"
+          },
+          {
+            "title": "Understand tool usage and function calli Implementation",
+            "content": "Write a function that demonstrates Understand tool usage and function calling in LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_tool_usage_and_func():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand tool usage and function calling in LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Understanding How LLMs Work | Part 1.",
+            "bad_type": "off_topic",
+            "why_bad": "About Understanding How LLMs Work | Part 1, not AI In The Real World"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "AI Workflows",
+      "session_type": "mixed",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_0790",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0797",
+        "KP_GLOBAL_0751"
+      ],
+      "expected_outcomes": [
+        "Understand Identify AI-powered application-building platforms",
+        "Understand Basic TTS text input field",
+        "Understand AI speech generation tools",
+        "Understand QuizGecko input methods"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Identify AI-powered application-building platforms and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Identify AI-powered application-building platforms"
+          },
+          {
+            "content": "Explain Basic TTS text input field and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Basic TTS text input field"
+          },
+          {
+            "content": "Explain AI speech generation tools and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: AI speech generation tools"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Identify AI-powered application-building Implementation",
+            "content": "Write a function that demonstrates Identify AI-powered application-building platforms. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def identify_ai_powered_applicatio():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Identify AI-powered application-building platforms, concise content, proper starter code"
+          },
+          {
+            "title": "Basic TTS text input field Implementation",
+            "content": "Write a function that demonstrates Basic TTS text input field. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def basic_tts_text_input_field():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Basic TTS text input field, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building LLM Applications using Python | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building LLM Applications using Python | Part 2, not AI Workflows"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building AI Agents Using LangChain",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "expected_outcomes": [
+        "Understand LangChain RecursiveCharacterTextSplitter",
+        "Understand Build RAG pipelines using LangChain",
+        "Understand Implement memory systems in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain LangChain RecursiveCharacterTextSplitter and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: LangChain RecursiveCharacterTextSplitter"
+          },
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          },
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "LangChain RecursiveCharacterTextSplitter Implementation",
+            "content": "Write a function that demonstrates LangChain RecursiveCharacterTextSplitter. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def langchain_recursivecharacterte():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LangChain RecursiveCharacterTextSplitter, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Building AI Agents Using LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building AI-Powered Social Media Content Automation Workflow",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0816"
+      ],
+      "expected_outcomes": [
+        "Understand Identify AI-powered application-building platforms"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Identify AI-powered application-building platforms and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Identify AI-powered application-building platforms"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Preparing for Permanent Deployment.",
+            "bad_type": "off_topic",
+            "why_bad": "About Preparing for Permanent Deployment, not Building AI-Powered Social Media Content Automation Workflow"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code to implement concepts from this session.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building LLM Applications using Python | Part 1",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Build RAG pipelines using LangChain",
+        "Understand Design and engineer prompts for LLM applications",
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "What are the three essential components of an LLM application?",
+            "difficulty": "Easy",
+            "why_good": "Core concept from session"
+          },
+          {
+            "content": "How do you securely store API keys in Google Colab using Colab Secrets?",
+            "difficulty": "Medium",
+            "why_good": "Specific technique taught in session"
+          },
+          {
+            "content": "Write code to initialize a Gemini client and send a prompt.",
+            "difficulty": "Medium",
+            "why_good": "Coding question matching session's hands-on exercise"
+          },
+          {
+            "content": "What is the google-genai package and how is it used?",
+            "difficulty": "Easy",
+            "why_good": "Tests knowledge of specific tool from session"
+          },
+          {
+            "content": "Build a Study Assistant that takes a topic and returns an explanation using Gemini API.",
+            "difficulty": "Hard",
+            "why_good": "Tests the session's main project"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is Flask?",
+            "bad_type": "off_topic",
+            "why_bad": "Flask is Part 2, not Part 1"
+          },
+          {
+            "content": "Explain Python list comprehensions.",
+            "bad_type": "too_generic",
+            "why_bad": "Generic Python, not LLM application specific"
+          },
+          {
+            "content": "What does range() do?",
+            "bad_type": "too_generic",
+            "why_bad": "Basic Python, not related to LLM apps"
+          },
+          {
+            "content": "Deploy an application to AWS.",
+            "bad_type": "out_of_scope",
+            "why_bad": "Deployment is a separate session"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building LLM Applications using Python | Part 2",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Build RAG pipelines using LangChain",
+        "Understand Design and engineer prompts for LLM applications",
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "How do you define a route in Flask using @app.route()?",
+            "difficulty": "Easy",
+            "why_good": "Core Flask concept from session"
+          },
+          {
+            "content": "What is the difference between GET and POST methods in Flask?",
+            "difficulty": "Medium",
+            "why_good": "Key HTTP concept from session"
+          },
+          {
+            "content": "Write a Flask endpoint that returns a list of products as JSON.",
+            "difficulty": "Medium",
+            "why_good": "Matches session's product API exercise"
+          },
+          {
+            "content": "How do you access request body data in a Flask POST endpoint?",
+            "difficulty": "Medium",
+            "why_good": "Specific skill taught in session"
+          },
+          {
+            "content": "Implement a complete CRUD API for products using Flask.",
+            "difficulty": "Hard",
+            "why_good": "Tests the session's main project"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is the Gemini API?",
+            "bad_type": "off_topic",
+            "why_bad": "Gemini is Part 1, not Part 2"
+          },
+          {
+            "content": "Explain Django ORM.",
+            "bad_type": "out_of_scope",
+            "why_bad": "Session uses Flask, not Django"
+          },
+          {
+            "content": "What is Python?",
+            "bad_type": "too_generic",
+            "why_bad": "Too basic for a Flask API session"
+          },
+          {
+            "content": "How does RAG work?",
+            "bad_type": "off_topic",
+            "why_bad": "RAG is a completely different session"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building Memory Agent using Langchain",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "expected_outcomes": [
+        "Understand LangChain RecursiveCharacterTextSplitter",
+        "Understand Build RAG pipelines using LangChain",
+        "Understand Implement memory systems in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain LangChain RecursiveCharacterTextSplitter and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: LangChain RecursiveCharacterTextSplitter"
+          },
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          },
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "LangChain RecursiveCharacterTextSplitter Implementation",
+            "content": "Write a function that demonstrates LangChain RecursiveCharacterTextSplitter. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def langchain_recursivecharacterte():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LangChain RecursiveCharacterTextSplitter, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building Multi Agent Systems.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building Multi Agent Systems, not Building Memory Agent using Langchain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building Multi Agent Systems",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0753"
+      ],
+      "expected_outcomes": [
+        "Understand Implement memory systems in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement memory systems in AI agents Implementation",
+            "content": "Write a function that demonstrates Implement memory systems in AI agents. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_memory_systems_in_ai():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement memory systems in AI agents, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building Memory Agent using Langchain.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building Memory Agent using Langchain, not Building Multi Agent Systems"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building Multi Agent Systems Using Crew AI",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "expected_outcomes": [
+        "Understand Build RAG pipelines using LangChain",
+        "Understand Implement memory systems in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          },
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          },
+          {
+            "title": "Implement memory systems in AI agents Implementation",
+            "content": "Write a function that demonstrates Implement memory systems in AI agents. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_memory_systems_in_ai():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement memory systems in AI agents, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Running Models Locally.",
+            "bad_type": "off_topic",
+            "why_bad": "About Running Models Locally, not Building Multi Agent Systems Using Crew AI"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building RAG Agent Using LangChain",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ],
+      "expected_outcomes": [
+        "Understand LangChain RecursiveCharacterTextSplitter",
+        "Understand Build RAG pipelines using LangChain"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain LangChain RecursiveCharacterTextSplitter and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: LangChain RecursiveCharacterTextSplitter"
+          },
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "LangChain RecursiveCharacterTextSplitter Implementation",
+            "content": "Write a function that demonstrates LangChain RecursiveCharacterTextSplitter. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def langchain_recursivecharacterte():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LangChain RecursiveCharacterTextSplitter, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Building RAG Agent Using LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building Rest APIs using Flask",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0750"
+      ],
+      "expected_outcomes": [
+        "Understand Integrate LLM APIs and manage authentication",
+        "Understand Build RAG pipelines using LangChain"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Integrate LLM APIs and manage authentication and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Integrate LLM APIs and manage authentication"
+          },
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Integrate LLM APIs and manage authentica Implementation",
+            "content": "Write a function that demonstrates Integrate LLM APIs and manage authentication. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_llm_apis_and_manage_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate LLM APIs and manage authentication, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building an AI-Powered Conversational Interview Assistant | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building an AI-Powered Conversational Interview Assistant | Part 2, not Building Rest APIs using Flask"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building UI for LLM Applications",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0756"
+      ],
+      "expected_outcomes": [
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Design and engineer prompts for LLM applications"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Build Gradio interfaces for LLM applications and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Build Gradio interfaces for LLM applications"
+          },
+          {
+            "content": "Explain Design and engineer prompts for LLM applications and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Design and engineer prompts for LLM applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          },
+          {
+            "title": "Design and engineer prompts for LLM appl Implementation",
+            "content": "Write a function that demonstrates Design and engineer prompts for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def design_and_engineer_prompts_fo():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Design and engineer prompts for LLM applications, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Context Engineering.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Context Engineering, not Building UI for LLM Applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building a Game Development Crew",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0753",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0772"
+      ],
+      "expected_outcomes": [
+        "Understand Implement memory systems in AI agents",
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Decompose problems into reasoning steps",
+        "Understand Define system prompts and LLM roles"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          },
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Decompose problems into reasoning steps and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Decompose problems into reasoning steps"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement memory systems in AI agents Implementation",
+            "content": "Write a function that demonstrates Implement memory systems in AI agents. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_memory_systems_in_ai():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement memory systems in AI agents, concise content, proper starter code"
+          },
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building RAG Agent Using LangChain.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building RAG Agent Using LangChain, not Building a Game Development Crew"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building a Learning Path Generator",
+      "session_type": "code_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0795",
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0814",
+        "KP_GLOBAL_0825",
+        "KP_GLOBAL_0794"
+      ],
+      "expected_outcomes": [
+        "Understand Open source LLM model advantages",
+        "Understand AI agent core components",
+        "Understand Agent planning and reasoning",
+        "Understand RAG retrieval and document search"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Open source LLM model advantages and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Open source LLM model advantages"
+          },
+          {
+            "content": "Explain AI agent core components and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: AI agent core components"
+          },
+          {
+            "content": "Explain Agent planning and reasoning and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Agent planning and reasoning"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Open source LLM model advantages Implementation",
+            "content": "Write a function that demonstrates Open source LLM model advantages. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def open_source_llm_model_advantag():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Open source LLM model advantages, concise content, proper starter code"
+          },
+          {
+            "title": "AI agent core components Implementation",
+            "content": "Write a function that demonstrates AI agent core components. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def ai_agent_core_components():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests AI agent core components, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Building a Learning Path Generator"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building an AI-Powered Conversational Interview Assistant",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0752"
+      ],
+      "expected_outcomes": [
+        "Understand Implement multi-step problem decomposition",
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Structure prompts for logical reasoning flow",
+        "Understand Explain reasoning process in prompt design"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement multi-step problem decomposition and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement multi-step problem decomposition"
+          },
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Structure prompts for logical reasoning flow and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Structure prompts for logical reasoning flow"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement multi-step problem decompositi Implementation",
+            "content": "Write a function that demonstrates Implement multi-step problem decomposition. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_multi_step_problem_d():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement multi-step problem decomposition, concise content, proper starter code"
+          },
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building LLM Applications using Python | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building LLM Applications using Python | Part 2, not Building an AI-Powered Conversational Interview Assistant"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building an AI-Powered Conversational Interview Assistant | Part 2",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0752"
+      ],
+      "expected_outcomes": [
+        "Understand Implement multi-step problem decomposition",
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Structure prompts for logical reasoning flow",
+        "Understand Explain reasoning process in prompt design"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement multi-step problem decomposition and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement multi-step problem decomposition"
+          },
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Structure prompts for logical reasoning flow and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Structure prompts for logical reasoning flow"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement multi-step problem decompositi Implementation",
+            "content": "Write a function that demonstrates Implement multi-step problem decomposition. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_multi_step_problem_d():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement multi-step problem decomposition, concise content, proper starter code"
+          },
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Tool Use & Function Calling in LLMs.",
+            "bad_type": "off_topic",
+            "why_bad": "About Tool Use & Function Calling in LLMs, not Building an AI-Powered Conversational Interview Assistant | Part 2"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Building an Agent with Memory",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0778",
+        "KP_GLOBAL_0779",
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
+        "KP_GLOBAL_0805",
+        "KP_GLOBAL_0806",
+        "KP_GLOBAL_0807",
+        "KP_GLOBAL_0809",
+        "KP_GLOBAL_0811",
+        "KP_GLOBAL_0812",
+        "KP_GLOBAL_0814"
+      ],
+      "expected_outcomes": [
+        "Understand Few-shot prompting with multiple examples",
+        "Understand One-shot prompting with single example",
+        "Understand AI agent core components",
+        "Understand Long-term memory types in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Few-shot prompting with multiple examples and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Few-shot prompting with multiple examples"
+          },
+          {
+            "content": "Explain One-shot prompting with single example and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: One-shot prompting with single example"
+          },
+          {
+            "content": "Explain AI agent core components and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: AI agent core components"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building an AI-Powered Conversational Interview Assistant.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building an AI-Powered Conversational Interview Assistant, not Building an Agent with Memory"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code to implement concepts from this session.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Deploying LLM Applications",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0756"
+      ],
+      "expected_outcomes": [
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Design and engineer prompts for LLM applications"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Build Gradio interfaces for LLM applications and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Build Gradio interfaces for LLM applications"
+          },
+          {
+            "content": "Explain Design and engineer prompts for LLM applications and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Design and engineer prompts for LLM applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          },
+          {
+            "title": "Design and engineer prompts for LLM appl Implementation",
+            "content": "Write a function that demonstrates Design and engineer prompts for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def design_and_engineer_prompts_fo():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Design and engineer prompts for LLM applications, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building AI Agents Using LangChain.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building AI Agents Using LangChain, not Deploying LLM Applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Effective Prompting Techniques",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0762"
+      ],
+      "expected_outcomes": [
+        "Understand Apply advanced prompt engineering techniques",
+        "Understand Understand prompt engineering techniques for LLMs",
+        "Understand Apply context engineering techniques"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Apply advanced prompt engineering techniques and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Apply advanced prompt engineering techniques"
+          },
+          {
+            "content": "Explain Understand prompt engineering techniques for LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand prompt engineering techniques for LLMs"
+          },
+          {
+            "content": "Explain Apply context engineering techniques and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Apply context engineering techniques"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Apply advanced prompt engineering techni Implementation",
+            "content": "Write a function that demonstrates Apply advanced prompt engineering techniques. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def apply_advanced_prompt_engineer():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Apply advanced prompt engineering techniques, concise content, proper starter code"
+          },
+          {
+            "title": "Understand prompt engineering techniques Implementation",
+            "content": "Write a function that demonstrates Understand prompt engineering techniques for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_prompt_engineering_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand prompt engineering techniques for LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building an AI-Powered Conversational Interview Assistant | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building an AI-Powered Conversational Interview Assistant | Part 2, not Effective Prompting Techniques"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Exploring Gen AI Capabilities",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0783",
+        "KP_GLOBAL_0799",
+        "KP_GLOBAL_0817"
+      ],
+      "expected_outcomes": [
+        "Understand Generative AI core capabilities",
+        "Understand n8n Code Node purpose and capabilities",
+        "Understand Napkin AI visual generation capabilities"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "What is the difference between ChatGPT's web browsing and deep research features?",
+            "difficulty": "Medium",
+            "why_good": "Directly compares two capabilities taught in session"
+          },
+          {
+            "content": "When should you use voice interaction with AI instead of text-based prompts?",
+            "difficulty": "Easy",
+            "why_good": "Tests understanding of voice I/O use cases from session"
+          },
+          {
+            "content": "How does AI search differ from traditional search engines like Google?",
+            "difficulty": "Easy",
+            "why_good": "Core concept of session section 1.1"
+          },
+          {
+            "content": "What factors should you consider when choosing between ChatGPT, Claude, and Gemini for a task?",
+            "difficulty": "Hard",
+            "why_good": "Tests model selection criteria from session"
+          },
+          {
+            "content": "Explain how screen sharing capability can be used to get AI assistance.",
+            "difficulty": "Medium",
+            "why_good": "Tests specific capability covered in session 1.4"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is zero-shot prompting?",
+            "bad_type": "off_topic",
+            "why_bad": "Prompt engineering is a different session"
+          },
+          {
+            "content": "Write a Python function to sort a list.",
+            "bad_type": "wrong_category",
+            "why_bad": "Coding question in a theory session about AI capabilities"
+          },
+          {
+            "content": "What is AI?",
+            "bad_type": "too_generic",
+            "why_bad": "Too basic, doesn't test session-specific content"
+          },
+          {
+            "content": "Explain the transformer architecture.",
+            "bad_type": "off_topic",
+            "why_bad": "LLM internals covered in a different session"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code to implement concepts from this session.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Fine-Tuning LLMs",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0745",
+        "KP_GLOBAL_0766"
+      ],
+      "expected_outcomes": [
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Understand tool usage and function calling in LLMs",
+        "Understand Implement fine-tuning with LoRA and PEFT",
+        "Understand Understand prompt engineering techniques for LLMs"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Understand tool usage and function calling in LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand tool usage and function calling in LLMs"
+          },
+          {
+            "content": "Explain Implement fine-tuning with LoRA and PEFT and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Implement fine-tuning with LoRA and PEFT"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          },
+          {
+            "title": "Understand tool usage and function calli Implementation",
+            "content": "Write a function that demonstrates Understand tool usage and function calling in LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_tool_usage_and_func():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand tool usage and function calling in LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Understanding Deployment.",
+            "bad_type": "off_topic",
+            "why_bad": "About Understanding Deployment, not Fine-Tuning LLMs"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Integrate external tools using MCP",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0749",
+        "KP_GLOBAL_0750"
+      ],
+      "expected_outcomes": [
+        "Understand Integrate tool calling into prompt structures",
+        "Understand Integrate LLM APIs and manage authentication",
+        "Understand Integrate vector stores (Chroma, FAISS, Pinecone)",
+        "Understand Build RAG pipelines using LangChain"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Integrate tool calling into prompt structures and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Integrate tool calling into prompt structures"
+          },
+          {
+            "content": "Explain Integrate LLM APIs and manage authentication and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Integrate LLM APIs and manage authentication"
+          },
+          {
+            "content": "Explain Integrate vector stores (Chroma, FAISS, Pinecone) and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Integrate vector stores (Chroma, FAISS, Pinecone)"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Integrate tool calling into prompt struc Implementation",
+            "content": "Write a function that demonstrates Integrate tool calling into prompt structures. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_tool_calling_into_pr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate tool calling into prompt structures, concise content, proper starter code"
+          },
+          {
+            "title": "Integrate LLM APIs and manage authentica Implementation",
+            "content": "Write a function that demonstrates Integrate LLM APIs and manage authentication. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_llm_apis_and_manage_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate LLM APIs and manage authentication, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrating MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrating MCP, not Integrate external tools using MCP"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Integrating Flask APIs in Frontend",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0769"
+      ],
+      "expected_outcomes": [
+        "Understand Integrate LLM APIs and manage authentication"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Integrate LLM APIs and manage authentication and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Integrate LLM APIs and manage authentication"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Integrate LLM APIs and manage authentica Implementation",
+            "content": "Write a function that demonstrates Integrate LLM APIs and manage authentication. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_llm_apis_and_manage_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate LLM APIs and manage authentication, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Integrating Flask APIs in Frontend"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Integrating MCP",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0762",
+        "KP_GLOBAL_0734"
+      ],
+      "expected_outcomes": [
+        "Understand Understand prompt engineering techniques for LLMs",
+        "Understand Define system prompts and LLM roles",
+        "Understand Design and engineer prompts for LLM applications",
+        "Understand Apply context engineering techniques"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Understand prompt engineering techniques for LLMs and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Understand prompt engineering techniques for LLMs"
+          },
+          {
+            "content": "Explain Define system prompts and LLM roles and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Define system prompts and LLM roles"
+          },
+          {
+            "content": "Explain Design and engineer prompts for LLM applications and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Design and engineer prompts for LLM applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Understand prompt engineering techniques Implementation",
+            "content": "Write a function that demonstrates Understand prompt engineering techniques for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_prompt_engineering_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand prompt engineering techniques for LLMs, concise content, proper starter code"
+          },
+          {
+            "title": "Define system prompts and LLM roles Implementation",
+            "content": "Write a function that demonstrates Define system prompts and LLM roles. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def define_system_prompts_and_llm_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Define system prompts and LLM roles, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Deploying LLM Applications.",
+            "bad_type": "off_topic",
+            "why_bad": "About Deploying LLM Applications, not Integrating MCP"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to AI Agents",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
+        "KP_GLOBAL_0810"
+      ],
+      "expected_outcomes": [
+        "Understand Long-term memory types in AI agents",
+        "Understand Semantic memory in AI agents",
+        "Understand AI model role in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Long-term memory types in AI agents and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Long-term memory types in AI agents"
+          },
+          {
+            "content": "Explain Semantic memory in AI agents and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Semantic memory in AI agents"
+          },
+          {
+            "content": "Explain AI model role in AI agents and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: AI model role in AI agents"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Retrieval-Augmented Generation | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Retrieval-Augmented Generation | Part 2, not Introduction to AI Agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code to implement concepts from this session.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Context Engineering",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0762"
+      ],
+      "expected_outcomes": [
+        "Understand Manage context and token limits in prompts",
+        "Understand Apply advanced prompt engineering techniques",
+        "Understand Understand prompt engineering techniques for LLMs",
+        "Understand Apply context engineering techniques"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Manage context and token limits in prompts and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Manage context and token limits in prompts"
+          },
+          {
+            "content": "Explain Apply advanced prompt engineering techniques and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Apply advanced prompt engineering techniques"
+          },
+          {
+            "content": "Explain Understand prompt engineering techniques for LLMs and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Understand prompt engineering techniques for LLMs"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Manage context and token limits in promp Implementation",
+            "content": "Write a function that demonstrates Manage context and token limits in prompts. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def manage_context_and_token_limit():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Manage context and token limits in prompts, concise content, proper starter code"
+          },
+          {
+            "title": "Apply advanced prompt engineering techni Implementation",
+            "content": "Write a function that demonstrates Apply advanced prompt engineering techniques. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def apply_advanced_prompt_engineer():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Apply advanced prompt engineering techniques, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building Multi Agent Systems Using Crew AI.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building Multi Agent Systems Using Crew AI, not Introduction to Context Engineering"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Flask",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0761",
+        "KP_GLOBAL_0772"
+      ],
+      "expected_outcomes": [
+        "Understand Define system prompts and LLM roles",
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Integrate LLM APIs and manage authentication",
+        "Understand Ollama CLI tool"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Define system prompts and LLM roles and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Define system prompts and LLM roles"
+          },
+          {
+            "content": "Explain Build Gradio interfaces for LLM applications and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build Gradio interfaces for LLM applications"
+          },
+          {
+            "content": "Explain Integrate LLM APIs and manage authentication and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Integrate LLM APIs and manage authentication"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Define system prompts and LLM roles Implementation",
+            "content": "Write a function that demonstrates Define system prompts and LLM roles. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def define_system_prompts_and_llm_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Define system prompts and LLM roles, concise content, proper starter code"
+          },
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Tool Use & Function Calling in LLMs.",
+            "bad_type": "off_topic",
+            "why_bad": "About Tool Use & Function Calling in LLMs, not Introduction to Flask"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Google Colab",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0755"
+      ],
+      "expected_outcomes": [
+        "Understand Integrate LLM APIs and manage authentication",
+        "Understand Integrate tool calling into prompt structures",
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Build RAG pipelines using LangChain"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Integrate LLM APIs and manage authentication and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Integrate LLM APIs and manage authentication"
+          },
+          {
+            "content": "Explain Integrate tool calling into prompt structures and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Integrate tool calling into prompt structures"
+          },
+          {
+            "content": "Explain Build Gradio interfaces for LLM applications and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Build Gradio interfaces for LLM applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Integrate LLM APIs and manage authentica Implementation",
+            "content": "Write a function that demonstrates Integrate LLM APIs and manage authentication. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_llm_apis_and_manage_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate LLM APIs and manage authentication, concise content, proper starter code"
+          },
+          {
+            "title": "Integrate tool calling into prompt struc Implementation",
+            "content": "Write a function that demonstrates Integrate tool calling into prompt structures. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def integrate_tool_calling_into_pr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Integrate tool calling into prompt structures, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from AI In The Real World.",
+            "bad_type": "off_topic",
+            "why_bad": "About AI In The Real World, not Introduction to Google Colab"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to LLM Application Evaluation | Part 1",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Configure evaluation metrics (BLEU, ROUGE, BERTScore) and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Configure evaluation metrics (BLEU, ROUGE, BERTScore)"
+          },
+          {
+            "content": "Explain LLM-as-a-Judge evaluation implementation in Python and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: LLM-as-a-Judge evaluation implementation in Python"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Configure evaluation metrics (BLEU, ROUG Implementation",
+            "content": "Write a function that demonstrates Configure evaluation metrics (BLEU, ROUGE, BERTScore). The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def configure_evaluation_metrics_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Configure evaluation metrics (BLEU, ROUGE, BERTScore), concise content, proper starter code"
+          },
+          {
+            "title": "LLM-as-a-Judge evaluation implementation Implementation",
+            "content": "Write a function that demonstrates LLM-as-a-Judge evaluation implementation in Python. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def llm_as_a_judge_evaluation_impl():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LLM-as-a-Judge evaluation implementation in Python, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Google Colab.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Google Colab, not Introduction to LLM Application Evaluation | Part 1"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to LLM Application Evaluation | Part 2",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Configure evaluation metrics (BLEU, ROUGE, BERTScore) and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Configure evaluation metrics (BLEU, ROUGE, BERTScore)"
+          },
+          {
+            "content": "Explain LLM-as-a-Judge evaluation implementation in Python and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: LLM-as-a-Judge evaluation implementation in Python"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Configure evaluation metrics (BLEU, ROUG Implementation",
+            "content": "Write a function that demonstrates Configure evaluation metrics (BLEU, ROUGE, BERTScore). The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def configure_evaluation_metrics_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Configure evaluation metrics (BLEU, ROUGE, BERTScore), concise content, proper starter code"
+          },
+          {
+            "title": "LLM-as-a-Judge evaluation implementation Implementation",
+            "content": "Write a function that demonstrates LLM-as-a-Judge evaluation implementation in Python. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def llm_as_a_judge_evaluation_impl():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LLM-as-a-Judge evaluation implementation in Python, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Google Colab.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Google Colab, not Introduction to LLM Application Evaluation | Part 2"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to LangChain",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ],
+      "expected_outcomes": [
+        "Understand LangChain RecursiveCharacterTextSplitter",
+        "Understand Build RAG pipelines using LangChain"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain LangChain RecursiveCharacterTextSplitter and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: LangChain RecursiveCharacterTextSplitter"
+          },
+          {
+            "content": "Explain Build RAG pipelines using LangChain and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Build RAG pipelines using LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "LangChain RecursiveCharacterTextSplitter Implementation",
+            "content": "Write a function that demonstrates LangChain RecursiveCharacterTextSplitter. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def langchain_recursivecharacterte():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LangChain RecursiveCharacterTextSplitter, concise content, proper starter code"
+          },
+          {
+            "title": "Build RAG pipelines using LangChain Implementation",
+            "content": "Write a function that demonstrates Build RAG pipelines using LangChain. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_rag_pipelines_using_lang():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build RAG pipelines using LangChain, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Retrieval-Augmented Generation | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Retrieval-Augmented Generation | Part 2, not Introduction to LangChain"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Model Context Protocol (MCP)",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0781",
+        "KP_GLOBAL_0794",
+        "KP_GLOBAL_0795",
+        "KP_GLOBAL_0796",
+        "KP_GLOBAL_0810",
+        "KP_GLOBAL_0819",
+        "KP_GLOBAL_0767"
+      ],
+      "expected_outcomes": [
+        "Understand Model Context Protocol fundamentals",
+        "Understand Closed source LLM model advantages",
+        "Understand Open source LLM model advantages",
+        "Understand Closed source LLM model disadvantages"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Model Context Protocol fundamentals and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Model Context Protocol fundamentals"
+          },
+          {
+            "content": "Explain Closed source LLM model advantages and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Closed source LLM model advantages"
+          },
+          {
+            "content": "Explain Open source LLM model advantages and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Open source LLM model advantages"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Exploring Gen AI Capabilities.",
+            "bad_type": "off_topic",
+            "why_bad": "About Exploring Gen AI Capabilities, not Introduction to Model Context Protocol (MCP)"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code to implement concepts from this session.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Multi-Agent Systems",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0753"
+      ],
+      "expected_outcomes": [
+        "Understand Implement memory systems in AI agents"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement memory systems in AI agents and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement memory systems in AI agents"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement memory systems in AI agents Implementation",
+            "content": "Write a function that demonstrates Implement memory systems in AI agents. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_memory_systems_in_ai():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement memory systems in AI agents, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Introduction to Multi-Agent Systems"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Retrieval-Augmented Generation | Part 1",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0748"
+      ],
+      "expected_outcomes": [
+        "Understand Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "What is Retrieval-Augmented Generation and why is it needed?",
+            "difficulty": "Easy",
+            "why_good": "Core definition from session"
+          },
+          {
+            "content": "Explain the three stages of a RAG pipeline: indexing, retrieval, generation.",
+            "difficulty": "Medium",
+            "why_good": "Tests understanding of full pipeline"
+          },
+          {
+            "content": "What is ChromaDB and how is it used in a RAG system?",
+            "difficulty": "Medium",
+            "why_good": "Specific tool from session"
+          },
+          {
+            "content": "How does RecursiveCharacterTextSplitter work in LangChain?",
+            "difficulty": "Medium",
+            "why_good": "Tests specific technique from session"
+          },
+          {
+            "content": "Write code to create a simple RAG pipeline using LangChain and ChromaDB.",
+            "difficulty": "Hard",
+            "why_good": "Coding question matching session content"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Understand retrieval augmented generatio Implementation",
+            "content": "Write a function that demonstrates Understand retrieval augmented generation (RAG) fundamentals. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_retrieval_augmented():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand retrieval augmented generation (RAG) fundamentals, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is zero-shot prompting?",
+            "bad_type": "off_topic",
+            "why_bad": "Prompt engineering is a different session"
+          },
+          {
+            "content": "Explain Flask routing.",
+            "bad_type": "off_topic",
+            "why_bad": "Flask is a different session entirely"
+          },
+          {
+            "content": "What is AI?",
+            "bad_type": "too_generic",
+            "why_bad": "Not specific to RAG"
+          },
+          {
+            "content": "Build a multi-agent system.",
+            "bad_type": "out_of_scope",
+            "why_bad": "Multi-agent is a later session"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Retrieval-Augmented Generation | Part 2",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0748"
+      ],
+      "expected_outcomes": [
+        "Understand Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Understand retrieval augmented generation (RAG) fundamentals and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Understand retrieval augmented generation (RAG) fundamentals"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Understand retrieval augmented generatio Implementation",
+            "content": "Write a function that demonstrates Understand retrieval augmented generation (RAG) fundamentals. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_retrieval_augmented():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand retrieval augmented generation (RAG) fundamentals, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrating Flask APIs in Frontend.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrating Flask APIs in Frontend, not Introduction to Retrieval-Augmented Generation | Part 2"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Introduction to Third-Party Packages in Python",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain LLM-as-a-Judge evaluation implementation in Python and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: LLM-as-a-Judge evaluation implementation in Python"
+          }
+        ],
+        "coding": [
+          {
+            "title": "LLM-as-a-Judge evaluation implementation Implementation",
+            "content": "Write a function that demonstrates LLM-as-a-Judge evaluation implementation in Python. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def llm_as_a_judge_evaluation_impl():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LLM-as-a-Judge evaluation implementation in Python, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building AI-Powered Social Media Content Automation Workflow.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building AI-Powered Social Media Content Automation Workflow, not Introduction to Third-Party Packages in Python"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "LLM Application Evaluation",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "expected_outcomes": [
+        "Understand Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Configure evaluation metrics (BLEU, ROUGE, BERTScore) and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Configure evaluation metrics (BLEU, ROUGE, BERTScore)"
+          },
+          {
+            "content": "Explain LLM-as-a-Judge evaluation implementation in Python and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: LLM-as-a-Judge evaluation implementation in Python"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Configure evaluation metrics (BLEU, ROUG Implementation",
+            "content": "Write a function that demonstrates Configure evaluation metrics (BLEU, ROUGE, BERTScore). The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def configure_evaluation_metrics_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Configure evaluation metrics (BLEU, ROUGE, BERTScore), concise content, proper starter code"
+          },
+          {
+            "title": "LLM-as-a-Judge evaluation implementation Implementation",
+            "content": "Write a function that demonstrates LLM-as-a-Judge evaluation implementation in Python. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def llm_as_a_judge_evaluation_impl():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests LLM-as-a-Judge evaluation implementation in Python, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Retrieval-Augmented Generation | Part 2.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Retrieval-Augmented Generation | Part 2, not LLM Application Evaluation"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Preparing for Permanent Deployment",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0760",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0772"
+      ],
+      "expected_outcomes": [
+        "Understand Manage LLM model versions and compatibility",
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Manage context and token limits in prompts",
+        "Understand Understand prompt engineering techniques for LLMs"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Manage LLM model versions and compatibility and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Manage LLM model versions and compatibility"
+          },
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Manage context and token limits in prompts and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Manage context and token limits in prompts"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Manage LLM model versions and compatibil Implementation",
+            "content": "Write a function that demonstrates Manage LLM model versions and compatibility. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def manage_llm_model_versions_and_():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Manage LLM model versions and compatibility, concise content, proper starter code"
+          },
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Integrate external tools using MCP.",
+            "bad_type": "off_topic",
+            "why_bad": "About Integrate external tools using MCP, not Preparing for Permanent Deployment"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Running Models Locally",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0752"
+      ],
+      "expected_outcomes": [
+        "Understand Compare and select between different LLM models"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Compare and select between different LLM models and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Compare and select between different LLM models"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Compare and select between different LLM Implementation",
+            "content": "Write a function that demonstrates Compare and select between different LLM models. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def compare_and_select_between_dif():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Compare and select between different LLM models, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Tool Use & Function Calling in LLMs.",
+            "bad_type": "off_topic",
+            "why_bad": "About Tool Use & Function Calling in LLMs, not Running Models Locally"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Step-by-Step Deployment Process",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0747"
+      ],
+      "expected_outcomes": [
+        "Understand Implement step-by-step reasoning in prompts",
+        "Understand Explain reasoning process in prompt design"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Implement step-by-step reasoning in prompts and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Implement step-by-step reasoning in prompts"
+          },
+          {
+            "content": "Explain Explain reasoning process in prompt design and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Explain reasoning process in prompt design"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Implement step-by-step reasoning in prom Implementation",
+            "content": "Write a function that demonstrates Implement step-by-step reasoning in prompts. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def implement_step_by_step_reasoni():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Implement step-by-step reasoning in prompts, concise content, proper starter code"
+          },
+          {
+            "title": "Explain reasoning process in prompt desi Implementation",
+            "content": "Write a function that demonstrates Explain reasoning process in prompt design. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def explain_reasoning_process_in_p():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Explain reasoning process in prompt design, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building RAG Agent Using LangChain.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building RAG Agent Using LangChain, not Step-by-Step Deployment Process"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Tool Use & Function Calling in LLMs",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0761",
+        "KP_GLOBAL_0763"
+      ],
+      "expected_outcomes": [
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Understand tool usage and function calling in LLMs",
+        "Understand Integrate tool calling into prompt structures",
+        "Understand Understand prompt engineering techniques for LLMs"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Understand tool usage and function calling in LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand tool usage and function calling in LLMs"
+          },
+          {
+            "content": "Explain Integrate tool calling into prompt structures and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Integrate tool calling into prompt structures"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          },
+          {
+            "title": "Understand tool usage and function calli Implementation",
+            "content": "Write a function that demonstrates Understand tool usage and function calling in LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_tool_usage_and_func():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand tool usage and function calling in LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Building Multi Agent Systems Using Crew AI.",
+            "bad_type": "off_topic",
+            "why_bad": "About Building Multi Agent Systems Using Crew AI, not Tool Use & Function Calling in LLMs"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Understanding Deployment",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0735"
+      ],
+      "expected_outcomes": [
+        "Understand Build Gradio interfaces for LLM applications",
+        "Understand Explain reasoning process in prompt design",
+        "Understand Design and engineer prompts for LLM applications",
+        "Understand Design structured prompts for complex reasoning"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Build Gradio interfaces for LLM applications and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Build Gradio interfaces for LLM applications"
+          },
+          {
+            "content": "Explain Explain reasoning process in prompt design and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Explain reasoning process in prompt design"
+          },
+          {
+            "content": "Explain Design and engineer prompts for LLM applications and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Design and engineer prompts for LLM applications"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Build Gradio interfaces for LLM applicat Implementation",
+            "content": "Write a function that demonstrates Build Gradio interfaces for LLM applications. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def build_gradio_interfaces_for_ll():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Build Gradio interfaces for LLM applications, concise content, proper starter code"
+          },
+          {
+            "title": "Explain reasoning process in prompt desi Implementation",
+            "content": "Write a function that demonstrates Explain reasoning process in prompt design. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def explain_reasoning_process_in_p():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Explain reasoning process in prompt design, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Retrieval-Augmented Generation | Part 1.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Retrieval-Augmented Generation | Part 1, not Understanding Deployment"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Understanding Free Space Limitations",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0734"
+      ],
+      "expected_outcomes": [
+        "Understand Core LLM capabilities and limitations"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Core LLM capabilities and limitations and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Core LLM capabilities and limitations"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Core LLM capabilities and limitations Implementation",
+            "content": "Write a function that demonstrates Core LLM capabilities and limitations. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def core_llm_capabilities_and_limi():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Core LLM capabilities and limitations, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Multi-Agent Systems.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Multi-Agent Systems, not Understanding Free Space Limitations"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Understanding How LLMs Work | Part 1",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0766"
+      ],
+      "expected_outcomes": [
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Understand tool usage and function calling in LLMs",
+        "Understand Understand prompt engineering techniques for LLMs"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Understand tool usage and function calling in LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand tool usage and function calling in LLMs"
+          },
+          {
+            "content": "Explain Understand prompt engineering techniques for LLMs and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Understand prompt engineering techniques for LLMs"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          },
+          {
+            "title": "Understand tool usage and function calli Implementation",
+            "content": "Write a function that demonstrates Understand tool usage and function calling in LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_tool_usage_and_func():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand tool usage and function calling in LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Multi-Agent Systems.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Multi-Agent Systems, not Understanding How LLMs Work | Part 1"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Understanding How LLMs Work | Part 2",
+      "session_type": "code_heavy",
+      "course": "llm_applications",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0766"
+      ],
+      "expected_outcomes": [
+        "Understand Write clear and specific instructions for LLMs",
+        "Understand Understand tool usage and function calling in LLMs",
+        "Understand Understand prompt engineering techniques for LLMs"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "Explain Write clear and specific instructions for LLMs and its practical applications.",
+            "difficulty": "Easy",
+            "why_good": "Directly tests KP: Write clear and specific instructions for LLMs"
+          },
+          {
+            "content": "Explain Understand tool usage and function calling in LLMs and its practical applications.",
+            "difficulty": "Medium",
+            "why_good": "Directly tests KP: Understand tool usage and function calling in LLMs"
+          },
+          {
+            "content": "Explain Understand prompt engineering techniques for LLMs and its practical applications.",
+            "difficulty": "Hard",
+            "why_good": "Directly tests KP: Understand prompt engineering techniques for LLMs"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Write clear and specific instructions fo Implementation",
+            "content": "Write a function that demonstrates Write clear and specific instructions for LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def write_clear_and_specific_instr():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Write clear and specific instructions for LLMs, concise content, proper starter code"
+          },
+          {
+            "title": "Understand tool usage and function calli Implementation",
+            "content": "Write a function that demonstrates Understand tool usage and function calling in LLMs. The function should accept appropriate parameters and return a meaningful result.",
+            "starter_code": "def understand_tool_usage_and_func():\n    # Write your code here\n    pass",
+            "difficulty": "Medium",
+            "why_good": "Tests Understand tool usage and function calling in LLMs, concise content, proper starter code"
+          }
+        ]
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is programming?",
+            "bad_type": "too_generic",
+            "why_bad": "Too generic, not session-specific"
+          },
+          {
+            "content": "Explain concepts from Introduction to Multi-Agent Systems.",
+            "bad_type": "off_topic",
+            "why_bad": "About Introduction to Multi-Agent Systems, not Understanding How LLMs Work | Part 2"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Generic Sort",
+            "content": "## Task\nImplement a sorting algorithm.\n## Input\n- A list of integers",
+            "bad_type": "wrong_format",
+            "why_bad": "Uses markdown headers instead of plain text. Generic DSA, not session-specific"
+          }
+        ]
+      }
+    },
+    {
+      "session_name": "Prompt Engineering Fundamentals",
+      "session_type": "theory_heavy",
+      "course": "gen_ai",
+      "kp_ids": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0778",
+        "KP_GLOBAL_0779",
+        "KP_GLOBAL_0780"
+      ],
+      "expected_outcomes": [
+        "Understand the RCATF framework for prompt design",
+        "Write effective zero-shot and few-shot prompts",
+        "Structure prompts with role, context, action, tone, and format",
+        "Apply prompt engineering to improve LLM output quality"
+      ],
+      "good_questions": {
+        "theory": [
+          {
+            "content": "What does RCATF stand for in prompt engineering?",
+            "difficulty": "Easy",
+            "why_good": "Tests core framework taught in session"
+          },
+          {
+            "content": "Rewrite \"Tell me about dogs\" using the RCATF framework.",
+            "difficulty": "Medium",
+            "why_good": "Tests practical application of the framework"
+          },
+          {
+            "content": "What is the difference between zero-shot and few-shot prompting?",
+            "difficulty": "Medium",
+            "why_good": "Key comparison from session content"
+          },
+          {
+            "content": "Why is specifying the output format important in a prompt?",
+            "difficulty": "Easy",
+            "why_good": "Tests the Format component of RCATF"
+          },
+          {
+            "content": "Design a prompt for an LLM to act as a senior Python code reviewer.",
+            "difficulty": "Hard",
+            "why_good": "Tests role-setting and structured prompt design"
+          }
+        ],
+        "coding": []
+      },
+      "bad_questions": {
+        "theory": [
+          {
+            "content": "What is RAG?",
+            "bad_type": "off_topic",
+            "why_bad": "RAG is a separate, later session"
+          },
+          {
+            "content": "Explain how neural networks learn.",
+            "bad_type": "off_topic",
+            "why_bad": "Deep learning internals, not prompt engineering"
+          },
+          {
+            "content": "What is a database?",
+            "bad_type": "too_generic",
+            "why_bad": "Completely unrelated to prompting"
+          },
+          {
+            "content": "Build a multi-agent system.",
+            "bad_type": "out_of_scope",
+            "why_bad": "Agents covered in a later session"
+          }
+        ],
+        "coding": [
+          {
+            "title": "Code Implementation",
+            "content": "Write code for prompt engineering.",
+            "bad_type": "wrong_session",
+            "why_bad": "Theory-heavy session should not have coding questions"
+          }
+        ]
+      }
+    }
+  ],
+  "format_rules": {
+    "theory_question": {
+      "required_fields": [
+        "content",
+        "difficulty",
+        "topic",
+        "source"
+      ],
+      "content_rules": "Plain text question, clear and specific, tests one learning outcome",
+      "difficulty_values": [
+        "Easy",
+        "Medium",
+        "Hard"
+      ],
+      "source_values": [
+        "interview_db",
+        "web",
+        "generated"
+      ]
+    },
+    "coding_question": {
+      "required_fields": [
+        "title",
+        "content",
+        "code_id",
+        "difficulty",
+        "language"
+      ],
+      "content_rules": "Plain text problem (1-4 sentences). NO markdown headers. Include sample I/O as plain text.",
+      "starter_code_rules": "Separate CodeSnippet linked by code_id. Function signature + '# Write your code here'.",
+      "category_format": "{LANGUAGE}_CODING (e.g., PYTHON_CODING)",
+      "bad_format_examples": [
+        "Using ## headers in content",
+        "Embedding starter code inside content",
+        "Missing function signature",
+        "Category as LLM_APP_CODING instead of PYTHON_CODING"
+      ]
+    },
+    "session_type_rules": {
+      "theory_heavy": "0 coding questions expected",
+      "code_heavy": "2-4 coding questions expected",
+      "mixed": "1-2 coding questions expected"
+    }
+  }
+}

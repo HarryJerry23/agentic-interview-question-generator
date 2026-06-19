@@ -1,0 +1,929 @@
+{
+  "metadata": {
+    "total_questions": 115,
+    "total_urls": 10,
+    "scraped_at": "2026-06-16T18:41:22.874637"
+  },
+  "questions": [
+    {
+      "id": "432b0082-ffb2-403d-b965-ed5790634ddd",
+      "content": "What are the key differences between discriminative and generative models?",
+      "topic": "Model Types",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "acd7bdb7-85a7-4984-92bd-565a0cadbc9d",
+      "content": "What are tokens and embeddings in the context of Large Language Models (LLMs)?",
+      "topic": "LLM Fundamentals",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "25164b0b-1939-4675-9d9c-d98f02663689",
+      "content": "Can you explain the basic principles behind Generative Adversarial Networks (GANs)?",
+      "topic": "GAN Architecture",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "3e9bcc02-47a7-4d0e-8154-9d043cfefb61",
+      "content": "What are some popular applications of generative AI in the real world?",
+      "topic": "GenAI Applications",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "b42e23af-5976-4de7-88cc-57c07987f6aa",
+      "content": "What are some challenges associated with training and evaluating generative AI models?",
+      "topic": "Model Training",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "06c56383-e8a7-433c-8960-56640c86d094",
+      "content": "What are some ethical considerations surrounding the use of generative AI?",
+      "topic": "AI Ethics",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "c338fbec-2215-4dbe-8dd8-981198f93a3a",
+      "content": "How can generative AI be used to augment or enhance human creativity?",
+      "topic": "Creative Applications",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "1cc4486e-a1c2-4c0e-83c2-b8cc8a94e806",
+      "content": "What is the difference between a foundation model and a fine-tuned model?",
+      "topic": "Model Fine-tuning",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.datacamp.com/blog/genai-interview-questions"
+    },
+    {
+      "id": "654188c4-6d18-4b60-91a1-432043ea8a6c",
+      "content": "What is Generative AI?",
+      "topic": "Generative AI Fundamentals",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "5de29039-622d-4e51-952e-683d1e3a3a1f",
+      "content": "How does Generative AI differ from Traditional AI?",
+      "topic": "AI Comparison",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "1699fe21-d97b-41a1-a444-b1fcb917b3df",
+      "content": "What are the main applications of Generative AI in business?",
+      "topic": "GenAI Applications",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "ddecc4ae-5c5e-42bd-aeb4-6d29de213e25",
+      "content": "Explain how neural networks power Generative AI systems.",
+      "topic": "Neural Network Architecture",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "b7c5face-feb9-4a0b-8f28-dc27984c5e1c",
+      "content": "What is the difference between training and inference in Generative AI?",
+      "topic": "Model Training Inference",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "8e0786ab-b199-4929-8255-54c4b6d4990d",
+      "content": "How do Large Language Models learn from data?",
+      "topic": "LLM Learning Process",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "17da06d5-0bc0-4980-83a8-4d69c564726a",
+      "content": "What is unsupervised learning in the context of Generative AI?",
+      "topic": "Unsupervised Learning",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "3db6157b-7c24-4721-b3eb-9d9c2ae50aef",
+      "content": "Explain the concept of tokenization in language models.",
+      "topic": "Tokenization Process",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "c3b82b2a-65de-4a06-b0d2-10629b9f3832",
+      "content": "What is gradient descent and how is it used in model training?",
+      "topic": "Optimization Methods",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "0b474942-f3df-4126-86fe-8d4e9ccb18c6",
+      "content": "How does prompt engineering improve Generative AI outputs?",
+      "topic": "Prompt Engineering",
+      "difficulty": "Medium",
+      "category": "PROMPT_ENGINEERING",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "5a7d9a82-17e0-4995-948d-7e2d303992d3",
+      "content": "What is Retrieval Augmented Generation (RAG)?",
+      "topic": "RAG Architecture",
+      "difficulty": "Medium",
+      "category": "RAG",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "8d5df020-4ce1-4fd7-8a63-8c6dd31fec6a",
+      "content": "Explain the role of vector databases in Generative AI systems.",
+      "topic": "Vector Database",
+      "difficulty": "Medium",
+      "category": "RAG",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "ae47bdbb-7419-4588-87c6-d51bf8ff638b",
+      "content": "What is fine-tuning and when should it be used?",
+      "topic": "Model Fine-tuning",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "7e14aee2-efb9-4632-b93a-5edd64ce2ebb",
+      "content": "What are Transformers and why are they important in GenAI?",
+      "topic": "Transformer Architecture",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "7fd1f79b-f2ae-4757-952b-7d53ab7239db",
+      "content": "Explain the attention mechanism in Transformers.",
+      "topic": "Attention Mechanism",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "d2183a87-8ed8-4381-8821-2c590579d042",
+      "content": "What is a Generative Adversarial Network (GAN)?",
+      "topic": "GAN Architecture",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "0bdd76da-6bb9-4156-b182-64dd2659df1b",
+      "content": "How do Diffusion Models work in image generation?",
+      "topic": "Diffusion Models",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "41d23101-4587-4715-beb7-ed2ad1513655",
+      "content": "What is hallucination in Large Language Models and how can it be controlled?",
+      "topic": "Hallucination Control",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "4c99c0da-61e0-4567-a9f0-0f24c8148803",
+      "content": "How do you evaluate the quality of Generative AI model outputs?",
+      "topic": "Model Evaluation",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "6c1d0ce7-e5a1-4781-b637-8ff529c25c1c",
+      "content": "What are the ethical considerations in deploying Generative AI systems?",
+      "topic": "Responsible AI Ethics",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "ca316f13-c549-4859-bdd4-8df3c6b94cc5",
+      "content": "Explain embeddings and their role in Generative AI.",
+      "topic": "Embeddings Representation",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "c3b33647-fd79-4e61-9c4d-080623ed595d",
+      "content": "What is multimodal AI and provide examples?",
+      "topic": "Multimodal Models",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "1c3aff90-ac39-4f41-bcba-84a0dd93d38a",
+      "content": "How does agentic AI differ from standard Generative AI?",
+      "topic": "Agentic AI Systems",
+      "difficulty": "Hard",
+      "category": "AGENTS",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "1e27e75a-1c93-45de-8e70-ae3c95b510ac",
+      "content": "What security considerations are important when deploying GenAI applications?",
+      "topic": "GenAI Security",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "34d35fe6-5784-43d1-8a28-66f68507253b",
+      "content": "Explain the concept of context window in language models.",
+      "topic": "Context Window",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "82f370c8-d61d-4447-8580-e558ac24789e",
+      "content": "What is the difference between zero-shot and few-shot learning?",
+      "topic": "Learning Paradigms",
+      "difficulty": "Medium",
+      "category": "PROMPT_ENGINEERING",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "f9d87c44-eb4a-41f8-9248-c07bbc72ef17",
+      "content": "How do you design a RAG pipeline for enterprise applications?",
+      "topic": "RAG Pipeline Design",
+      "difficulty": "Hard",
+      "category": "RAG",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "cd4d3ea5-8f12-4b36-a867-794d5a5eb1b3",
+      "content": "What are the challenges in scaling Generative AI systems?",
+      "topic": "Scalability Challenges",
+      "difficulty": "Hard",
+      "category": "ML_OPS",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "e06e0e3e-1dc3-4a79-be7a-0b9b05cceaf5",
+      "content": "Explain the role of temperature and top-k sampling in text generation.",
+      "topic": "Sampling Techniques",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "cc1a51ba-db33-41b7-8cf5-6ddc85f4a0c1",
+      "content": "What is model quantization and why is it important?",
+      "topic": "Model Quantization",
+      "difficulty": "Hard",
+      "category": "ML_OPS",
+      "source_url": "https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions"
+    },
+    {
+      "id": "c8dfda86-2808-4984-9e1f-de0616e2732d",
+      "content": "What is Generative AI?",
+      "topic": "Generative AI Basics",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "8567d6fb-fb04-4115-83ba-e6356f329b07",
+      "content": "How is Generative AI different from traditional AI?",
+      "topic": "Generative AI Basics",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "735c1e9f-9119-40ca-897c-4f3c40acf305",
+      "content": "What is a Large Language Model (LLM)?",
+      "topic": "LLM Fundamentals",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "a635cd57-fec1-4fcb-9a2a-ac3b08ccf75d",
+      "content": "What is the difference between ML and DL?",
+      "topic": "Machine Learning Basics",
+      "difficulty": "Easy",
+      "category": "AI_ML",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "6247296f-964b-4196-b297-4727bcf2a5e0",
+      "content": "How does the attention mechanism work?",
+      "topic": "Transformer Architecture",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "137c383e-09b2-4b26-bdc8-e8ebacfc6513",
+      "content": "What is an LLM and how is it trained?",
+      "topic": "LLM Training",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "89f1f4df-c30b-4adf-9f87-243b8b539be1",
+      "content": "What is few-shot prompting?",
+      "topic": "Prompt Engineering",
+      "difficulty": "Medium",
+      "category": "PROMPT_ENGINEERING",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "78bf79fa-791a-4e79-9f81-69894a82852e",
+      "content": "When would you use RAG over fine-tuning?",
+      "topic": "RAG vs Fine-tuning",
+      "difficulty": "Hard",
+      "category": "RAG",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "28b88219-a4fa-4a21-9e23-374091aefae7",
+      "content": "How does semantic search work?",
+      "topic": "Vector Databases",
+      "difficulty": "Hard",
+      "category": "RAG",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "2b951072-d13d-46e8-86ae-ef81268ac856",
+      "content": "When should you fine-tune a model?",
+      "topic": "Model Fine-tuning",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "4106f3a0-dad7-4309-92f7-7a82c5efc987",
+      "content": "How do AI agents decide which tool to use?",
+      "topic": "AI Agents",
+      "difficulty": "Hard",
+      "category": "AGENTS",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "c54052f0-210e-499b-9b79-7e5066c1c326",
+      "content": "How do you reduce hallucinations?",
+      "topic": "LLM Safety",
+      "difficulty": "Hard",
+      "category": "GEN_AI",
+      "source_url": "https://generativeaimasters.in/generative-ai-interview-questions/"
+    },
+    {
+      "id": "5e67c710-f1ae-464f-ba62-59f428336196",
+      "content": "How do you implement content filtering and guardrails for LLM outputs?",
+      "topic": "LLM Safety & Guardrails",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.interviewbit.com/generative-ai-interview-questions-and-answers/"
+    },
+    {
+      "id": "6ef3fec1-01cf-40cb-af69-cd3c888605e9",
+      "content": "What are common security vulnerabilities in LLM applications?",
+      "topic": "LLM Security",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.interviewbit.com/generative-ai-interview-questions-and-answers/"
+    },
+    {
+      "id": "7580be5f-d3df-498b-b646-e9d3c04632d4",
+      "content": "What is LLM-as-a-Judge evaluation?",
+      "topic": "LLM Evaluation",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.interviewbit.com/generative-ai-interview-questions-and-answers/"
+    },
+    {
+      "id": "da39f8d6-d13e-4a2e-9d37-b5873ee1c69c",
+      "content": "What causes hallucinations in LLMs and how do you detect and reduce them?",
+      "topic": "Hallucination Detection",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://www.interviewbit.com/generative-ai-interview-questions-and-answers/"
+    },
+    {
+      "id": "e5fc4f29-d923-4de2-a7c6-9c32d55bae29",
+      "content": "What is Generative AI?",
+      "topic": "Generative AI Fundamentals",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/"
+    },
+    {
+      "id": "86e3ccd0-eac0-4367-b19f-ef1ea05224bc",
+      "content": "How does Generative AI work?",
+      "topic": "Generative AI Mechanisms",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/"
+    },
+    {
+      "id": "cf1f5a9d-e460-46db-aa1b-f1b7262f577c",
+      "content": "What are the top applications of Generative AI?",
+      "topic": "Generative AI Applications",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/"
+    },
+    {
+      "id": "4056dc8b-c420-4fa9-a415-add2f31a422d",
+      "content": "Can you explain the difference between Generative AI and Discriminative AI?",
+      "topic": "Generative vs Discriminative",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/"
+    },
+    {
+      "id": "5324f951-584e-4473-87b4-fdc6d5a28fd8",
+      "content": "What are some popular Generative AI models?",
+      "topic": "Generative AI Models",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/"
+    },
+    {
+      "id": "d9ff8b22-fd61-4c0e-9d58-1dcf2235cc6b",
+      "content": "What is the difference between a base model and an instruction-tuned model?",
+      "topic": "LLM Fundamentals",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "2be91c33-6c75-4c45-b14d-1b6fb9fc22c2",
+      "content": "Explain the attention mechanism in transformers and why it matters for LLMs.",
+      "topic": "Transformer Architecture",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "74b14a43-f674-44d2-830a-683f48e10fcc",
+      "content": "What is the context window, and what are the practical challenges of a large one?",
+      "topic": "Context Window Management",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "96bf8e7f-cb62-410c-aa8a-ca962aa2bc61",
+      "content": "What is temperature, and how does it affect generation?",
+      "topic": "Generation Parameters",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "94a09145-e310-4cba-b293-795e0b0b1e7f",
+      "content": "What is the difference between top-k and top-p (nucleus) sampling?",
+      "topic": "Sampling Strategies",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "875f19f8-ea44-4b67-a89c-1f5f69c864dc",
+      "content": "What problem does RAG solve, and what are its core components?",
+      "topic": "RAG Fundamentals",
+      "difficulty": "Medium",
+      "category": "RAG",
+      "source_url": "https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers"
+    },
+    {
+      "id": "ff7f5f60-bf80-429f-853e-e5132774798c",
+      "content": "What is Artificial Intelligence and how does it differ from traditional programming?",
+      "topic": "AI Fundamentals",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "bf887382-6fce-4d4e-9395-e038f10c9ec7",
+      "content": "What are the types of AI based on capabilities?",
+      "topic": "AI Classification",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "7a6226be-525b-460b-8aac-fdfbe5c6c5b3",
+      "content": "What are the types of AI based on functionalities?",
+      "topic": "AI Functionalities",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "4e4531e8-e67c-407f-b5e9-dbcaa909e504",
+      "content": "What is the difference between Symbolic AI and Connectionist AI?",
+      "topic": "AI Approaches",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "2fb074a6-54c1-4c20-a30b-bc647e75b309",
+      "content": "What is the difference between Parametric and Non-Parametric Models?",
+      "topic": "Model Types",
+      "difficulty": "Medium",
+      "category": "ML_OPS",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "aba0d1d6-900c-4e93-aa6d-99c7d12d3f97",
+      "content": "What is an AI Agent? How does it perceive and act in a?",
+      "topic": "AI Agents",
+      "difficulty": "Medium",
+      "category": "AGENTS",
+      "source_url": "https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/"
+    },
+    {
+      "id": "c23f55a8-ece8-48eb-b77c-d9396fc822a3",
+      "content": "What are foundation models, and how have they changed AI engineering?",
+      "topic": "Foundation Models",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "e10c022f-ae4e-4dea-a5d2-e7e985d364db",
+      "content": "What is a Large Language Model (LLM), and how does it work?",
+      "topic": "LLM Basics",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "ce2f3fe6-17ea-4caa-8523-2d40f571530c",
+      "content": "Inside ChatGPT: What Happens After You Hit Enter?",
+      "topic": "LLM Inference",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "ada94347-739f-4798-9055-2e67714c7479",
+      "content": "What is the Transformer architecture and how does it work?",
+      "topic": "Transformer Architecture",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "c177fcb1-fd54-47ec-a206-448bd57681ba",
+      "content": "What are the key components of the Transformer architecture?",
+      "topic": "Transformer Components",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "5216da20-6430-4561-904e-bd178b2699e5",
+      "content": "What is tokenization in LLMs?",
+      "topic": "Tokenization",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "ba106299-01b3-4cda-a0fe-3cb639f84208",
+      "content": "Explain BPE (Byte Pair Encoding).",
+      "topic": "Tokenization Methods",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "ebe4e8f7-f027-42b4-bf68-e4dc9181f9c8",
+      "content": "Explain WordPiece and SentencePiece.",
+      "topic": "Tokenization Methods",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "89629c6f-24c4-4b70-80df-1b01c73ab5f0",
+      "content": "What is positional encoding, and why is it needed in Transformers?",
+      "topic": "Positional Encoding",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "924e0cdd-8215-4e0f-a281-c3583dca72a4",
+      "content": "What are embeddings?",
+      "topic": "Embeddings",
+      "difficulty": "Easy",
+      "category": "AI_ML",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "84b90bc4-ac4a-4243-ae81-24b392cca382",
+      "content": "Explain the Query(Q), Key(K), and Value(V) in attention.",
+      "topic": "Attention Mechanism",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "7819faa5-d31d-418f-8581-a71c5bd4477e",
+      "content": "What is self-attention, and how does it work in Transformers?",
+      "topic": "Self-Attention",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "5db895e2-e2f5-48f2-baf2-6dfb9b681f00",
+      "content": "What is Cross Attention in Transformers?",
+      "topic": "Cross-Attention",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "7e70c2f4-4777-4051-828b-7bdab50c14cc",
+      "content": "Why do we scale the dot product attention by √dₖ in the Transformer architecture?",
+      "topic": "Attention Scaling",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "83606615-8e5c-4e56-9d45-7093a443924f",
+      "content": "What is causal masking?",
+      "topic": "Causal Masking",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "127b7254-704f-465e-987b-ecddee18edc4",
+      "content": "What are multi-head attention mechanisms? Why use multiple attention heads?",
+      "topic": "Multi-Head Attention",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "b31c1be2-9f68-419e-82ad-b8fed4d43523",
+      "content": "What are Feed-Forward Networks in LLMs?",
+      "topic": "Feed-Forward Networks",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "fb2ad644-4cd2-44a7-833e-5dc65be2ef32",
+      "content": "What is the context window in LLMs, and why does it matter?",
+      "topic": "Context Window",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "a84d9b6f-e1a3-454d-9a65-425c6a4e6b7a",
+      "content": "Why is the context window limited in LLMs?",
+      "topic": "Context Window Limits",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "ae7b645c-6d68-4b82-a8ee-706bf653bd09",
+      "content": "What is temperature in the context of LLMs, and how does it affect output?",
+      "topic": "Temperature Parameter",
+      "difficulty": "Easy",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "e50ec71c-a50e-4994-b45a-2c891c155b6a",
+      "content": "Why is the first token slower than the rest in an LLM?",
+      "topic": "First-Token Latency",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "d4020c25-7d3d-4dbd-9b51-b0b739918c31",
+      "content": "Explain Top-p (nucleus) sampling and Top-k sampling. How do they differ?",
+      "topic": "Sampling Methods",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "0bcf2283-aab4-4e10-be9e-243167157dae",
+      "content": "What are logits, and how are they used in text generation?",
+      "topic": "Logits",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "31edd618-dcc0-4a05-89f2-ba86a7f63e82",
+      "content": "What are skip connections (residual connections) in Transformers?",
+      "topic": "Skip Connections",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "e0258fc1-1c12-4c7b-b71d-8b8524f73c74",
+      "content": "What is the difference between open-source and closed-source LLMs? When would you choose one over the other?",
+      "topic": "LLM Types",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "95b25860-8f40-4697-b79f-3b0c8424fdbe",
+      "content": "What is the difference between encoder-only, decoder-only, and encoder-decoder Transformer architectures?",
+      "topic": "Transformer Variants",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "a730cf61-e829-4fbf-85c7-6906c6998a4e",
+      "content": "What is KV cache, and how does it speed up inference?",
+      "topic": "KV Cache",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "159d94c8-b83c-4e10-a8e7-b67927e19123",
+      "content": "What is model distillation, and how is it used with LLMs?",
+      "topic": "Model Distillation",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "8a5952cd-9d87-4e61-86e2-9be0c3f07f86",
+      "content": "What is Mixture of Experts (MoE), and how does it work in models like Mixtral?",
+      "topic": "Mixture of Experts",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "88ed2c39-49fa-4f7b-8a5a-2b764fb93429",
+      "content": "What is the difference between dense and sparse models?",
+      "topic": "Model Architectures",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "346f3949-58d1-4a3e-942a-737fa982d5c6",
+      "content": "What is Flash Attention?",
+      "topic": "Flash Attention",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "2b480c41-3cbc-4ee8-a120-797af5355c35",
+      "content": "What is Cross-Entropy Loss?",
+      "topic": "Loss Functions",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "c3bf450a-1313-4d66-9312-d6353aa38d55",
+      "content": "What is Grouped-Query Attention (GQA), and how does it differ from Multi-Head Attention (MHA)?",
+      "topic": "Attention Variants",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "f2e557b1-c585-4bd7-860b-f298fbf1a4c6",
+      "content": "How does Rotary Position Embedding (RoPE) work, and why is it preferred over learned positional embeddings?",
+      "topic": "Positional Embeddings",
+      "difficulty": "Hard",
+      "category": "LLM",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "637d701f-2407-4de0-8bdb-ab9fa7885e08",
+      "content": "Explain Layer Normalization",
+      "topic": "Normalization Techniques",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "0b607ce6-7316-449d-a712-886988c22833",
+      "content": "Explain RMSNorm (Root Mean Square Layer Normalization)",
+      "topic": "Normalization Techniques",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "8e2a5159-21a9-4cd9-b0f2-44b06d915e4e",
+      "content": "Your LLM keeps ignoring your instructions. How do you make it follow structured output formats?",
+      "topic": "Instruction Following",
+      "difficulty": "Medium",
+      "category": "PROMPT_ENGINEERING",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "6ad62379-de1e-46e1-9cb6-29d716ddfb70",
+      "content": "Your LLM-powered tool hits the context window limit on long documents. How do you handle this?",
+      "topic": "Context Management",
+      "difficulty": "Medium",
+      "category": "GEN_AI",
+      "source_url": "https://github.com/amitshekhariitbhu/ai-engineering-interview-questions"
+    },
+    {
+      "id": "b3db4215-3e9f-4f78-93da-38314cad402b",
+      "content": "What is Artificial Intelligence?",
+      "topic": "AI Fundamentals",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    },
+    {
+      "id": "4635d996-ff42-452b-a7af-8b6638422ad8",
+      "content": "What are the different types of Artificial Intelligence?",
+      "topic": "AI Classification",
+      "difficulty": "Easy",
+      "category": "GEN_AI",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    },
+    {
+      "id": "b217ad84-1467-4eb5-ad6a-faf75480ff1b",
+      "content": "What is Machine Learning and how does it relate to AI?",
+      "topic": "Machine Learning Basics",
+      "difficulty": "Easy",
+      "category": "AI_ML",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    },
+    {
+      "id": "cf2bdcb3-5fab-4202-88ca-a4b19de8ad4c",
+      "content": "What are supervised and unsupervised learning?",
+      "topic": "Learning Paradigms",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    },
+    {
+      "id": "7c5937f5-3f2a-46ec-8682-fcf40552ef2e",
+      "content": "Can you explain what a neural network is?",
+      "topic": "Neural Networks",
+      "difficulty": "Medium",
+      "category": "LLM",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    },
+    {
+      "id": "de3cd842-0e51-4dc0-8895-aac29afaf1f1",
+      "content": "What is the difference between AI, Machine Learning, and Deep Learning?",
+      "topic": "AI ML DL Distinction",
+      "difficulty": "Medium",
+      "category": "AI_ML",
+      "source_url": "https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers"
+    }
+  ]
+}

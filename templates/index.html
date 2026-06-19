@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Question Generator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+        .container { max-width: 750px; margin: 40px auto; padding: 0 20px; }
+        h1 { font-size: 1.8rem; margin-bottom: 8px; color: #1a1a2e; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+        .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+        input[type="text"], select, input[type="number"] {
+            width: 100%; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 8px;
+            font-size: 0.95rem; transition: border-color 0.2s;
+        }
+        input:focus, select:focus { outline: none; border-color: #4361ee; }
+        .row { display: flex; gap: 16px; }
+        .row .form-group { flex: 1; }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; }
+        .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; }
+        .btn {
+            display: inline-block; padding: 12px 28px; background: #4361ee; color: white;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s; width: 100%;
+        }
+        .btn:hover { background: #3a56d4; }
+        .btn:disabled { background: #aaa; cursor: not-allowed; }
+        .flash { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; }
+        .flash.error { background: #ffe0e0; color: #c00; }
+        .flash.success { background: #e0ffe0; color: #060; }
+        .flash.warning { background: #fff3e0; color: #a60; }
+        .hint { color: #888; font-size: 0.8rem; margin-top: 4px; }
+        .loading { display: none; text-align: center; padding: 20px; color: #666; }
+        .loading.active { display: block; }
+
+        /* Session picker */
+        .session-picker { max-height: 280px; overflow-y: auto; border: 1.5px solid #ddd; border-radius: 8px; padding: 8px; }
+        .session-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+        .session-item:hover { background: #f0f4ff; }
+        .session-item input { width: 16px; height: 16px; cursor: pointer; }
+        .session-item label { font-weight: normal; margin-bottom: 0; cursor: pointer; font-size: 0.88rem; }
+        .selected-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; min-height: 28px; }
+        .tag { display: inline-flex; align-items: center; gap: 4px; background: #e8eaf6; color: #3f51b5; padding: 4px 10px; border-radius: 14px; font-size: 0.78rem; font-weight: 600; }
+        .tag .remove { cursor: pointer; font-size: 1rem; line-height: 1; opacity: 0.6; }
+        .tag .remove:hover { opacity: 1; }
+        .search-filter { width: 100%; padding: 8px 12px; border: none; border-bottom: 1px solid #eee; font-size: 0.88rem; outline: none; margin-bottom: 4px; }
+        .count-badge { font-size: 0.8rem; color: #4361ee; font-weight: 600; margin-left: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interview Question Generator</h1>
+        <p class="subtitle">Generate curated interview questions aligned to session learning outcomes</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        <div class="card">
+            <form method="POST" action="/generate" id="genForm" onsubmit="showLoading()">
+
+                <!-- Session Multi-Select -->
+                <div class="form-group">
+                    <label>Select Sessions <span class="count-badge" id="countBadge"></span></label>
+                    <input type="text" class="search-filter" id="searchFilter"
+                           placeholder="Filter sessions..." oninput="filterSessions()">
+                    <div class="session-picker" id="sessionPicker">
+                        {% for s in sessions %}
+                        <div class="session-item" data-name="{{ s|lower }}">
+                            <input type="checkbox" name="session_names" value="{{ s }}" id="sess_{{ loop.index }}"
+                                   onchange="updateTags()">
+                            <label for="sess_{{ loop.index }}">{{ s }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="selected-tags" id="selectedTags"></div>
+                    <p class="hint">Select one or more sessions to combine into a single question set</p>
+                </div>
+
+                <!-- Custom Topic (optional) -->
+                <div class="form-group">
+                    <label for="custom_topic">Or Add Custom Topic</label>
+                    <input type="text" id="custom_topic" name="custom_topic"
+                           placeholder="e.g., Python decorators, API design patterns...">
+                    <p class="hint">Optional — added alongside selected sessions</p>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label for="max_questions">Max Questions</label>
+                        <input type="number" id="max_questions" name="max_questions"
+                               value="15" min="5" max="15">
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="dry_run" name="dry_run">
+                            <label for="dry_run" style="margin-bottom:0; font-weight:normal;">Dry run (no Sheets write)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn">Generate Questions</button>
+            </form>
+
+            <div class="loading" id="loadingMsg">
+                <p>Generating questions... This may take 30-60 seconds.</p>
+                <p style="margin-top:8px;">Reading material > Retrieving questions > Evaluating quality</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTags() {
+            const checkboxes = document.querySelectorAll('input[name="session_names"]:checked');
+            const container = document.getElementById('selectedTags');
+            const badge = document.getElementById('countBadge');
+            container.innerHTML = '';
+            checkboxes.forEach(cb => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.innerHTML = cb.value + ' <span class="remove" onclick="removeTag(\'' + cb.id + '\')">&times;</span>';
+                container.appendChild(tag);
+            });
+            badge.textContent = checkboxes.length > 0 ? checkboxes.length + ' selected' : '';
+        }
+
+        function removeTag(id) {
+            document.getElementById(id).checked = false;
+            updateTags();
+        }
+
+        function filterSessions() {
+            const query = document.getElementById('searchFilter').value.toLowerCase();
+            document.querySelectorAll('.session-item').forEach(item => {
+                item.style.display = item.dataset.name.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        function showLoading() {
+            const checked = document.querySelectorAll('input[name="session_names"]:checked');
+            const custom = document.getElementById('custom_topic').value.trim();
+            if (checked.length === 0 && !custom) {
+                alert('Please select at least one session or enter a custom topic.');
+                return false;
+            }
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Generating...';
+            document.getElementById('loadingMsg').classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generating — {{ session_name }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; min-height: 100vh; }
+        .container { max-width: 650px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 1.3rem; color: #58a6ff; text-align: center; margin-bottom: 4px; }
+        .session-label { text-align: center; color: #8b949e; font-size: 0.9rem; margin-bottom: 10px; }
+        .mode-badge { text-align: center; margin-bottom: 30px; }
+        .mode-badge span { background: #1f6feb; color: #fff; padding: 3px 12px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px; }
+
+        /* Event log */
+        .event-log { min-height: 200px; }
+        .event {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 14px; margin-bottom: 6px;
+            border-radius: 8px; background: #161b22; border: 1px solid #21262d;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .event-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+        .event-body { flex: 1; }
+        .event-tool { font-weight: 600; font-size: 0.85rem; color: #c9d1d9; }
+        .event-detail { font-size: 0.78rem; color: #8b949e; margin-top: 2px; }
+
+        /* States */
+        .event.running { border-color: #1f6feb; }
+        .event.running .event-icon { background: #0d1b2e; border: 2px solid #58a6ff; animation: pulse 1.5s infinite; color: #58a6ff; }
+        .event.done { border-color: #21262d; }
+        .event.done .event-icon { background: #0d1117; border: 2px solid #3fb950; color: #3fb950; }
+        .event.error .event-icon { background: #0d1117; border: 2px solid #f85149; color: #f85149; }
+        .event.warning .event-icon { background: #0d1117; border: 2px solid #d29922; color: #d29922; }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(88, 166, 255, 0); }
+        }
+
+        .timer { text-align: center; margin-top: 20px; color: #484f58; font-size: 0.85rem; }
+        .timer span { font-variant-numeric: tabular-nums; }
+
+        .tool-count { text-align: center; margin-top: 8px; color: #484f58; font-size: 0.78rem; }
+
+        /* Tool name styling */
+        .tool-name { font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace; background: #1c2128; padding: 1px 6px; border-radius: 4px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generating Interview Questions</h1>
+        <p class="session-label">{{ session_name }}</p>
+        <div class="mode-badge"><span>AGENTIC MODE</span></div>
+
+        <div class="event-log" id="eventLog">
+            <!-- Events appear here dynamically -->
+        </div>
+
+        <div class="timer">Elapsed: <span id="elapsed">0s</span></div>
+        <div class="tool-count">Tool calls: <span id="toolCount">0</span> / 20</div>
+    </div>
+
+    <script>
+        const runId = "{{ run_id }}";
+        const startTime = Date.now();
+        let toolCount = 0;
+        const seenRunning = {};  // track running events to update them
+
+        // Timer
+        setInterval(() => {
+            const secs = Math.floor((Date.now() - startTime) / 1000);
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            document.getElementById('elapsed').textContent = m > 0 ? `${m}m ${s}s` : `${s}s`;
+        }, 1000);
+
+        const ICONS = {
+            running: '\u2699',   // gear
+            done: '\u2713',      // check
+            error: '\u2717',     // x
+            warning: '\u26A0',   // warning
+        };
+
+        const TOOL_LABELS = {
+            agent: 'Agent',
+            understand_session: 'Understand Session',
+            search_question_bank: 'Search Question Bank',
+            validate_relevance: 'Validate Relevance',
+            deduplicate_questions: 'Deduplicate Questions',
+            check_difficulty_balance: 'Check Difficulty Balance',
+            check_outcome_coverage: 'Check Outcome Coverage',
+            generate_expected_answers: 'Generate Answers',
+            generate_interview_questions: 'Generate Interview Questions',
+            generate_coding_questions: 'Generate Coding Questions',
+            remove_question: 'Remove Question',
+            submit_question_set: 'Submit Question Set',
+            critique: 'Quality Gate',
+            complete: 'Pipeline Complete',
+            budget: 'Budget Warning',
+            error: 'Error',
+        };
+
+        function addEvent(step, status, detail) {
+            const log = document.getElementById('eventLog');
+            const existingId = `event-${step}-running`;
+            const existing = document.getElementById(existingId);
+
+            // If this step was running and now is done, update in place
+            if (status === 'done' && existing) {
+                existing.className = 'event done';
+                existing.querySelector('.event-icon').textContent = ICONS.done;
+                existing.querySelector('.event-detail').textContent = detail;
+                existing.id = '';  // clear id so future calls create new elements
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = `event ${status}`;
+            if (status === 'running') {
+                div.id = existingId;
+            }
+
+            const icon = ICONS[status] || ICONS.running;
+            const label = TOOL_LABELS[step] || step;
+
+            div.innerHTML = `
+                <div class="event-icon">${icon}</div>
+                <div class="event-body">
+                    <div class="event-tool"><span class="tool-name">${label}</span></div>
+                    <div class="event-detail">${detail}</div>
+                </div>
+            `;
+
+            log.appendChild(div);
+            div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Count tool calls (not agent/complete/error/budget events)
+            if (!['agent', 'complete', 'error', 'budget'].includes(step) && status === 'running') {
+                toolCount++;
+                document.getElementById('toolCount').textContent = toolCount;
+            }
+        }
+
+        // SSE
+        const evtSource = new EventSource(`/progress-stream/${runId}`);
+
+        evtSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            addEvent(data.step, data.status, data.detail || '');
+
+            // Redirect on completion
+            if (data.step === 'complete' && data.status === 'done') {
+                evtSource.close();
+                setTimeout(() => { window.location.href = `/review/${runId}`; }, 1500);
+            }
+            if (data.step === 'error') {
+                evtSource.close();
+            }
+        };
+
+        evtSource.onerror = function() {
+            evtSource.close();
+            setTimeout(() => { window.location.href = `/review/${runId}`; }, 2000);
+        };
+    </script>
+</body>
+</html>

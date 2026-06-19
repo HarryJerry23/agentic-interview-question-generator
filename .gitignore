@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+credentials.json
+token.json
+memory.db
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+env/
+GEN_AI_NXTMOCK_INTERVIEW*

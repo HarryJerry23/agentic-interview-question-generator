@@ -1,0 +1,2259 @@
+{
+  "metadata": {
+    "total_kps": 106,
+    "total_edges": 160,
+    "total_sessions": 45,
+    "courses": [
+      "gen_ai",
+      "llm_applications",
+      "flask"
+    ],
+    "built_at": "2026-06-17T10:38:47.010713"
+  },
+  "knowledge_points": {
+    "KP_GLOBAL_0777": {
+      "label": "Zero-shot prompting techniques",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0781",
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0783",
+        "KP_GLOBAL_0822",
+        "KP_GLOBAL_0767"
+      ]
+    },
+    "KP_GLOBAL_0778": {
+      "label": "Few-shot prompting with multiple examples",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0783"
+      ]
+    },
+    "KP_GLOBAL_0779": {
+      "label": "One-shot prompting with single example",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0821",
+        "KP_GLOBAL_0767"
+      ]
+    },
+    "KP_GLOBAL_0780": {
+      "label": "Chain-of-Thought reasoning prompting",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0781",
+        "KP_GLOBAL_0821",
+        "KP_GLOBAL_0822",
+        "KP_GLOBAL_0823"
+      ]
+    },
+    "KP_GLOBAL_0781": {
+      "label": "Model Context Protocol fundamentals",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0780"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0784",
+        "KP_GLOBAL_0785",
+        "KP_GLOBAL_0809",
+        "KP_GLOBAL_0751",
+        "KP_GLOBAL_0824"
+      ]
+    },
+    "KP_GLOBAL_0782": {
+      "label": "AI agent core components",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0779"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0786",
+        "KP_GLOBAL_0798",
+        "KP_GLOBAL_0799",
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
+        "KP_GLOBAL_0805",
+        "KP_GLOBAL_0807",
+        "KP_GLOBAL_0808",
+        "KP_GLOBAL_0810",
+        "KP_GLOBAL_0813",
+        "KP_GLOBAL_0814"
+      ]
+    },
+    "KP_GLOBAL_0783": {
+      "label": "Generative AI core capabilities",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0778"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0787",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0790",
+        "KP_GLOBAL_0791",
+        "KP_GLOBAL_0792",
+        "KP_GLOBAL_0794",
+        "KP_GLOBAL_0795",
+        "KP_GLOBAL_0796",
+        "KP_GLOBAL_0797",
+        "KP_GLOBAL_0789",
+        "KP_GLOBAL_0802",
+        "KP_GLOBAL_0815",
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_0817",
+        "KP_GLOBAL_0819",
+        "KP_GLOBAL_0820",
+        "KP_GLOBAL_0825"
+      ]
+    },
+    "KP_GLOBAL_0784": {
+      "label": "MCP Host architecture and functionality",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0781"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0785": {
+      "label": "MCP Server roles and responsibilities",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0781"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0786": {
+      "label": "n8n Merge node function",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0787": {
+      "label": "Groq Speech to Text API supported audio formats",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0788": {
+      "label": "AI speech generation tools",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0826"
+      ]
+    },
+    "KP_GLOBAL_0789": {
+      "label": "Whisper API speech-to-text functionality",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0790": {
+      "label": "Basic TTS text input field",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0791": {
+      "label": "Sampling Steps parameter in Stable Diffusion",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0793"
+      ]
+    },
+    "KP_GLOBAL_0792": {
+      "label": "Batch Count parameter in Stable Diffusion",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0793"
+      ]
+    },
+    "KP_GLOBAL_0793": {
+      "label": "Sampling Method parameter in Stable Diffusion",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0791",
+        "KP_GLOBAL_0792"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0801"
+      ]
+    },
+    "KP_GLOBAL_0794": {
+      "label": "Closed source LLM model advantages",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0795": {
+      "label": "Open source LLM model advantages",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0796": {
+      "label": "Closed source LLM model disadvantages",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0797": {
+      "label": "QuizGecko input methods",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0798": {
+      "label": "Understand n8n webhook node role and function",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0800"
+      ]
+    },
+    "KP_GLOBAL_0799": {
+      "label": "n8n Code Node purpose and capabilities",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0800"
+      ]
+    },
+    "KP_GLOBAL_0800": {
+      "label": "n8n Respond to Webhook node functionality",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0798",
+        "KP_GLOBAL_0799"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0801": {
+      "label": "Diffusion Models Generation Phase",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0793"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0818"
+      ]
+    },
+    "KP_GLOBAL_0802": {
+      "label": "Automatic1111 purpose and functionality",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0803": {
+      "label": "Long-term memory types in AI agents",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0804"
+      ]
+    },
+    "KP_GLOBAL_0804": {
+      "label": "Semantic memory in AI agents",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0803"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0811"
+      ]
+    },
+    "KP_GLOBAL_0805": {
+      "label": "n8n Simple Memory Node behavior",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0806"
+      ]
+    },
+    "KP_GLOBAL_0806": {
+      "label": "n8n Simple Memory Node for chat history",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0805"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0807": {
+      "label": "Understand short-term memory limitations in LLMs",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0812"
+      ]
+    },
+    "KP_GLOBAL_0808": {
+      "label": "ReAct framework Observation phase",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0809": {
+      "label": "Agent task execution and action",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0781"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0810": {
+      "label": "AI model role in AI agents",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0811": {
+      "label": "AI agent memory component function",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0804"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0812": {
+      "label": "Short-term memory session scope limitations",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0807"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0751": {
+      "label": "LangChain MCP tool integration",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0781",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0772"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0813": {
+      "label": "effective AI tool usage strategies",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0814": {
+      "label": "Agent planning and reasoning",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0782"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0815": {
+      "label": "Perplexity AI distinguishing features",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0816": {
+      "label": "Identify AI-powered application-building platforms",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0817": {
+      "label": "Napkin AI visual generation capabilities",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0818": {
+      "label": "Diffusion Models Training Phase",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0801"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0819": {
+      "label": "Pre-trained LLM model identification",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0820": {
+      "label": "LLM knowledge cutoff concept",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0821": {
+      "label": "Role assignment in prompt engineering",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0779",
+        "KP_GLOBAL_0780"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0822": {
+      "label": "Prompt engineering goals and purpose",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0780"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0823": {
+      "label": "Structured prompt construction",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0780"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0824": {
+      "label": "Understand MCP advantages and use cases",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0781"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0825": {
+      "label": "RAG retrieval and document search",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0783"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0826": {
+      "label": "Multi Speech feature functionality",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0788"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0767": {
+      "label": "Use examples and context in prompts",
+      "course": "gen_ai",
+      "prerequisites": [
+        "KP_GLOBAL_0777",
+        "KP_GLOBAL_0779"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0735"
+      ]
+    },
+    "KP_GLOBAL_0733": {
+      "label": "Configure Gemini API authentication and key management",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0774"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0758": {
+      "label": "Design structured prompts for complex reasoning",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0742",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0745",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0751",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0749",
+        "KP_GLOBAL_0752",
+        "KP_GLOBAL_0753",
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0759",
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0743",
+        "KP_GLOBAL_0763"
+      ]
+    },
+    "KP_GLOBAL_0765": {
+      "label": "Implement multi-step problem decomposition",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0745",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0751",
+        "KP_GLOBAL_0749",
+        "KP_GLOBAL_0752",
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0759",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0763"
+      ]
+    },
+    "KP_GLOBAL_0755": {
+      "label": "Define system prompts and LLM roles",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0746"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0751"
+      ]
+    },
+    "KP_GLOBAL_0735": {
+      "label": "Write clear and specific instructions for LLMs",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0767",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0751",
+        "KP_GLOBAL_0740"
+      ]
+    },
+    "KP_GLOBAL_0768": {
+      "label": "Understand tool usage and function calling in LLMs",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0772": {
+      "label": "Integrate tool calling into prompt structures",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0751"
+      ]
+    },
+    "KP_GLOBAL_0738": {
+      "label": "Understand embeddings and tokenization in LLM workflows",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0758"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0734",
+        "KP_GLOBAL_0775",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0773",
+        "KP_GLOBAL_0743",
+        "KP_GLOBAL_0752"
+      ]
+    },
+    "KP_GLOBAL_0736": {
+      "label": "Implement step-by-step reasoning in prompts",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0771"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0758"
+      ]
+    },
+    "KP_GLOBAL_0737": {
+      "label": "Manage context and token limits in prompts",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0766"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0751"
+      ]
+    },
+    "KP_GLOBAL_0734": {
+      "label": "Core LLM capabilities and limitations",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0741",
+        "KP_GLOBAL_0757",
+        "KP_GLOBAL_0754"
+      ]
+    },
+    "KP_GLOBAL_0739": {
+      "label": "Decompose problems into reasoning steps",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ]
+    },
+    "KP_GLOBAL_0740": {
+      "label": "LangChain RecursiveCharacterTextSplitter",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0775",
+        "KP_GLOBAL_0735"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0748"
+      ]
+    },
+    "KP_GLOBAL_0748": {
+      "label": "Understand retrieval augmented generation (RAG) fundamentals",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0746"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ]
+    },
+    "KP_GLOBAL_0741": {
+      "label": "Implement transformer encoder-decoder architecture",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0742",
+        "KP_GLOBAL_0734"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0742": {
+      "label": "Understand transformer architecture layers and attention mechanisms",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0741"
+      ]
+    },
+    "KP_GLOBAL_0743": {
+      "label": "Implement embeddings and tokenization in LLM workflows",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0758"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0771": {
+      "label": "Apply advanced prompt engineering techniques",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0746"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0747"
+      ]
+    },
+    "KP_GLOBAL_0744": {
+      "label": "Build Gradio interfaces for LLM applications",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0745": {
+      "label": "Implement fine-tuning with LoRA and PEFT",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0746": {
+      "label": "Structure prompts for logical reasoning flow",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0772"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0733",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0751"
+      ]
+    },
+    "KP_GLOBAL_0747": {
+      "label": "Explain reasoning process in prompt design",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0771"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0769": {
+      "label": "Integrate LLM APIs and manage authentication",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0733"
+      ]
+    },
+    "KP_GLOBAL_0773": {
+      "label": "LLM constraints and resource management",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0749": {
+      "label": "Integrate vector stores (Chroma, FAISS, Pinecone)",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0766": {
+      "label": "Understand prompt engineering techniques for LLMs",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0737"
+      ]
+    },
+    "KP_GLOBAL_0775": {
+      "label": "Knowledge boundaries and training effects",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0740"
+      ]
+    },
+    "KP_GLOBAL_0750": {
+      "label": "Build RAG pipelines using LangChain",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0752",
+        "KP_GLOBAL_0739"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0752": {
+      "label": "Compare and select between different LLM models",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0738"
+      ],
+      "dependents": [
+        "KP_GLOBAL_0750"
+      ]
+    },
+    "KP_GLOBAL_0753": {
+      "label": "Implement memory systems in AI agents",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0754": {
+      "label": "Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0734",
+        "KP_GLOBAL_0755"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0770": {
+      "label": "Handle errors and edge cases in LLM interactions",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0756": {
+      "label": "Design and engineer prompts for LLM applications",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0757": {
+      "label": "Configure LLM sampling parameters (temperature, top_p, top_k)",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0734"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0776": {
+      "label": "Cost-performance tradeoffs",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0759": {
+      "label": "Configure text chunking strategies for document processing",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0760": {
+      "label": "Manage LLM model versions and compatibility",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0774": {
+      "label": "Hallucinations and accuracy issues",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_0733"
+      ]
+    },
+    "KP_GLOBAL_0761": {
+      "label": "Ollama CLI tool",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0762": {
+      "label": "Apply context engineering techniques",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0763": {
+      "label": "DeepEval evaluate() function signature",
+      "course": "llm_applications",
+      "prerequisites": [
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0765"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_0764": {
+      "label": "LLM-as-a-Judge evaluation implementation in Python",
+      "course": "llm_applications",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_723": {
+      "label": "Return and format responses in Flask",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_721"
+      ],
+      "dependents": [
+        "KP_GLOBAL_727"
+      ]
+    },
+    "KP_GLOBAL_721": {
+      "label": "Handle HTTP methods and request data",
+      "course": "flask",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_723"
+      ]
+    },
+    "KP_GLOBAL_730": {
+      "label": "Test Flask applications",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_727"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_727": {
+      "label": "Build REST APIs with Flask",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_725",
+        "KP_GLOBAL_723"
+      ],
+      "dependents": [
+        "KP_GLOBAL_730"
+      ]
+    },
+    "KP_GLOBAL_726": {
+      "label": "Handle HTTP methods and route parameters",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_725"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_722": {
+      "label": "Working with Third-Party Python Packages",
+      "course": "flask",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_731",
+        "KP_GLOBAL_725"
+      ]
+    },
+    "KP_GLOBAL_732": {
+      "label": "Use Python requests library for HTTP calls",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_728"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_731": {
+      "label": "Install and manage Python packages with pip",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_722"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_728": {
+      "label": "Make HTTP requests with Python",
+      "course": "flask",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_732"
+      ]
+    },
+    "KP_GLOBAL_725": {
+      "label": "Define Flask routes using @app.route() decorator",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_722",
+        "KP_GLOBAL_724"
+      ],
+      "dependents": [
+        "KP_GLOBAL_727",
+        "KP_GLOBAL_726",
+        "KP_GLOBAL_729"
+      ]
+    },
+    "KP_GLOBAL_729": {
+      "label": "Enable CORS for API requests",
+      "course": "flask",
+      "prerequisites": [
+        "KP_GLOBAL_725"
+      ],
+      "dependents": []
+    },
+    "KP_GLOBAL_724": {
+      "label": "Configure and run Flask development server",
+      "course": "flask",
+      "prerequisites": [],
+      "dependents": [
+        "KP_GLOBAL_725"
+      ]
+    }
+  },
+  "sessions": {
+    "Exploring Gen AI Capabilities": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0783",
+        "KP_GLOBAL_0799",
+        "KP_GLOBAL_0817"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "AI Workflows": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "kp_ids": [
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_0790",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0797",
+        "KP_GLOBAL_0751"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building AI-Powered Social Media Content Automation Workflow": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0816"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to AI Agents": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
+        "KP_GLOBAL_0810"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building a Learning Path Generator": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0795",
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0814",
+        "KP_GLOBAL_0825",
+        "KP_GLOBAL_0794"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building an Agent with Memory": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0778",
+        "KP_GLOBAL_0779",
+        "KP_GLOBAL_0782",
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
+        "KP_GLOBAL_0805",
+        "KP_GLOBAL_0806",
+        "KP_GLOBAL_0807",
+        "KP_GLOBAL_0809",
+        "KP_GLOBAL_0811",
+        "KP_GLOBAL_0812",
+        "KP_GLOBAL_0814"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Model Context Protocol (MCP)": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0781",
+        "KP_GLOBAL_0794",
+        "KP_GLOBAL_0795",
+        "KP_GLOBAL_0796",
+        "KP_GLOBAL_0810",
+        "KP_GLOBAL_0819",
+        "KP_GLOBAL_0767"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Google Colab": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0755"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Third-Party Packages in Python": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Flask": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0761",
+        "KP_GLOBAL_0772"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building Rest APIs using Flask": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0750"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Integrating Flask APIs in Frontend": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0769"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building LLM Applications using Python | Part 1": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building LLM Applications using Python | Part 2": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building UI for LLM Applications": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0756"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Deploying LLM Applications": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0756"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Understanding Deployment": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0758",
+        "KP_GLOBAL_0735"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Preparing for Permanent Deployment": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0760",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0772"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Step-by-Step Deployment Process": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0736",
+        "KP_GLOBAL_0747"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Understanding Free Space Limitations": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0734"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Understanding How LLMs Work | Part 1": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0766"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Understanding How LLMs Work | Part 2": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0766"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Tool Use & Function Calling in LLMs": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0761",
+        "KP_GLOBAL_0763"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Effective Prompting Techniques": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0762"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to LangChain": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Retrieval-Augmented Generation | Part 1": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0748"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Retrieval-Augmented Generation | Part 2": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0748"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building AI Agents Using LangChain": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building Memory Agent using Langchain": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "AI In The Real World": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0753",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_0761"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building an AI-Powered Conversational Interview Assistant": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0752"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building an AI-Powered Conversational Interview Assistant | Part 2": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0765",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0746",
+        "KP_GLOBAL_0747",
+        "KP_GLOBAL_0752"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building RAG Agent Using LangChain": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0740",
+        "KP_GLOBAL_0750"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Context Engineering": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0737",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0762"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Integrating MCP": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_0762",
+        "KP_GLOBAL_0734"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Integrate external tools using MCP": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0772",
+        "KP_GLOBAL_0769",
+        "KP_GLOBAL_0749",
+        "KP_GLOBAL_0750"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building Multi Agent Systems Using Crew AI": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_0753"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to Multi-Agent Systems": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0753"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building Multi Agent Systems": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0753"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Building a Game Development Crew": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0753",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0739",
+        "KP_GLOBAL_0755",
+        "KP_GLOBAL_0772"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to LLM Application Evaluation | Part 1": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "LLM Application Evaluation": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Introduction to LLM Application Evaluation | Part 2": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0754",
+        "KP_GLOBAL_0764"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Running Models Locally": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0752"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    },
+    "Fine-Tuning LLMs": {
+      "course": "llm_applications",
+      "session_type": "code_heavy",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0745",
+        "KP_GLOBAL_0766"
+      ],
+      "learning_outcomes": [],
+      "key_concepts": []
+    }
+  },
+  "prerequisite_edges": [
+    {
+      "from": "KP_GLOBAL_0777",
+      "to": "KP_GLOBAL_0781"
+    },
+    {
+      "from": "KP_GLOBAL_0780",
+      "to": "KP_GLOBAL_0781"
+    },
+    {
+      "from": "KP_GLOBAL_0777",
+      "to": "KP_GLOBAL_0782"
+    },
+    {
+      "from": "KP_GLOBAL_0779",
+      "to": "KP_GLOBAL_0782"
+    },
+    {
+      "from": "KP_GLOBAL_0777",
+      "to": "KP_GLOBAL_0783"
+    },
+    {
+      "from": "KP_GLOBAL_0778",
+      "to": "KP_GLOBAL_0783"
+    },
+    {
+      "from": "KP_GLOBAL_0781",
+      "to": "KP_GLOBAL_0784"
+    },
+    {
+      "from": "KP_GLOBAL_0781",
+      "to": "KP_GLOBAL_0785"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0786"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0787"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0788"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0790"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0791"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0792"
+    },
+    {
+      "from": "KP_GLOBAL_0791",
+      "to": "KP_GLOBAL_0793"
+    },
+    {
+      "from": "KP_GLOBAL_0792",
+      "to": "KP_GLOBAL_0793"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0794"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0795"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0796"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0797"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0798"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0789"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0799"
+    },
+    {
+      "from": "KP_GLOBAL_0798",
+      "to": "KP_GLOBAL_0800"
+    },
+    {
+      "from": "KP_GLOBAL_0799",
+      "to": "KP_GLOBAL_0800"
+    },
+    {
+      "from": "KP_GLOBAL_0793",
+      "to": "KP_GLOBAL_0801"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0802"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0803"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0804"
+    },
+    {
+      "from": "KP_GLOBAL_0803",
+      "to": "KP_GLOBAL_0804"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0805"
+    },
+    {
+      "from": "KP_GLOBAL_0805",
+      "to": "KP_GLOBAL_0806"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0807"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0808"
+    },
+    {
+      "from": "KP_GLOBAL_0781",
+      "to": "KP_GLOBAL_0809"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0810"
+    },
+    {
+      "from": "KP_GLOBAL_0804",
+      "to": "KP_GLOBAL_0811"
+    },
+    {
+      "from": "KP_GLOBAL_0781",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0813"
+    },
+    {
+      "from": "KP_GLOBAL_0782",
+      "to": "KP_GLOBAL_0814"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0815"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0816"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0817"
+    },
+    {
+      "from": "KP_GLOBAL_0801",
+      "to": "KP_GLOBAL_0818"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0819"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0820"
+    },
+    {
+      "from": "KP_GLOBAL_0779",
+      "to": "KP_GLOBAL_0821"
+    },
+    {
+      "from": "KP_GLOBAL_0780",
+      "to": "KP_GLOBAL_0821"
+    },
+    {
+      "from": "KP_GLOBAL_0777",
+      "to": "KP_GLOBAL_0822"
+    },
+    {
+      "from": "KP_GLOBAL_0780",
+      "to": "KP_GLOBAL_0822"
+    },
+    {
+      "from": "KP_GLOBAL_0780",
+      "to": "KP_GLOBAL_0823"
+    },
+    {
+      "from": "KP_GLOBAL_0781",
+      "to": "KP_GLOBAL_0824"
+    },
+    {
+      "from": "KP_GLOBAL_0783",
+      "to": "KP_GLOBAL_0825"
+    },
+    {
+      "from": "KP_GLOBAL_0788",
+      "to": "KP_GLOBAL_0826"
+    },
+    {
+      "from": "KP_GLOBAL_0807",
+      "to": "KP_GLOBAL_0812"
+    },
+    {
+      "from": "KP_GLOBAL_0777",
+      "to": "KP_GLOBAL_0767"
+    },
+    {
+      "from": "KP_GLOBAL_0779",
+      "to": "KP_GLOBAL_0767"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0755",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0735",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0768"
+    },
+    {
+      "from": "KP_GLOBAL_0772",
+      "to": "KP_GLOBAL_0736"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0734"
+    },
+    {
+      "from": "KP_GLOBAL_0736",
+      "to": "KP_GLOBAL_0738"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0736"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0736"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0739"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0739"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0748",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0742"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0771"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0771"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0744"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0744"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0772"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0772"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0745"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0745"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0746"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0746"
+    },
+    {
+      "from": "KP_GLOBAL_0767",
+      "to": "KP_GLOBAL_0735"
+    },
+    {
+      "from": "KP_GLOBAL_0735",
+      "to": "KP_GLOBAL_0746"
+    },
+    {
+      "from": "KP_GLOBAL_0769",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0771",
+      "to": "KP_GLOBAL_0746"
+    },
+    {
+      "from": "KP_GLOBAL_0746",
+      "to": "KP_GLOBAL_0771"
+    },
+    {
+      "from": "KP_GLOBAL_0740",
+      "to": "KP_GLOBAL_0748"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0748"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0748"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0766",
+      "to": "KP_GLOBAL_0737"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0775"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0748",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0749"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0749"
+    },
+    {
+      "from": "KP_GLOBAL_0755",
+      "to": "KP_GLOBAL_0772"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0772"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0752"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0752"
+    },
+    {
+      "from": "KP_GLOBAL_0737",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0753"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0773"
+    },
+    {
+      "from": "KP_GLOBAL_0735",
+      "to": "KP_GLOBAL_0736"
+    },
+    {
+      "from": "KP_GLOBAL_0736",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0746",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0754"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0754"
+    },
+    {
+      "from": "KP_GLOBAL_0737",
+      "to": "KP_GLOBAL_0735"
+    },
+    {
+      "from": "KP_GLOBAL_0755",
+      "to": "KP_GLOBAL_0735"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0735"
+    },
+    {
+      "from": "KP_GLOBAL_0742",
+      "to": "KP_GLOBAL_0741"
+    },
+    {
+      "from": "KP_GLOBAL_0734",
+      "to": "KP_GLOBAL_0741"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0743"
+    },
+    {
+      "from": "KP_GLOBAL_0771",
+      "to": "KP_GLOBAL_0736"
+    },
+    {
+      "from": "KP_GLOBAL_0771",
+      "to": "KP_GLOBAL_0747"
+    },
+    {
+      "from": "KP_GLOBAL_0739",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0772",
+      "to": "KP_GLOBAL_0746"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0756"
+    },
+    {
+      "from": "KP_GLOBAL_0746",
+      "to": "KP_GLOBAL_0755"
+    },
+    {
+      "from": "KP_GLOBAL_0738",
+      "to": "KP_GLOBAL_0752"
+    },
+    {
+      "from": "KP_GLOBAL_0734",
+      "to": "KP_GLOBAL_0757"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0734",
+      "to": "KP_GLOBAL_0754"
+    },
+    {
+      "from": "KP_GLOBAL_0755",
+      "to": "KP_GLOBAL_0754"
+    },
+    {
+      "from": "KP_GLOBAL_0736",
+      "to": "KP_GLOBAL_0758"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0758"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0759"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0759"
+    },
+    {
+      "from": "KP_GLOBAL_0737",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0739",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0752",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0739",
+      "to": "KP_GLOBAL_0750"
+    },
+    {
+      "from": "KP_GLOBAL_0746",
+      "to": "KP_GLOBAL_0748"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0738"
+    },
+    {
+      "from": "KP_GLOBAL_0737",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0746",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0735",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0755",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0772",
+      "to": "KP_GLOBAL_0751"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0743"
+    },
+    {
+      "from": "KP_GLOBAL_0774",
+      "to": "KP_GLOBAL_0733"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0735"
+    },
+    {
+      "from": "KP_GLOBAL_0775",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0735",
+      "to": "KP_GLOBAL_0740"
+    },
+    {
+      "from": "KP_GLOBAL_0758",
+      "to": "KP_GLOBAL_0763"
+    },
+    {
+      "from": "KP_GLOBAL_0765",
+      "to": "KP_GLOBAL_0763"
+    },
+    {
+      "from": "KP_GLOBAL_721",
+      "to": "KP_GLOBAL_723"
+    },
+    {
+      "from": "KP_GLOBAL_727",
+      "to": "KP_GLOBAL_730"
+    },
+    {
+      "from": "KP_GLOBAL_725",
+      "to": "KP_GLOBAL_727"
+    },
+    {
+      "from": "KP_GLOBAL_723",
+      "to": "KP_GLOBAL_727"
+    },
+    {
+      "from": "KP_GLOBAL_725",
+      "to": "KP_GLOBAL_726"
+    },
+    {
+      "from": "KP_GLOBAL_728",
+      "to": "KP_GLOBAL_732"
+    },
+    {
+      "from": "KP_GLOBAL_722",
+      "to": "KP_GLOBAL_731"
+    },
+    {
+      "from": "KP_GLOBAL_722",
+      "to": "KP_GLOBAL_725"
+    },
+    {
+      "from": "KP_GLOBAL_724",
+      "to": "KP_GLOBAL_725"
+    },
+    {
+      "from": "KP_GLOBAL_725",
+      "to": "KP_GLOBAL_729"
+    }
+  ]
+}

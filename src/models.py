@@ -101,6 +101,22 @@ class CodeSnippet(BaseModel):
     language: str                           # PYTHON, CPP, JAVA, JAVASCRIPT, SQL
 
 
+class CodeAnalysisQuestion(BaseModel):
+    """Code analysis / MCQ question — from Excel Sheet 8 format.
+
+    The student reads a code snippet (linked via code_id) and answers the question.
+    """
+    question_id: str = Field(default_factory=new_uuid)
+    tag_name: str                            # e.g. "python_code_analysis"
+    content: str                             # Problem description / question text
+    code_id: str                             # Links to CodeSnippet with the code to analyze
+    title: str                               # Short title e.g. "Validate_subsequence"
+    correct_answer: str | None = None        # Expected output / correct option
+    difficulty: str | None = None
+    topic: str | None = None
+    source: Literal["curriculum", "interview_db", "web", "generated"] = "curriculum"
+
+
 # --- Pipeline Output Models ---
 
 class LocalPool(BaseModel):

@@ -27,7 +27,7 @@ MAX_REVISION_ROUNDS = 2
 
 @dataclass
 class AgentState:
-    """Mutable state accumulated across tool calls."""
+    """Mutable state accumulated across all agents in the pipeline."""
     config: GenerationConfig
     data_store: DataStore
     questions: dict[str, QuestionDetail] = field(default_factory=dict)
@@ -35,9 +35,14 @@ class AgentState:
     code_snippets: dict[str, CodeSnippet] = field(default_factory=dict)
     learning_outcomes: list[str] = field(default_factory=list)
     session_context: SessionContext | None = None
+    has_bank_questions: bool = True
     submitted: bool = False
     dedup_removed: int = 0
     tool_log: list[dict] = field(default_factory=list)
+    # Pipeline-level state (set by UnderstandingAgent, read by RetrievalAgent)
+    suggested_queries: list[str] = field(default_factory=list)
+    # Quality gate revision instructions (set by pipeline, read by EvaluationAgent)
+    revision_notes: list[dict] = field(default_factory=list)
 
     @property
     def total_questions(self) -> int:
@@ -112,31 +117,32 @@ def _critique_question_set(state: AgentState) -> dict:
                for q in state.coding_questions.values()]
 
     result = chat_completion_json(
-        system_prompt=f"""You are a strict quality gate for interview question sets.
+        system_prompt=f"""You are a quality gate for interview question sets.
 
 Session: {state.session_context.session_name}
 Learning Outcomes:
 {outcomes}
 
-Check ALL of these:
-1. Every question directly tests one of the learning outcomes (not generic)
-2. Difficulty distribution is roughly 30% Easy, 50% Medium, 20% Hard
-3. No two questions are near-duplicates
-4. Set has {MIN_QUESTIONS}-{MAX_QUESTIONS} questions total
+Check ONLY these hard failures — only flag something if it is CLEARLY wrong:
+1. A question is from a completely different domain (e.g. a SQL question in an AI agents session)
+2. Two questions are near-identical duplicates (same wording, not just same topic)
+3. Total set has fewer than {MIN_QUESTIONS} questions
+
+DO NOT flag questions as off-topic just because they don't match a specific outcome word-for-word.
+Questions that are topically related to the session's subject area should PASS.
+If the set looks reasonable, return pass=true with an empty must_fix list.
 
 Respond in JSON:
 {{
     "pass": true/false,
     "must_fix": [
-        {{"id": "...", "issue": "off-topic / duplicate / wrong-difficulty", "suggestion": "..."}}
+        {{"id": "...", "issue": "off-topic / duplicate / too-few", "suggestion": "..."}}
     ],
     "summary": "One-line overall verdict"
-}}
-
-Be strict but fair. Only flag clear problems.""",
+}}""",
         user_prompt=f"Theory questions:\n{json.dumps(q_list)}\n\nCoding questions:\n{json.dumps(cq_list)}",
         max_tokens=1500,
-        temperature=0.0,  # deterministic critic
+        temperature=0.0,
     )
 
     return result

@@ -1,12 +1,28 @@
 __pycache__/
 *.pyc
+*.pyo
 .env
+.env.*
 credentials.json
 token.json
 memory.db
+*.db
 *.egg-info/
 dist/
 build/
 .pytest_cache/
 env/
-GEN_AI_NXTMOCK_INTERVIEW*
+
+# Large data files
+data/raw/*.xlsx
+data/raw/*.csv
+
+# Frontend build artifacts
+frontend/node_modules/
+frontend/dist/
+static/react/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

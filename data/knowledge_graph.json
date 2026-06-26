@@ -1,14 +1,16 @@
 {
   "metadata": {
-    "total_kps": 106,
+    "total_kps": 113,
+    "total_sessions": 52,
     "total_edges": 160,
-    "total_sessions": 45,
-    "courses": [
-      "gen_ai",
-      "llm_applications",
-      "flask"
-    ],
-    "built_at": "2026-06-17T10:38:47.010713"
+    "topics": 22,
+    "built_from": [
+      "data/course_structure.json",
+      "data/knowledge_graph.json",
+      "data/curriculum/gen_ai_final.json",
+      "data/curriculum/llm_applications_kp_links_final_fixed.json",
+      "data/curriculum/flask_kp_links_final.json"
+    ]
   },
   "knowledge_points": {
     "KP_GLOBAL_0777": {
@@ -1100,56 +1102,457 @@
       "dependents": [
         "KP_GLOBAL_725"
       ]
+    },
+    "KP_GLOBAL_1097": {
+      "label": "AI speech generation tools",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_0859": {
+      "label": "Sampling Steps parameter in Stable Diffusion",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_1385": {
+      "label": "Diffusion Models Generation Phase",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_1738": {
+      "label": "Understand short-term memory limitations in LLMs",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_1360": {
+      "label": "Identify AI-powered application-building platforms",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_1366": {
+      "label": "Role assignment in prompt engineering",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
+    },
+    "KP_GLOBAL_1481": {
+      "label": "Prompt engineering goals and purpose",
+      "course": "gen_ai",
+      "prerequisites": [],
+      "dependents": []
     }
   },
   "sessions": {
-    "Exploring Gen AI Capabilities": {
+    "Your Learning Journey": {
       "course": "gen_ai",
       "session_type": "theory_heavy",
+      "topic": "Course Overview",
+      "kp_ids": [],
+      "learning_outcomes": [
+        "Understand Your Learning Journey"
+      ],
+      "key_concepts": [
+        "your learning journey"
+      ]
+    },
+    "Exploring Gen AI Capabilities": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "topic": "Advanced Gen AI Capabilities",
       "kp_ids": [
         "KP_GLOBAL_0783",
         "KP_GLOBAL_0799",
         "KP_GLOBAL_0817"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "AI Workflows": {
-      "course": "gen_ai",
-      "session_type": "mixed",
-      "kp_ids": [
-        "KP_GLOBAL_0816",
-        "KP_GLOBAL_0790",
-        "KP_GLOBAL_0788",
-        "KP_GLOBAL_0797",
-        "KP_GLOBAL_0751"
+      "learning_outcomes": [
+        "Understand and apply Generative AI core capabilities",
+        "Work with n8n Code Node purpose and capabilities",
+        "Explore Napkin AI visual generation capabilities"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "generative ai core capabilities",
+        "n8n code node purpose and capabilities",
+        "napkin ai visual generation capabilities"
+      ]
     },
-    "Building AI-Powered Social Media Content Automation Workflow": {
+    "Productivity Power Up with AI Tools": {
       "course": "gen_ai",
       "session_type": "theory_heavy",
+      "topic": "Productivity Power-Up with AI Tools & Prompt Engineering Fundamentals",
+      "kp_ids": [
+        "KP_GLOBAL_0821",
+        "KP_GLOBAL_0822",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_1366",
+        "KP_GLOBAL_1481"
+      ],
+      "learning_outcomes": [
+        "Understand Role assignment in prompt engineering",
+        "Explain Prompt engineering goals and purpose",
+        "Apply advanced prompt engineering techniques",
+        "Understand prompt engineering techniques for LLMs",
+        "Recognize Role assignment in prompt engineering",
+        "Understand Prompt engineering goals and purpose"
+      ],
+      "key_concepts": [
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose",
+        "apply advanced prompt engineering techniques",
+        "understand prompt engineering techniques for llms",
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose"
+      ]
+    },
+    "Prompt Engineering Fundamentals": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "topic": "Productivity Power-Up with AI Tools & Prompt Engineering Fundamentals",
+      "kp_ids": [
+        "KP_GLOBAL_0821",
+        "KP_GLOBAL_0822",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_1366",
+        "KP_GLOBAL_1481"
+      ],
+      "learning_outcomes": [
+        "Understand Role assignment in prompt engineering",
+        "Explain Prompt engineering goals and purpose",
+        "Apply advanced prompt engineering techniques",
+        "Understand prompt engineering techniques for LLMs",
+        "Recognize Role assignment in prompt engineering",
+        "Understand Prompt engineering goals and purpose"
+      ],
+      "key_concepts": [
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose",
+        "apply advanced prompt engineering techniques",
+        "understand prompt engineering techniques for llms",
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose"
+      ]
+    },
+    "Building Social Media Content Automation Workflow": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "No-Code AI Automation",
       "kp_ids": [
         "KP_GLOBAL_0816"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Identify AI-powered application-building platforms"
+      ],
+      "key_concepts": [
+        "identify ai-powered application-building platforms"
+      ]
+    },
+    "Advanced Prompt Engineering": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "No-Code AI Automation",
+      "kp_ids": [
+        "KP_GLOBAL_0821",
+        "KP_GLOBAL_0822",
+        "KP_GLOBAL_0771",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_1366",
+        "KP_GLOBAL_1481"
+      ],
+      "learning_outcomes": [
+        "Implement Role assignment in prompt engineering",
+        "Apply Prompt engineering goals and purpose",
+        "Apply advanced prompt engineering techniques",
+        "Understand prompt engineering techniques for LLMs",
+        "Use Role assignment in prompt engineering",
+        "Implement Prompt engineering goals and purpose"
+      ],
+      "key_concepts": [
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose",
+        "apply advanced prompt engineering techniques",
+        "understand prompt engineering techniques for llms",
+        "role assignment in prompt engineering",
+        "prompt engineering goals and purpose"
+      ]
+    },
+    "Build Your Own AI News Summarizer | Part 1": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "AI Workflows for Enhanced Productivity",
+      "kp_ids": [
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0743",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_727"
+      ],
+      "learning_outcomes": [
+        "Understand embeddings and tokenization in LLM workflows",
+        "Implement embeddings and tokenization in LLM workflows",
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Build REST APIs with Flask"
+      ],
+      "key_concepts": [
+        "understand embeddings and tokenization in llm workflows",
+        "implement embeddings and tokenization in llm workflows",
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "build rest apis with flask"
+      ]
+    },
+    "Build Your Own AI News Summarizer | Part 2": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "AI Workflows for Enhanced Productivity",
+      "kp_ids": [
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0743",
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_727"
+      ],
+      "learning_outcomes": [
+        "Understand embeddings and tokenization in LLM workflows",
+        "Implement embeddings and tokenization in LLM workflows",
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Build REST APIs with Flask"
+      ],
+      "key_concepts": [
+        "understand embeddings and tokenization in llm workflows",
+        "implement embeddings and tokenization in llm workflows",
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "build rest apis with flask"
+      ]
+    },
+    "Productivity Power-Up with AI Tools | Part 2": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "topic": "AI Workflows for Enhanced Productivity",
+      "kp_ids": [
+        "KP_GLOBAL_0738",
+        "KP_GLOBAL_0743",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_1097"
+      ],
+      "learning_outcomes": [
+        "Understand embeddings and tokenization in LLM workflows",
+        "Implement embeddings and tokenization in LLM workflows",
+        "Explore AI speech generation tools",
+        "Understand AI speech generation tools"
+      ],
+      "key_concepts": [
+        "understand embeddings and tokenization in llm workflows",
+        "implement embeddings and tokenization in llm workflows",
+        "ai speech generation tools",
+        "ai speech generation tools"
+      ]
+    },
+    "Mastering Image Generation": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "topic": "Mastering Image Generation",
+      "kp_ids": [
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0801",
+        "KP_GLOBAL_0817",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_1097",
+        "KP_GLOBAL_1385"
+      ],
+      "learning_outcomes": [
+        "Understand AI speech generation tools",
+        "Explain Diffusion Models Generation Phase",
+        "Describe Napkin AI visual generation capabilities",
+        "Understand retrieval augmented generation (RAG) fundamentals",
+        "Recognize AI speech generation tools",
+        "Understand Diffusion Models Generation Phase"
+      ],
+      "key_concepts": [
+        "ai speech generation tools",
+        "diffusion models generation phase",
+        "napkin ai visual generation capabilities",
+        "understand retrieval augmented generation (rag) fundamentals",
+        "ai speech generation tools",
+        "diffusion models generation phase"
+      ]
+    },
+    "Setting Up Your Kaggle Environment": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "topic": "Mastering Image Generation",
+      "kp_ids": [
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0801",
+        "KP_GLOBAL_0817",
+        "KP_GLOBAL_0748",
+        "KP_GLOBAL_1097",
+        "KP_GLOBAL_1385"
+      ],
+      "learning_outcomes": [
+        "Understand AI speech generation tools",
+        "Explain Diffusion Models Generation Phase",
+        "Describe Napkin AI visual generation capabilities",
+        "Understand retrieval augmented generation (RAG) fundamentals",
+        "Recognize AI speech generation tools",
+        "Understand Diffusion Models Generation Phase"
+      ],
+      "key_concepts": [
+        "ai speech generation tools",
+        "diffusion models generation phase",
+        "napkin ai visual generation capabilities",
+        "understand retrieval augmented generation (rag) fundamentals",
+        "ai speech generation tools",
+        "diffusion models generation phase"
+      ]
+    },
+    "Mastering Image Generation with Stable Diffusion": {
+      "course": "gen_ai",
+      "session_type": "theory_heavy",
+      "topic": "Mastering Image Generation",
+      "kp_ids": [
+        "KP_GLOBAL_0801",
+        "KP_GLOBAL_1385",
+        "KP_GLOBAL_0791",
+        "KP_GLOBAL_0792",
+        "KP_GLOBAL_0793",
+        "KP_GLOBAL_0859"
+      ],
+      "learning_outcomes": [
+        "Understand Diffusion Models Generation Phase",
+        "Explain Diffusion Models Generation Phase",
+        "Describe Sampling Steps parameter in Stable Diffusion",
+        "Identify Batch Count parameter in Stable Diffusion",
+        "Recognize Sampling Method parameter in Stable Diffusion",
+        "Understand Sampling Steps parameter in Stable Diffusion"
+      ],
+      "key_concepts": [
+        "diffusion models generation phase",
+        "diffusion models generation phase",
+        "sampling steps parameter in stable diffusion",
+        "batch count parameter in stable diffusion",
+        "sampling method parameter in stable diffusion",
+        "sampling steps parameter in stable diffusion"
+      ]
+    },
+    "Mastering AI Audio Generation": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "topic": "Mastering Audio Generation & No-Code Application Building",
+      "kp_ids": [
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_1360",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0801",
+        "KP_GLOBAL_0817",
+        "KP_GLOBAL_0748"
+      ],
+      "learning_outcomes": [
+        "Identify AI-powered application-building platforms",
+        "Identify AI-powered application-building platforms",
+        "Explore AI speech generation tools",
+        "Understand Diffusion Models Generation Phase",
+        "Understand and apply Napkin AI visual generation capabilities",
+        "Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "key_concepts": [
+        "identify ai-powered application-building platforms",
+        "identify ai-powered application-building platforms",
+        "ai speech generation tools",
+        "diffusion models generation phase",
+        "napkin ai visual generation capabilities",
+        "understand retrieval augmented generation (rag) fundamentals"
+      ]
+    },
+    "Building No-Code Applications with AI": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "topic": "Mastering Audio Generation & No-Code Application Building",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0756",
+        "KP_GLOBAL_730",
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_1360",
+        "KP_GLOBAL_0788"
+      ],
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Design and engineer prompts for LLM applications",
+        "Test Flask applications",
+        "Identify AI-powered application-building platforms",
+        "Identify AI-powered application-building platforms",
+        "Work with AI speech generation tools"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "design and engineer prompts for llm applications",
+        "test flask applications",
+        "identify ai-powered application-building platforms",
+        "identify ai-powered application-building platforms",
+        "ai speech generation tools"
+      ]
+    },
+    "Mastering AI Audio Generation using F5-TTS": {
+      "course": "gen_ai",
+      "session_type": "mixed",
+      "topic": "Mastering Audio Generation & No-Code Application Building",
+      "kp_ids": [
+        "KP_GLOBAL_0816",
+        "KP_GLOBAL_1360",
+        "KP_GLOBAL_0788",
+        "KP_GLOBAL_0801",
+        "KP_GLOBAL_0817",
+        "KP_GLOBAL_0748"
+      ],
+      "learning_outcomes": [
+        "Identify AI-powered application-building platforms",
+        "Identify AI-powered application-building platforms",
+        "Explore AI speech generation tools",
+        "Understand Diffusion Models Generation Phase",
+        "Understand and apply Napkin AI visual generation capabilities",
+        "Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "key_concepts": [
+        "identify ai-powered application-building platforms",
+        "identify ai-powered application-building platforms",
+        "ai speech generation tools",
+        "diffusion models generation phase",
+        "napkin ai visual generation capabilities",
+        "understand retrieval augmented generation (rag) fundamentals"
+      ]
     },
     "Introduction to AI Agents": {
       "course": "gen_ai",
-      "session_type": "theory_heavy",
+      "session_type": "mixed",
+      "topic": "Building AI Agents",
       "kp_ids": [
         "KP_GLOBAL_0803",
         "KP_GLOBAL_0804",
         "KP_GLOBAL_0810"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand and apply Long-term memory types in AI agents",
+        "Work with Semantic memory in AI agents",
+        "Explore AI model role in AI agents"
+      ],
+      "key_concepts": [
+        "long-term memory types in ai agents",
+        "semantic memory in ai agents",
+        "ai model role in ai agents"
+      ]
     },
     "Building a Learning Path Generator": {
       "course": "gen_ai",
       "session_type": "code_heavy",
+      "topic": "Building AI Agents",
       "kp_ids": [
         "KP_GLOBAL_0795",
         "KP_GLOBAL_0782",
@@ -1157,12 +1560,65 @@
         "KP_GLOBAL_0825",
         "KP_GLOBAL_0794"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement Open source LLM model advantages",
+        "Apply AI agent core components",
+        "Build Agent planning and reasoning",
+        "Configure RAG retrieval and document search",
+        "Use Closed source LLM model advantages"
+      ],
+      "key_concepts": [
+        "open source llm model advantages",
+        "ai agent core components",
+        "agent planning and reasoning",
+        "rag retrieval and document search",
+        "closed source llm model advantages"
+      ]
+    },
+    "Build Your Own AI Shopping Assistant | Part 1": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "Building an AI Shopping Assistant",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_727"
+      ],
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Build REST APIs with Flask"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "build rest apis with flask"
+      ]
+    },
+    "Build Your Own AI Shopping Assistant | Part 2": {
+      "course": "gen_ai",
+      "session_type": "code_heavy",
+      "topic": "Building an AI Shopping Assistant",
+      "kp_ids": [
+        "KP_GLOBAL_0744",
+        "KP_GLOBAL_0750",
+        "KP_GLOBAL_727"
+      ],
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Build REST APIs with Flask"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "build rest apis with flask"
+      ]
     },
     "Building an Agent with Memory": {
       "course": "gen_ai",
-      "session_type": "theory_heavy",
+      "session_type": "mixed",
+      "topic": "Agents with Memory & Introduction to MCP",
       "kp_ids": [
         "KP_GLOBAL_0778",
         "KP_GLOBAL_0779",
@@ -1177,12 +1633,39 @@
         "KP_GLOBAL_0812",
         "KP_GLOBAL_0814"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand and apply Few-shot prompting with multiple examples",
+        "Work with One-shot prompting with single example",
+        "Explore AI agent core components",
+        "Understand Long-term memory types in AI agents",
+        "Understand and apply Semantic memory in AI agents",
+        "Work with n8n Simple Memory Node behavior",
+        "Explore n8n Simple Memory Node for chat history",
+        "Understand short-term memory limitations in LLMs",
+        "Understand and apply Agent task execution and action",
+        "Work with AI agent memory component function",
+        "Explore Short-term memory session scope limitations",
+        "Understand Agent planning and reasoning"
+      ],
+      "key_concepts": [
+        "few-shot prompting with multiple examples",
+        "one-shot prompting with single example",
+        "ai agent core components",
+        "long-term memory types in ai agents",
+        "semantic memory in ai agents",
+        "n8n simple memory node behavior",
+        "n8n simple memory node for chat history",
+        "understand short-term memory limitations in llms",
+        "agent task execution and action",
+        "ai agent memory component function",
+        "short-term memory session scope limitations",
+        "agent planning and reasoning"
+      ]
     },
-    "Introduction to Model Context Protocol (MCP)": {
+    "Introduction to Model Context Protocol": {
       "course": "gen_ai",
       "session_type": "theory_heavy",
+      "topic": "Agents with Memory & Introduction to MCP",
       "kp_ids": [
         "KP_GLOBAL_0781",
         "KP_GLOBAL_0794",
@@ -1192,12 +1675,29 @@
         "KP_GLOBAL_0819",
         "KP_GLOBAL_0767"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand Model Context Protocol fundamentals",
+        "Explain Closed source LLM model advantages",
+        "Describe Open source LLM model advantages",
+        "Identify Closed source LLM model disadvantages",
+        "Recognize AI model role in AI agents",
+        "Understand Pre-trained LLM model identification",
+        "Use examples and context in prompts"
+      ],
+      "key_concepts": [
+        "model context protocol fundamentals",
+        "closed source llm model advantages",
+        "open source llm model advantages",
+        "closed source llm model disadvantages",
+        "ai model role in ai agents",
+        "pre-trained llm model identification",
+        "use examples and context in prompts"
+      ]
     },
     "Introduction to Google Colab": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Getting Started with Third-Party Packages",
       "kp_ids": [
         "KP_GLOBAL_0769",
         "KP_GLOBAL_0772",
@@ -1205,21 +1705,39 @@
         "KP_GLOBAL_0750",
         "KP_GLOBAL_0755"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Integrate LLM APIs and manage authentication",
+        "Integrate tool calling into prompt structures",
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Define system prompts and LLM roles"
+      ],
+      "key_concepts": [
+        "integrate llm apis and manage authentication",
+        "integrate tool calling into prompt structures",
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "define system prompts and llm roles"
+      ]
     },
-    "Introduction to Third-Party Packages in Python": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "Introduction to Third Party Packages": {
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Getting Started with Third-Party Packages",
       "kp_ids": [
         "KP_GLOBAL_0764"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "key_concepts": [
+        "llm-as-a-judge evaluation implementation in python"
+      ]
     },
     "Introduction to Flask": {
-      "course": "llm_applications",
+      "course": "flask",
       "session_type": "code_heavy",
+      "topic": "Building REST API's using Flask",
       "kp_ids": [
         "KP_GLOBAL_0755",
         "KP_GLOBAL_0744",
@@ -1227,142 +1745,202 @@
         "KP_GLOBAL_0761",
         "KP_GLOBAL_0772"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Define system prompts and LLM roles",
+        "Build Gradio interfaces for LLM applications",
+        "Integrate LLM APIs and manage authentication",
+        "Configure Ollama CLI tool",
+        "Integrate tool calling into prompt structures"
+      ],
+      "key_concepts": [
+        "define system prompts and llm roles",
+        "build gradio interfaces for llm applications",
+        "integrate llm apis and manage authentication",
+        "ollama cli tool",
+        "integrate tool calling into prompt structures"
+      ]
     },
     "Building Rest APIs using Flask": {
-      "course": "llm_applications",
+      "course": "flask",
       "session_type": "code_heavy",
+      "topic": "Building REST API's using Flask",
       "kp_ids": [
         "KP_GLOBAL_0769",
         "KP_GLOBAL_0750"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Integrate LLM APIs and manage authentication",
+        "Build RAG pipelines using LangChain"
+      ],
+      "key_concepts": [
+        "integrate llm apis and manage authentication",
+        "build rag pipelines using langchain"
+      ]
     },
     "Integrating Flask APIs in Frontend": {
-      "course": "llm_applications",
+      "course": "flask",
       "session_type": "code_heavy",
+      "topic": "Building REST API's using Flask",
       "kp_ids": [
         "KP_GLOBAL_0769"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Integrate LLM APIs and manage authentication"
+      ],
+      "key_concepts": [
+        "integrate llm apis and manage authentication"
+      ]
     },
-    "Building LLM Applications using Python | Part 1": {
-      "course": "llm_applications",
+    "Building LLM Applications Using Python | Part 1": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building LLM Applications Using Python",
       "kp_ids": [
         "KP_GLOBAL_0744",
         "KP_GLOBAL_0750",
         "KP_GLOBAL_0756",
         "KP_GLOBAL_0764"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Design and engineer prompts for LLM applications",
+        "Configure LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "design and engineer prompts for llm applications",
+        "llm-as-a-judge evaluation implementation in python"
+      ]
     },
-    "Building LLM Applications using Python | Part 2": {
-      "course": "llm_applications",
+    "Building LLM Applications Using Python | Part 2": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building LLM Applications Using Python",
       "kp_ids": [
         "KP_GLOBAL_0744",
         "KP_GLOBAL_0750",
         "KP_GLOBAL_0756",
         "KP_GLOBAL_0764"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Build RAG pipelines using LangChain",
+        "Design and engineer prompts for LLM applications",
+        "Configure LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "build rag pipelines using langchain",
+        "design and engineer prompts for llm applications",
+        "llm-as-a-judge evaluation implementation in python"
+      ]
     },
     "Building UI for LLM Applications": {
-      "course": "llm_applications",
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building UI and Deploying LLM Applications",
       "kp_ids": [
         "KP_GLOBAL_0744",
         "KP_GLOBAL_0756"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Design and engineer prompts for LLM applications"
+      ],
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "design and engineer prompts for llm applications"
+      ]
     },
     "Deploying LLM Applications": {
-      "course": "llm_applications",
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building UI and Deploying LLM Applications",
       "kp_ids": [
         "KP_GLOBAL_0744",
         "KP_GLOBAL_0756"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Understanding Deployment": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0744",
-        "KP_GLOBAL_0747",
-        "KP_GLOBAL_0756",
-        "KP_GLOBAL_0758",
-        "KP_GLOBAL_0735"
+      "learning_outcomes": [
+        "Build Gradio interfaces for LLM applications",
+        "Design and engineer prompts for LLM applications"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Preparing for Permanent Deployment": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0760",
-        "KP_GLOBAL_0735",
-        "KP_GLOBAL_0737",
-        "KP_GLOBAL_0766",
-        "KP_GLOBAL_0772"
-      ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Step-by-Step Deployment Process": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0736",
-        "KP_GLOBAL_0747"
-      ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Understanding Free Space Limitations": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0734"
-      ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "build gradio interfaces for llm applications",
+        "design and engineer prompts for llm applications"
+      ]
     },
     "Understanding How LLMs Work | Part 1": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Understanding How LLMs Works & Enhancing Productivity with AI",
       "kp_ids": [
         "KP_GLOBAL_0735",
         "KP_GLOBAL_0768",
         "KP_GLOBAL_0766"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Understand prompt engineering techniques for LLMs"
+      ],
+      "key_concepts": [
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "understand prompt engineering techniques for llms"
+      ]
     },
     "Understanding How LLMs Work | Part 2": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Understanding How LLMs Works & Enhancing Productivity with AI",
       "kp_ids": [
         "KP_GLOBAL_0735",
         "KP_GLOBAL_0768",
         "KP_GLOBAL_0766"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Understand prompt engineering techniques for LLMs"
+      ],
+      "key_concepts": [
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "understand prompt engineering techniques for llms"
+      ]
     },
-    "Tool Use & Function Calling in LLMs": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "Enhancing Productivity with AI": {
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Understanding How LLMs Works & Enhancing Productivity with AI",
+      "kp_ids": [
+        "KP_GLOBAL_0807",
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0766",
+        "KP_GLOBAL_1738"
+      ],
+      "learning_outcomes": [
+        "Understand short-term memory limitations in LLMs",
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Understand prompt engineering techniques for LLMs",
+        "Understand short-term memory limitations in LLMs"
+      ],
+      "key_concepts": [
+        "understand short-term memory limitations in llms",
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "understand prompt engineering techniques for llms",
+        "understand short-term memory limitations in llms"
+      ]
+    },
+    "Tool use & Function Calling in LLMs": {
+      "course": "llm_apps",
+      "session_type": "mixed",
+      "topic": "Tools Use & Function Calling in LLMs",
       "kp_ids": [
         "KP_GLOBAL_0735",
         "KP_GLOBAL_0768",
@@ -1371,73 +1949,141 @@
         "KP_GLOBAL_0761",
         "KP_GLOBAL_0763"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Integrate tool calling into prompt structures",
+        "Understand prompt engineering techniques for LLMs",
+        "Understand and apply Ollama CLI tool",
+        "Work with DeepEval evaluate() function signature"
+      ],
+      "key_concepts": [
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "integrate tool calling into prompt structures",
+        "understand prompt engineering techniques for llms",
+        "ollama cli tool",
+        "deepeval evaluate() function signature"
+      ]
     },
     "Effective Prompting Techniques": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "mixed",
+      "topic": "Tools Use & Function Calling in LLMs",
       "kp_ids": [
         "KP_GLOBAL_0771",
         "KP_GLOBAL_0766",
         "KP_GLOBAL_0762"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Apply advanced prompt engineering techniques",
+        "Understand prompt engineering techniques for LLMs",
+        "Apply context engineering techniques"
+      ],
+      "key_concepts": [
+        "apply advanced prompt engineering techniques",
+        "understand prompt engineering techniques for llms",
+        "apply context engineering techniques"
+      ]
     },
-    "Introduction to LangChain": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "Introduction to Langchain": {
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Introduction to LangChain and Retrieval-Augmented Generation (RAG)",
       "kp_ids": [
         "KP_GLOBAL_0740",
         "KP_GLOBAL_0750"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand LangChain RecursiveCharacterTextSplitter",
+        "Build RAG pipelines using LangChain"
+      ],
+      "key_concepts": [
+        "langchain recursivecharactertextsplitter",
+        "build rag pipelines using langchain"
+      ]
     },
     "Introduction to Retrieval-Augmented Generation | Part 1": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Introduction to LangChain and Retrieval-Augmented Generation (RAG)",
       "kp_ids": [
         "KP_GLOBAL_0748"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "key_concepts": [
+        "understand retrieval augmented generation (rag) fundamentals"
+      ]
     },
     "Introduction to Retrieval-Augmented Generation | Part 2": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Introduction to LangChain and Retrieval-Augmented Generation (RAG)",
       "kp_ids": [
         "KP_GLOBAL_0748"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Understand retrieval augmented generation (RAG) fundamentals"
+      ],
+      "key_concepts": [
+        "understand retrieval augmented generation (rag) fundamentals"
+      ]
     },
-    "Building AI Agents Using LangChain": {
-      "course": "llm_applications",
+    "Building AI Agents using Langchain": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building AI Agents Using LangChain and Memory Agents",
       "kp_ids": [
         "KP_GLOBAL_0740",
         "KP_GLOBAL_0750",
         "KP_GLOBAL_0753"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement LangChain RecursiveCharacterTextSplitter",
+        "Build RAG pipelines using LangChain",
+        "Implement memory systems in AI agents"
+      ],
+      "key_concepts": [
+        "langchain recursivecharactertextsplitter",
+        "build rag pipelines using langchain",
+        "implement memory systems in ai agents"
+      ]
     },
-    "Building Memory Agent using Langchain": {
-      "course": "llm_applications",
+    "Building Memory Agents": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building AI Agents Using LangChain and Memory Agents",
       "kp_ids": [
+        "KP_GLOBAL_0751",
         "KP_GLOBAL_0740",
         "KP_GLOBAL_0750",
+        "KP_GLOBAL_0803",
+        "KP_GLOBAL_0804",
         "KP_GLOBAL_0753"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement LangChain MCP tool integration",
+        "Apply LangChain RecursiveCharacterTextSplitter",
+        "Build RAG pipelines using LangChain",
+        "Configure Long-term memory types in AI agents",
+        "Use Semantic memory in AI agents",
+        "Implement memory systems in AI agents"
+      ],
+      "key_concepts": [
+        "langchain mcp tool integration",
+        "langchain recursivecharactertextsplitter",
+        "build rag pipelines using langchain",
+        "long-term memory types in ai agents",
+        "semantic memory in ai agents",
+        "implement memory systems in ai agents"
+      ]
     },
-    "AI In The Real World": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "AI in the Real World": {
+      "course": "llm_apps",
+      "session_type": "mixed",
+      "topic": "Building AI Agents Using LangChain and Memory Agents",
       "kp_ids": [
         "KP_GLOBAL_0753",
         "KP_GLOBAL_0768",
@@ -1445,12 +2091,25 @@
         "KP_GLOBAL_0748",
         "KP_GLOBAL_0761"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement memory systems in AI agents",
+        "Understand tool usage and function calling in LLMs",
+        "Integrate tool calling into prompt structures",
+        "Understand retrieval augmented generation (RAG) fundamentals",
+        "Understand and apply Ollama CLI tool"
+      ],
+      "key_concepts": [
+        "implement memory systems in ai agents",
+        "understand tool usage and function calling in llms",
+        "integrate tool calling into prompt structures",
+        "understand retrieval augmented generation (rag) fundamentals",
+        "ollama cli tool"
+      ]
     },
-    "Building an AI-Powered Conversational Interview Assistant": {
-      "course": "llm_applications",
+    "Building an AI-Powered Conversational Interview Assistant | Part 1": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building AI-Powered Conversational Interview Assistant and RAG Agent Using LangChain",
       "kp_ids": [
         "KP_GLOBAL_0765",
         "KP_GLOBAL_0735",
@@ -1458,12 +2117,25 @@
         "KP_GLOBAL_0747",
         "KP_GLOBAL_0752"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement multi-step problem decomposition",
+        "Write clear and specific instructions for LLMs",
+        "Build Structure prompts for logical reasoning flow",
+        "Explain reasoning process in prompt design",
+        "Use Compare and select between different LLM models"
+      ],
+      "key_concepts": [
+        "implement multi-step problem decomposition",
+        "write clear and specific instructions for llms",
+        "structure prompts for logical reasoning flow",
+        "explain reasoning process in prompt design",
+        "compare and select between different llm models"
+      ]
     },
     "Building an AI-Powered Conversational Interview Assistant | Part 2": {
-      "course": "llm_applications",
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building AI-Powered Conversational Interview Assistant and RAG Agent Using LangChain",
       "kp_ids": [
         "KP_GLOBAL_0765",
         "KP_GLOBAL_0735",
@@ -1471,34 +2143,48 @@
         "KP_GLOBAL_0747",
         "KP_GLOBAL_0752"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Building RAG Agent Using LangChain": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0740",
-        "KP_GLOBAL_0750"
+      "learning_outcomes": [
+        "Implement multi-step problem decomposition",
+        "Write clear and specific instructions for LLMs",
+        "Build Structure prompts for logical reasoning flow",
+        "Explain reasoning process in prompt design",
+        "Use Compare and select between different LLM models"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "implement multi-step problem decomposition",
+        "write clear and specific instructions for llms",
+        "structure prompts for logical reasoning flow",
+        "explain reasoning process in prompt design",
+        "compare and select between different llm models"
+      ]
     },
     "Introduction to Context Engineering": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Introduction to Context Engineering and MCP",
       "kp_ids": [
         "KP_GLOBAL_0737",
         "KP_GLOBAL_0771",
         "KP_GLOBAL_0766",
         "KP_GLOBAL_0762"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Manage context and token limits in prompts",
+        "Apply advanced prompt engineering techniques",
+        "Understand prompt engineering techniques for LLMs",
+        "Apply context engineering techniques"
+      ],
+      "key_concepts": [
+        "manage context and token limits in prompts",
+        "apply advanced prompt engineering techniques",
+        "understand prompt engineering techniques for llms",
+        "apply context engineering techniques"
+      ]
     },
     "Integrating MCP": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "mixed",
+      "topic": "Introduction to Context Engineering and MCP",
       "kp_ids": [
         "KP_GLOBAL_0766",
         "KP_GLOBAL_0755",
@@ -1506,52 +2192,42 @@
         "KP_GLOBAL_0762",
         "KP_GLOBAL_0734"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Integrate external tools using MCP": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0772",
-        "KP_GLOBAL_0769",
-        "KP_GLOBAL_0749",
-        "KP_GLOBAL_0750"
+      "learning_outcomes": [
+        "Understand prompt engineering techniques for LLMs",
+        "Define system prompts and LLM roles",
+        "Design and engineer prompts for LLM applications",
+        "Apply context engineering techniques",
+        "Understand and apply Core LLM capabilities and limitations"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "understand prompt engineering techniques for llms",
+        "define system prompts and llm roles",
+        "design and engineer prompts for llm applications",
+        "apply context engineering techniques",
+        "core llm capabilities and limitations"
+      ]
     },
     "Building Multi Agent Systems Using Crew AI": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+      "course": "llm_apps",
+      "session_type": "mixed",
+      "topic": "Building Multi Agent Systems and LLM Evaluation",
       "kp_ids": [
         "KP_GLOBAL_0750",
         "KP_GLOBAL_0753"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Introduction to Multi-Agent Systems": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0753"
+      "learning_outcomes": [
+        "Build RAG pipelines using LangChain",
+        "Implement memory systems in AI agents"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Building Multi Agent Systems": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0753"
-      ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "build rag pipelines using langchain",
+        "implement memory systems in ai agents"
+      ]
     },
     "Building a Game Development Crew": {
-      "course": "llm_applications",
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Building Multi Agent Systems and LLM Evaluation",
       "kp_ids": [
         "KP_GLOBAL_0753",
         "KP_GLOBAL_0735",
@@ -1559,59 +2235,114 @@
         "KP_GLOBAL_0755",
         "KP_GLOBAL_0772"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement memory systems in AI agents",
+        "Write clear and specific instructions for LLMs",
+        "Build Decompose problems into reasoning steps",
+        "Define system prompts and LLM roles",
+        "Integrate tool calling into prompt structures"
+      ],
+      "key_concepts": [
+        "implement memory systems in ai agents",
+        "write clear and specific instructions for llms",
+        "decompose problems into reasoning steps",
+        "define system prompts and llm roles",
+        "integrate tool calling into prompt structures"
+      ]
     },
-    "Introduction to LLM Application Evaluation | Part 1": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "Introduction to LLM Evaluation | Part 1": {
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Building Multi Agent Systems and LLM Evaluation",
       "kp_ids": [
         "KP_GLOBAL_0754",
         "KP_GLOBAL_0764"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+        "Explain LLM-as-a-Judge evaluation implementation in Python"
+      ],
+      "key_concepts": [
+        "configure evaluation metrics (bleu, rouge, bertscore)",
+        "llm-as-a-judge evaluation implementation in python"
+      ]
     },
-    "LLM Application Evaluation": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
+    "Introduction to LLM Evaluation | Part 2": {
+      "course": "llm_apps",
+      "session_type": "theory_heavy",
+      "topic": "Building Multi Agent Systems and LLM Evaluation",
       "kp_ids": [
         "KP_GLOBAL_0754",
         "KP_GLOBAL_0764"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
-    },
-    "Introduction to LLM Application Evaluation | Part 2": {
-      "course": "llm_applications",
-      "session_type": "code_heavy",
-      "kp_ids": [
-        "KP_GLOBAL_0754",
-        "KP_GLOBAL_0764"
+      "learning_outcomes": [
+        "Configure evaluation metrics (BLEU, ROUGE, BERTScore)",
+        "Explain LLM-as-a-Judge evaluation implementation in Python"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "key_concepts": [
+        "configure evaluation metrics (bleu, rouge, bertscore)",
+        "llm-as-a-judge evaluation implementation in python"
+      ]
     },
     "Running Models Locally": {
-      "course": "llm_applications",
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Running Models locally and Fine-Tuning LLMs",
       "kp_ids": [
         "KP_GLOBAL_0752"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Implement Compare and select between different LLM models"
+      ],
+      "key_concepts": [
+        "compare and select between different llm models"
+      ]
     },
-    "Fine-Tuning LLMs": {
-      "course": "llm_applications",
+    "Fine-Tuning LLMs | Part 1": {
+      "course": "llm_apps",
       "session_type": "code_heavy",
+      "topic": "Running Models locally and Fine-Tuning LLMs",
       "kp_ids": [
         "KP_GLOBAL_0735",
         "KP_GLOBAL_0768",
         "KP_GLOBAL_0745",
         "KP_GLOBAL_0766"
       ],
-      "learning_outcomes": [],
-      "key_concepts": []
+      "learning_outcomes": [
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Implement fine-tuning with LoRA and PEFT",
+        "Understand prompt engineering techniques for LLMs"
+      ],
+      "key_concepts": [
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "implement fine-tuning with lora and peft",
+        "understand prompt engineering techniques for llms"
+      ]
+    },
+    "Fine-Tuning LLMs | Part 2": {
+      "course": "llm_apps",
+      "session_type": "code_heavy",
+      "topic": "Running Models locally and Fine-Tuning LLMs",
+      "kp_ids": [
+        "KP_GLOBAL_0735",
+        "KP_GLOBAL_0768",
+        "KP_GLOBAL_0745",
+        "KP_GLOBAL_0766"
+      ],
+      "learning_outcomes": [
+        "Write clear and specific instructions for LLMs",
+        "Understand tool usage and function calling in LLMs",
+        "Implement fine-tuning with LoRA and PEFT",
+        "Understand prompt engineering techniques for LLMs"
+      ],
+      "key_concepts": [
+        "write clear and specific instructions for llms",
+        "understand tool usage and function calling in llms",
+        "implement fine-tuning with lora and peft",
+        "understand prompt engineering techniques for llms"
+      ]
     }
   },
   "prerequisite_edges": [
@@ -2254,6 +2985,263 @@
     {
       "from": "KP_GLOBAL_725",
       "to": "KP_GLOBAL_729"
+    }
+  ],
+  "session_order_edges": [
+    {
+      "from": "Your Learning Journey",
+      "to": "Exploring Gen AI Capabilities",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Exploring Gen AI Capabilities",
+      "to": "Productivity Power Up with AI Tools",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Productivity Power Up with AI Tools",
+      "to": "Prompt Engineering Fundamentals",
+      "type": "within_topic"
+    },
+    {
+      "from": "Prompt Engineering Fundamentals",
+      "to": "Building Social Media Content Automation Workflow",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building Social Media Content Automation Workflow",
+      "to": "Advanced Prompt Engineering",
+      "type": "within_topic"
+    },
+    {
+      "from": "Advanced Prompt Engineering",
+      "to": "Build Your Own AI News Summarizer | Part 1",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Build Your Own AI News Summarizer | Part 1",
+      "to": "Build Your Own AI News Summarizer | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Build Your Own AI News Summarizer | Part 2",
+      "to": "Productivity Power-Up with AI Tools | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Productivity Power-Up with AI Tools | Part 2",
+      "to": "Mastering Image Generation",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Mastering Image Generation",
+      "to": "Setting Up Your Kaggle Environment",
+      "type": "within_topic"
+    },
+    {
+      "from": "Setting Up Your Kaggle Environment",
+      "to": "Mastering Image Generation with Stable Diffusion",
+      "type": "within_topic"
+    },
+    {
+      "from": "Mastering Image Generation with Stable Diffusion",
+      "to": "Mastering AI Audio Generation",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Mastering AI Audio Generation",
+      "to": "Building No-Code Applications with AI",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building No-Code Applications with AI",
+      "to": "Mastering AI Audio Generation using F5-TTS",
+      "type": "within_topic"
+    },
+    {
+      "from": "Mastering AI Audio Generation using F5-TTS",
+      "to": "Introduction to AI Agents",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Introduction to AI Agents",
+      "to": "Building a Learning Path Generator",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building a Learning Path Generator",
+      "to": "Build Your Own AI Shopping Assistant | Part 1",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Build Your Own AI Shopping Assistant | Part 1",
+      "to": "Build Your Own AI Shopping Assistant | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Build Your Own AI Shopping Assistant | Part 2",
+      "to": "Building an Agent with Memory",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building an Agent with Memory",
+      "to": "Introduction to Model Context Protocol",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to Model Context Protocol",
+      "to": "Introduction to Google Colab",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Introduction to Google Colab",
+      "to": "Introduction to Third Party Packages",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to Third Party Packages",
+      "to": "Introduction to Flask",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Introduction to Flask",
+      "to": "Building Rest APIs using Flask",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building Rest APIs using Flask",
+      "to": "Integrating Flask APIs in Frontend",
+      "type": "within_topic"
+    },
+    {
+      "from": "Integrating Flask APIs in Frontend",
+      "to": "Building LLM Applications Using Python | Part 1",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building LLM Applications Using Python | Part 1",
+      "to": "Building LLM Applications Using Python | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building LLM Applications Using Python | Part 2",
+      "to": "Building UI for LLM Applications",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building UI for LLM Applications",
+      "to": "Deploying LLM Applications",
+      "type": "within_topic"
+    },
+    {
+      "from": "Deploying LLM Applications",
+      "to": "Understanding How LLMs Work | Part 1",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Understanding How LLMs Work | Part 1",
+      "to": "Understanding How LLMs Work | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Understanding How LLMs Work | Part 2",
+      "to": "Enhancing Productivity with AI",
+      "type": "within_topic"
+    },
+    {
+      "from": "Enhancing Productivity with AI",
+      "to": "Tool use & Function Calling in LLMs",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Tool use & Function Calling in LLMs",
+      "to": "Effective Prompting Techniques",
+      "type": "within_topic"
+    },
+    {
+      "from": "Effective Prompting Techniques",
+      "to": "Introduction to Langchain",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Introduction to Langchain",
+      "to": "Introduction to Retrieval-Augmented Generation | Part 1",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to Retrieval-Augmented Generation | Part 1",
+      "to": "Introduction to Retrieval-Augmented Generation | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to Retrieval-Augmented Generation | Part 2",
+      "to": "Building AI Agents using Langchain",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building AI Agents using Langchain",
+      "to": "Building Memory Agents",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building Memory Agents",
+      "to": "AI in the Real World",
+      "type": "within_topic"
+    },
+    {
+      "from": "AI in the Real World",
+      "to": "Building an AI-Powered Conversational Interview Assistant | Part 1",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building an AI-Powered Conversational Interview Assistant | Part 1",
+      "to": "Building an AI-Powered Conversational Interview Assistant | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building an AI-Powered Conversational Interview Assistant | Part 2",
+      "to": "Introduction to Context Engineering",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Introduction to Context Engineering",
+      "to": "Integrating MCP",
+      "type": "within_topic"
+    },
+    {
+      "from": "Integrating MCP",
+      "to": "Building Multi Agent Systems Using Crew AI",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Building Multi Agent Systems Using Crew AI",
+      "to": "Building a Game Development Crew",
+      "type": "within_topic"
+    },
+    {
+      "from": "Building a Game Development Crew",
+      "to": "Introduction to LLM Evaluation | Part 1",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to LLM Evaluation | Part 1",
+      "to": "Introduction to LLM Evaluation | Part 2",
+      "type": "within_topic"
+    },
+    {
+      "from": "Introduction to LLM Evaluation | Part 2",
+      "to": "Running Models Locally",
+      "type": "cross_topic"
+    },
+    {
+      "from": "Running Models Locally",
+      "to": "Fine-Tuning LLMs | Part 1",
+      "type": "within_topic"
+    },
+    {
+      "from": "Fine-Tuning LLMs | Part 1",
+      "to": "Fine-Tuning LLMs | Part 2",
+      "type": "within_topic"
     }
   ]
 }

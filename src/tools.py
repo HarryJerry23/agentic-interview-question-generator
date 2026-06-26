@@ -69,6 +69,42 @@ TOOL_SCHEMAS = [
     {
         "type": "function",
         "function": {
+            "name": "search_github_questions",
+            "description": "Search verified GitHub repositories for real interview questions matching the given learning outcomes. Use when the question bank is thin for a topic — returns questions as actually written in open-source interview prep repos.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "outcomes": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Learning outcome phrases to search for (e.g. ['rag evaluation metrics', 'prompt injection defense']). Use plain phrases, not snake_case."
+                    }
+                },
+                "required": ["outcomes"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_web_questions",
+            "description": "Search 45+ verified domains (Glassdoor, AmbitionBox, Exponent, GeeksforGeeks, LeetCode, etc.) for real interview questions with company attribution via Tavily. Requires TAVILY_API_KEY. Use when you need questions that came from actual company interviews.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "outcomes": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Learning outcome phrases to search for (e.g. ['RAG evaluation', 'LLM fine-tuning'])."
+                    }
+                },
+                "required": ["outcomes"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "validate_relevance",
             "description": "LLM evaluates ALL accumulated questions against the session's learning outcomes. Removes questions that don't match any outcome. Call AFTER all searches, BEFORE submitting.",
             "parameters": {"type": "object", "properties": {}}
@@ -183,10 +219,30 @@ def tool_understand_session(state: AgentState) -> dict:
     state.session_context = context
     state.learning_outcomes = context.learning_outcomes
 
-    # Build KP-label queries for the agent to use in searches
+    # Build KP-label queries; also add "interview"-suffixed variants for better TF-IDF recall
     kp_queries = [
         kp.kp_label for kp in context.matched_kp_ids if kp.relevance >= 0.5
     ]
+    # Interview-phrased variants improve matching against company question content
+    interview_queries = [f"{q} interview" for q in kp_queries[:3]]
+    all_queries = (kp_queries + interview_queries)[:8]
+
+    # Probe the bank with the top query to estimate coverage for this session
+    has_bank_questions = False
+    estimated_bank_count = 0
+    if all_queries:
+        retriever = get_retriever()
+        probe = retriever.search(all_queries[0], limit=5)
+        estimated_bank_count = len(probe) * min(len(all_queries), 5)
+        has_bank_questions = len(probe) > 0
+
+    state.has_bank_questions = has_bank_questions
+
+    bank_hint = (
+        f"Bank has ~{estimated_bank_count}+ potential matches for this session."
+        if has_bank_questions
+        else "Bank may have few/no questions for this topic — prioritise search_github_questions and search_web_questions after bank searches."
+    )
 
     return {
         "session_name": context.session_name,
@@ -199,8 +255,10 @@ def tool_understand_session(state: AgentState) -> dict:
             {"kp_id": kp.kp_id, "label": kp.kp_label, "relevance": kp.relevance}
             for kp in context.matched_kp_ids
         ],
-        "suggested_search_queries": kp_queries[:8],
-        "instruction": "Use the suggested_search_queries above as your search queries. Call search_question_bank once per query."
+        "suggested_search_queries": all_queries,
+        "has_bank_questions": has_bank_questions,
+        "estimated_bank_question_count": estimated_bank_count,
+        "instruction": f"Use suggested_search_queries for search_question_bank. {bank_hint}",
     }
 
 
@@ -293,40 +351,44 @@ Key Concepts: {concepts_str}
 Out of Scope: {scope_out_str}
 
 For EACH question, decide:
-- "keep" — directly tests one of the learning outcomes above
-- "remove" — off-topic, too generic, or tests something NOT in this session's scope
+- "keep" — related to this session's topic, concepts, or learning outcomes
+- "remove" — clearly off-topic (tests a completely different technology or domain not covered in this session)
 
 Respond in JSON:
 {{"evaluations": [{{"id": "...", "verdict": "keep", "reason": "Tests outcome X"}}]}}
 
-Be STRICT. If a question is about general Python/programming and doesn't specifically test this session's content, mark it "remove".""",
+IMPORTANT: Be LENIENT. Keep a question if it touches any concept related to the session topic.
+Only remove questions that are entirely unrelated (e.g. a SQL question in a React session).
+Foundational questions about the session's core technology (e.g. "What is RAG?" for a RAG session) should always be KEPT.""",
         user_prompt=f"Questions to evaluate:\n{json.dumps(q_list)}",
         max_tokens=2048,
     )
 
     evaluations = result.get("evaluations", [])
-    kept = 0
-    removed = 0
-    removed_details = []
-
     eval_map = {e.get("id", ""): e for e in evaluations}
-    for q_id in list(state.questions.keys()):
+
+    # Determine what to remove BEFORE mutating state
+    to_remove = []
+    for q_id, q in state.questions.items():
         ev = eval_map.get(q_id, {})
         if ev.get("verdict") == "remove":
-            removed_details.append({
-                "id": q_id,
-                "content": state.questions[q_id].content[:80],
-                "reason": ev.get("reason", ""),
-            })
-            state.questions.pop(q_id)
-            removed += 1
-        else:
-            kept += 1
+            to_remove.append((q_id, q.content[:80], ev.get("reason", "")))
+
+    # Safety floor: never remove more than 50% of questions,
+    # and never leave 0 results — questions passed TF-IDF already.
+    max_removable = max(0, len(state.questions) // 2)
+    to_remove = to_remove[:max_removable]
+
+    for q_id, content, reason in to_remove:
+        state.questions.pop(q_id, None)
+
+    kept = len(state.questions)
+    removed = len(to_remove)
 
     return {
         "kept": kept,
         "removed": removed,
-        "removed_questions": removed_details,
+        "removed_questions": [{"id": q_id, "content": c, "reason": r} for q_id, c, r in to_remove],
         "remaining_total": len(state.questions) + len(state.coding_questions),
     }
 
@@ -413,56 +475,16 @@ Respond in JSON: {"answers": ["- point1\\n- point2", ...]}""",
 
 
 def tool_generate_interview_questions(state: AgentState, count: int, outcomes: list[str], difficulty_mix: str = None) -> dict:
-    """LLM generates theory/conceptual interview questions from learning outcomes."""
-    count = min(count, 10)
-    max_to_add = state.config.max_questions - len(state.questions) - len(state.coding_questions)
-    count = min(count, max(0, max_to_add))
-    if count <= 0:
-        return {"generated": 0, "warning": "At max capacity"}
-
-    outcomes_str = "\n".join(f"- {o}" for o in outcomes)
-    mix_hint = difficulty_mix or f"~{int(count*0.3)} Easy, ~{int(count*0.5)} Medium, ~{int(count*0.2)} Hard"
-
-    result = chat_completion_json(
-        system_prompt=f"""Generate {count} interview questions that directly test these learning outcomes:
-
-{outcomes_str}
-
-Difficulty distribution: {mix_hint}
-
-For each question provide:
-- content: the full question text (clear, specific, interview-appropriate)
-- difficulty: "Easy", "Medium", or "Hard"
-- topic: clean short topic label (2-4 words)
-- question_type: "THEORY" or "CONCEPTUAL"
-
-Respond in JSON: {{"questions": [{{"content": "...", "difficulty": "Medium", "topic": "...", "question_type": "THEORY"}}]}}
-
-Rules:
-- Each question must test a SPECIFIC learning outcome, not be generic
-- Questions should be what a real interviewer would ask
-- Vary question styles: definition, comparison, scenario, explain-why""",
-        user_prompt=f"Generate {count} interview questions.", max_tokens=3000,
-    )
-
-    added = []
-    for q_data in result.get("questions", []):
-        q_text = q_data.get("content", "").strip()
-        if not q_text or len(q_text) < 20:
-            continue
-        q_id = str(uuid.uuid4())
-        qd = QuestionDetail(
-            question_id=q_id,
-            category=q_data.get("question_type", "THEORY"),
-            content=q_text,
-            topic=q_data.get("topic", "General"),
-            difficulty=q_data.get("difficulty", "Medium"),
-            source="generated",
-        )
-        state.questions[q_id] = qd
-        added.append({"id": q_id, "content": q_text[:120], "difficulty": qd.difficulty})
-
-    return {"generated": len(added), "questions": added, "total_accumulated": state.total_questions}
+    """Blocked — only real company interview questions from the bank and live sources are used."""
+    return {
+        "generated": 0,
+        "blocked": True,
+        "reason": (
+            "Question generation is disabled. Only real company interview questions are used. "
+            "Try more searches with search_question_bank, search_github_questions, or search_web_questions. "
+            "If all sources are exhausted, call submit_question_set with what you have."
+        ),
+    }
 
 
 def tool_generate_coding_questions(state: AgentState, count: int, topics: list[str] = None, language: str = "Python") -> dict:
@@ -534,6 +556,88 @@ Respond in JSON: {{"coding_questions": [...]}}""",
     return {"generated": len(added), "questions": added}
 
 
+def tool_search_github_questions(state: AgentState, outcomes: list) -> dict:
+    """Harvest real interview questions from verified GitHub repos via the GitHub REST API."""
+    from src.sources.github_repo import GithubRepoConnector
+    records = GithubRepoConnector().fetch(outcomes)
+
+    current = len(state.questions) + len(state.coding_questions)
+    capacity = state.config.max_questions - current
+    if capacity <= 0:
+        return {"found": 0, "warning": f"Already at max ({state.config.max_questions})."}
+
+    added = []
+    for rec in records[:capacity]:
+        q_id = str(uuid.uuid4())
+        qd = QuestionDetail(
+            question_id=q_id,
+            category="THEORY",
+            content=rec.question_text,
+            topic=rec.source_type.split(":")[-1] if ":" in rec.source_type else "Interview",
+            difficulty="Medium",
+            source="web",
+        )
+        state.questions[q_id] = qd
+        added.append({
+            "id": q_id,
+            "content": rec.question_text[:150],
+            "source_url": rec.source_url,
+            "source_type": rec.source_type,
+        })
+
+    total = len(state.questions) + len(state.coding_questions)
+    return {
+        "found": len(records),
+        "added": len(added),
+        "total_accumulated": total,
+        "remaining_capacity": state.config.max_questions - total,
+    }
+
+
+def tool_search_web_questions(state: AgentState, outcomes: list) -> dict:
+    """Harvest real interview questions with company attribution from 45+ verified domains via Tavily."""
+    from src import config as cfg
+    if not cfg.TAVILY_API_KEY:
+        return {"error": "TAVILY_API_KEY not set — skipping web search", "status": "skipped"}
+
+    from src.sources.tavily_search import TavilyConnector
+    records = TavilyConnector().fetch(outcomes)
+
+    current = len(state.questions) + len(state.coding_questions)
+    capacity = state.config.max_questions - current
+    if capacity <= 0:
+        return {"found": 0, "warning": f"Already at max ({state.config.max_questions})."}
+
+    added = []
+    for rec in records[:capacity]:
+        q_id = str(uuid.uuid4())
+        qd = QuestionDetail(
+            question_id=q_id,
+            category="THEORY",
+            content=rec.question_text,
+            topic=rec.source_type.split(":")[-1] if ":" in rec.source_type else "Interview",
+            difficulty="Medium",
+            source="web",
+            asked_in_company=rec.company,
+        )
+        state.questions[q_id] = qd
+        added.append({
+            "id": q_id,
+            "content": rec.question_text[:150],
+            "company": rec.company,
+            "source_url": rec.source_url,
+            "source_type": rec.source_type,
+        })
+
+    total = len(state.questions) + len(state.coding_questions)
+    return {
+        "found": len(records),
+        "added": len(added),
+        "total_accumulated": total,
+        "remaining_capacity": state.config.max_questions - total,
+    }
+
+
 def tool_remove_question(state: AgentState, question_id: str, reason: str = "") -> dict:
     if question_id in state.questions:
         state.questions.pop(question_id)
@@ -560,6 +664,8 @@ def tool_submit_question_set(state: AgentState) -> dict:
 TOOL_DISPATCH = {
     "understand_session": tool_understand_session,
     "search_question_bank": tool_search_question_bank,
+    "search_github_questions": tool_search_github_questions,
+    "search_web_questions": tool_search_web_questions,
     "validate_relevance": tool_validate_relevance,
     "deduplicate_questions": tool_deduplicate_questions,
     "check_difficulty_balance": tool_check_difficulty_balance,

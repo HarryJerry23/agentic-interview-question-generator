@@ -1,0 +1,10 @@
+https://www.datacamp.com/blog/genai-interview-questions
+https://www.novelvista.com/blogs/ai-and-ml/generative-ai-interview-questions
+https://generativeaimasters.in/generative-ai-interview-questions/
+https://www.interviewbit.com/generative-ai-interview-questions-and-answers/
+https://www.blockchain-council.org/ai/top-40-generative-ai-questions-and-answers/
+https://towardsai.net/p/machine-learning/40-generative-ai-interview-questions-that-actually-get-asked-in-2026-with-answers
+https://www.credosystemz.com/top-50-generative-ai-interview-questions-and-answers-2026/
+https://www.geeksforgeeks.org/artificial-intelligence/artificial-intelligenceai-interview-questions-and-answers/
+https://github.com/amitshekhariitbhu/ai-engineering-interview-questions
+https://www.vinsys.com/blog/top-30-ai-artificial-intelligence-interview-questions-and-answers

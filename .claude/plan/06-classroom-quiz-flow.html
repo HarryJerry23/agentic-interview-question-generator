@@ -1,0 +1,1268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic MCQs Auto-Generation Workflow — System Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f9fc; --panel:#ffffff; --soft:#eef3fb; --soft2:#f3f7ff;
+    --ink:#16223a; --ink2:#2a3a57; --mut:#5b6b85; --faint:#8595af;
+    --brand:#2f6bff; --brand-d:#1f54e0; --sky:#28a0f0;
+    --red:#ef5d6b; --red-bg:#fdecee; --amber:#e8920b; --amber-bg:#fcf3e1;
+    --green:#13a06b; --green-bg:#e6f7ef; --purple:#7a5bff; --purple-bg:#efeaff;
+    --line:#e6ecf5; --line2:#dbe4f2;
+    --shadow:0 6px 22px rgba(20,40,90,.06);
+    --shadow-h:0 12px 34px rgba(20,40,90,.12);
+    --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 Inter,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--brand);text-decoration:none}
+  .shell{width:100%}
+  .wrap{width:100%;max-width:min(96vw,1760px);margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+
+  /* ---------- top bar ---------- */
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:18px;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.2px;font-size:15.5px}
+  .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--brand);
+    display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+  .topnav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
+  .topnav a{color:var(--mut);font-size:13px;font-weight:500;padding:7px 12px;border-radius:9px;transition:.15s}
+  .topnav a:hover{color:var(--ink);background:var(--soft)}
+  .topnav a.active{color:var(--brand);background:var(--soft2)}
+  @media(max-width:860px){.topnav{display:none}}
+
+  /* ---------- hero (full viewport) ---------- */
+  .hero{min-height:calc(100vh - 60px);display:flex;align-items:center;
+    background:
+      radial-gradient(680px 360px at 88% 8%,#eaf2ff 0,transparent 60%),
+      radial-gradient(560px 320px at 2% 92%,#eafaf4 0,transparent 60%),
+      var(--bg)}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+    padding-top:48px;padding-bottom:48px;width:100%}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--brand);font-size:12.5px;
+    font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--soft2);border:1px solid var(--line2);padding:6px 13px;border-radius:999px}
+  h1.title{font-size:clamp(34px,4.4vw,56px);line-height:1.05;letter-spacing:-1.4px;font-weight:900;
+    margin:20px 0 16px}
+  h1.title .hl{color:var(--brand)}
+  .hero .sub{color:var(--mut);font-size:clamp(16px,1.5vw,19px);max-width:600px;line-height:1.6}
+  .cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;
+    padding:13px 22px;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:.18s}
+  .btn.primary{background:var(--brand);color:#fff;box-shadow:0 8px 20px rgba(47,107,255,.28)}
+  .btn.primary:hover{background:var(--brand-d);transform:translateY(-1px)}
+  .btn.ghost{background:#fff;color:var(--ink);border-color:var(--line2)}
+  .btn.ghost:hover{border-color:var(--brand);color:var(--brand)}
+  /* stat board */
+  .board{background:var(--panel);border:1px solid var(--line);border-radius:22px;
+    padding:26px;box-shadow:var(--shadow)}
+  .board .ttl{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:16px}
+  .board .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .kpi{border:1px solid var(--line);border-radius:14px;padding:16px 16px;background:var(--soft2)}
+  .kpi:first-child{grid-column:1 / -1;background:var(--brand);border-color:var(--brand)}
+  .kpi:first-child .big,.kpi:first-child .lbl{color:#fff}
+  .kpi .big{font-size:30px;font-weight:900;letter-spacing:-1px;color:var(--ink)}
+  .kpi .lbl{font-size:12.5px;color:var(--mut);margin-top:2px;font-weight:500}
+  @media(max-width:980px){.hero .wrap{grid-template-columns:1fr;gap:34px}
+    .board{order:2}}
+
+  /* ---------- sections ---------- */
+  section.block{padding:clamp(56px,7vw,92px) 0;border-top:1px solid var(--line)}
+  section.block:nth-of-type(even){background:linear-gradient(180deg,#fbfdff,#f7f9fc)}
+  .sec-head{max-width:780px;margin-bottom:38px}
+  .sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+  .sec-tag .num{width:24px;height:24px;border-radius:7px;background:var(--brand);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+  h2.sec{font-size:clamp(26px,3vw,38px);line-height:1.12;letter-spacing:-1px;font-weight:800;margin:0 0 14px}
+  .sec-lead{color:var(--mut);font-size:16.5px;line-height:1.7;margin:0}
+  .sec-lead b{color:var(--ink2)}
+  h3.subh{color:var(--ink);font-size:16px;font-weight:700;margin:34px 0 14px;letter-spacing:-.2px}
+
+  /* ---------- generic cards / grids ---------- */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:1000px){.g4{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr}}
+  @media(max-width:720px){.g4,.g2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;
+    box-shadow:var(--shadow);transition:.18s}
+  .card:hover{box-shadow:var(--shadow-h);transform:translateY(-2px)}
+  .card h4{margin:0 0 8px;font-size:15.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:9px}
+  .card p{margin:0;color:var(--mut);font-size:14px;line-height:1.62}
+  .card .k{color:var(--brand);font-weight:700}
+  .ic{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+    font-size:17px;flex:none}
+  .ic.b{background:var(--soft2);color:var(--brand)} .ic.r{background:var(--red-bg);color:var(--red)}
+  .ic.a{background:var(--amber-bg);color:var(--amber)} .ic.g{background:var(--green-bg);color:var(--green)}
+  .ic.p{background:var(--purple-bg);color:var(--purple)}
+
+  code{font-family:var(--mono);font-size:12.5px;background:var(--soft);color:var(--brand-d);
+    padding:2px 7px;border-radius:6px;border:1px solid var(--line)}
+  .pill{font-size:11px;padding:3px 11px;border-radius:999px;font-weight:700;white-space:nowrap;display:inline-block}
+  .pill.green{background:var(--green-bg);color:var(--green)} .pill.amber{background:var(--amber-bg);color:var(--amber)}
+  .pill.red{background:var(--red-bg);color:var(--red)} .pill.gate{background:var(--red-bg);color:var(--red)}
+  .pill.loop{background:var(--amber-bg);color:var(--amber)} .pill.mem{background:var(--green-bg);color:var(--green)}
+  .pill.brand{background:var(--soft2);color:var(--brand)}
+  .callout{background:var(--soft2);border:1px solid var(--line2);border-left:4px solid var(--brand);
+    border-radius:12px;padding:16px 20px;margin-top:24px;color:var(--ink2);font-size:14.5px;line-height:1.65}
+  .callout b{color:var(--ink)}
+  .codebox{background:#0f1830;border-radius:14px;padding:20px 22px;color:#c7d4ee;font-family:var(--mono);
+    font-size:12.8px;line-height:1.7;white-space:pre-wrap;overflow:auto;border:1px solid #1d2a4d}
+  .codebox .h{color:#7fa6ff} .codebox .g{color:#5fd6a0} .codebox .r{color:#ff96a0} .codebox .m{color:#8595af}
+  .rt{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px}
+  .rt th,.rt td{border:1px solid var(--line2);padding:8px 12px;text-align:left;vertical-align:top}
+  .rt th{background:var(--soft2);color:var(--ink);font-weight:650}
+  .rt td{color:var(--ink2)} .rt code{font-size:12.5px}
+
+  /* ---------- interactive flow (SVG replica of the LangGraph) ---------- */
+  .flow{margin-top:6px}
+  .flowwrap{width:100%;overflow-x:auto;padding:4px 0}
+  .flowsvg{width:100%;height:auto;max-width:1040px;margin:0 auto;display:block;
+    font-family:Inter,-apple-system,Segoe UI,sans-serif}
+  .gnode{box-sizing:border-box;width:100%;height:100%;border-radius:13px;border:1px solid var(--line2);
+    background:var(--panel);box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;padding:7px 12px}
+  .gnode .gic{width:30px;height:30px;border-radius:9px;flex:none;display:flex;align-items:center;
+    justify-content:center;font-size:16px;background:var(--soft2);color:var(--brand)}
+  .gnode .gtxt{min-width:0}
+  .gnode .gt{font-weight:700;font-size:13.5px;color:var(--ink);line-height:1.12;display:flex;align-items:center;gap:6px}
+  .gnode .gt .hn{font-size:10px;font-weight:700;color:var(--brand);background:var(--soft2);border:1px solid #cfe0ff;
+    border-radius:6px;padding:1px 5px;font-family:var(--mono)}
+  .gnode .gd{font-size:11px;color:var(--mut);line-height:1.25;margin-top:1px}
+  .gnode.clk{cursor:pointer;transition:.15s}
+  .gnode.clk:hover{border-color:var(--brand);box-shadow:var(--shadow-h);transform:translateY(-1px)}
+  .gnode.gate{border-color:var(--red);border-left:5px solid var(--red);background:#fff}
+  .gnode.gate .gic{background:var(--red-bg);color:var(--red)}
+  .gnode.mem{border-color:#bfe9d6;background:#f4fcf8}
+  .gnode.mem .gic{background:var(--green-bg);color:var(--green)}
+  .gnode.loop{border-color:#f3ddb0;background:var(--amber-bg)}
+  .gnode.loop .gic{background:#fff;color:var(--amber)}
+  .gnode.export{border-color:#bcd2ff;background:#f3f8ff}
+  .gnode.export .gic{background:#fff;color:var(--brand)}
+  .gnode.stage .gic{background:var(--purple-bg);color:var(--purple)}
+  .gnode.start{background:var(--brand);border-color:var(--brand);justify-content:center;
+    box-shadow:0 8px 20px rgba(47,107,255,.25)}
+  .gnode.start .gt{color:#fff} .gnode.start .gic{background:rgba(255,255,255,.22);color:#fff}
+  .gdec{box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;padding:3px}
+  .gdec .dq{font-weight:700;font-size:11.5px;color:var(--ink);line-height:1.12}
+  .gdec .dh{font-size:9.5px;color:var(--brand);font-family:var(--mono);margin-top:3px}
+  .gdec.clk{cursor:pointer}
+  .elabel{font-size:11px;font-weight:600;fill:var(--ink2);paint-order:stroke;stroke:#f7f9fc;
+    stroke-width:4px;stroke-linejoin:round}
+  .elabel.amber{fill:var(--amber)} .elabel.green{fill:var(--green)} .elabel.blue{fill:var(--brand)}
+  .flow-legend{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 20px;justify-content:center}
+  .leg{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mut);
+    background:var(--panel);border:1px solid var(--line);padding:6px 13px;border-radius:999px}
+  .leg b.sq{width:11px;height:11px;border-radius:4px;display:inline-block}
+  .leg i{width:16px;height:0;border-top:2.5px solid;display:inline-block}
+  .leg i.dot{border-top-style:dashed}
+
+  /* ---------- rubric ---------- */
+  .catcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .catcard h4{display:flex;align-items:center;justify-content:space-between;margin:0 0 6px;font-size:15px}
+  .catcard ul{margin:8px 0 0;padding-left:18px;color:var(--mut);font-size:13.3px;line-height:1.8}
+  .catcard ul b{color:var(--ink2)}
+  .bandrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .bandcard{flex:1;min-width:180px;border-radius:13px;padding:15px 17px;border:1px solid}
+  .bandcard.green{background:var(--green-bg);border-color:#bfe9d6} .bandcard.amber{background:var(--amber-bg);border-color:#f3ddb0}
+  .bandcard.red{background:var(--red-bg);border-color:#f6c9ce}
+  .bandcard h4{margin:0 0 4px;font-size:14px} .bandcard p{margin:0;font-size:13px;color:var(--ink2)}
+
+  /* ---------- prompts grid + accordion ---------- */
+  .phasebar{display:flex;align-items:center;gap:12px;margin:30px 0 16px}
+  .phasebar .lbl{font-size:13px;font-weight:800;letter-spacing:.04em;color:var(--ink);text-transform:uppercase}
+  .phasebar .ln{flex:1;height:1px;background:var(--line)}
+  .phasebar .cnt{font-size:12px;color:var(--faint);font-weight:600}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:1000px){.pgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:680px){.pgrid{grid-template-columns:1fr}}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:var(--shadow);transition:.16s;grid-column:span 1}
+  .pcard.open{grid-column:1 / -1;border-color:var(--brand);box-shadow:var(--shadow-h)}
+  .pcard .phead{display:flex;align-items:center;gap:13px;padding:16px 18px;cursor:pointer}
+  .pcard:hover{box-shadow:var(--shadow-h)}
+  .pnum{width:38px;height:38px;border-radius:10px;flex:none;display:inline-flex;align-items:center;
+    justify-content:center;font-weight:800;font-size:14px;font-family:var(--mono)}
+  .pnum.gen{background:var(--soft2);color:var(--brand)} .pnum.rub{background:var(--purple-bg);color:var(--purple)}
+  .pnum.var{background:var(--green-bg);color:var(--green)} .pnum.imp{background:var(--amber-bg);color:var(--amber)}
+  .pnum.prac{background:#eef6ff;color:#2563eb} .pnum.mod{background:#fdeef5;color:#d6336c}
+  .pcard .pname{font-weight:700;font-size:14.5px;color:var(--ink);font-family:var(--mono)}
+  .pcard .pstage{font-size:12.3px;color:var(--mut);margin-top:1px}
+  .pcard .chev{margin-left:auto;color:var(--faint);transition:.2s;flex:none;font-size:13px}
+  .pcard.open .chev{transform:rotate(180deg);color:var(--brand)}
+  .pbody{display:none;border-top:1px solid var(--line);padding:0}
+  .pcard.open .pbody{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .pmeta{display:flex;gap:8px;flex-wrap:wrap;padding:16px 20px 4px}
+  .chip{font-size:11.5px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid var(--line2);
+    background:var(--soft);color:var(--ink2)}
+  .chip.model{background:var(--soft2);color:var(--brand);border-color:#cfe0ff}
+  .chip.temp{background:#fff;color:var(--mut)}
+  .pintent{padding:6px 20px 16px;color:var(--ink2);font-size:14px;line-height:1.62;font-style:italic}
+  .pintent::before{content:"“";color:var(--brand);font-weight:800;font-style:normal}
+  .pintent::after{content:"”";color:var(--brand);font-weight:800;font-style:normal}
+  .io{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+  @media(max-width:680px){.io{grid-template-columns:1fr}}
+  .io .col{padding:18px 20px}
+  .io .col.inp{border-right:1px solid var(--line);background:var(--soft2)}
+  @media(max-width:680px){.io .col.inp{border-right:none;border-bottom:1px solid var(--line)}}
+  .io h5{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    display:flex;align-items:center;gap:7px}
+  .io h5.in{color:var(--brand)} .io h5.out{color:var(--green)}
+  .iorow{display:flex;gap:10px;margin-bottom:11px;align-items:flex-start}
+  .iorow .vn{font-family:var(--mono);font-size:12px;color:var(--ink);background:#fff;border:1px solid var(--line2);
+    padding:2px 8px;border-radius:6px;flex:none;font-weight:500}
+  .io .col.out .vn{background:#f0fbf6;border-color:#bfe9d6;color:var(--green)}
+  .iorow .vd{font-size:12.8px;color:var(--mut);line-height:1.5;padding-top:2px}
+  .proute{padding:14px 20px;border-top:1px solid var(--line);background:#fff;display:flex;gap:10px;
+    align-items:center;font-size:13px;color:var(--ink2)}
+  .proute .rk{font-weight:700;color:var(--brand);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+
+  /* ---------- variant chips ---------- */
+  .vchip{display:flex;flex-direction:column;gap:4px;padding:15px 16px;background:var(--panel);
+    border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
+  .vchip .vt{font-weight:700;font-size:14px;color:var(--ink)}
+  .vchip .vk{font-family:var(--mono);font-size:12px;color:var(--green);background:var(--green-bg);
+    padding:2px 8px;border-radius:6px;align-self:flex-start}
+  .vchip p{margin:2px 0 0;font-size:12.6px;color:var(--mut)}
+
+  .footer{padding:42px 0;text-align:center;color:var(--faint);font-size:13.5px;border-top:1px solid var(--line);background:#fff}
+  .footer b{color:var(--ink2)}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar"><div class="wrap">
+  <div class="brand"><span class="dot">◆</span> Agentic MCQs Auto-Generation Workflow</div>
+  <nav class="topnav" id="topnav">
+    <a href="#flow">Flow</a>
+    <a href="#gates">Gates</a>
+    <a href="#rubric">Rubric</a>
+    <a href="#variants">Variants</a>
+    <a href="#practice">MCQ Practice</a>
+    <a href="#module">Module Quiz</a>
+    <a href="#memory">Memory</a>
+    <a href="#cost">Cost &amp; traces</a>
+    <a href="#prompts">The 19 prompts</a>
+  </nav>
+</div></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow">● Agentic MCQs Auto-Generation Workflow · System Architecture</span>
+    <h1 class="title">One reading in.<br>A portal-ready <span class="hl">quiz</span> out.</h1>
+    <p class="sub">A self-correcting, human-supervised pipeline behind <b>three workflows</b> — a
+      <b>Classroom Quiz</b> (one session split into Set 1 / Set 2 + typed variants), an <b>MCQ Practice</b> set
+      (one whole-session pool, all content types, no variants), and a <b>Module Quiz</b> (several sessions
+      <i>merged</i> into one assessment, consolidated outcomes + typed variants). It writes questions, scores them
+      against a single rubric, pauses for a human at each gate, and <b>learns from every rejection</b>.</p>
+    <div class="cta">
+      <button class="btn primary" onclick="goTo('#flow')">▸ See the end-to-end flow</button>
+      <button class="btn ghost" onclick="goTo('#practice')">Compare the three workflows</button>
+    </div>
+  </div>
+  <div class="board">
+    <div class="ttl">The system at a glance</div>
+    <div class="grid">
+      <div class="kpi"><div class="big">~65%</div><div class="lbl">faster wall-time via bounded parallelism</div></div>
+      <div class="kpi"><div class="big">3</div><div class="lbl">product workflows <span class="m">(classroom · practice · module)</span></div></div>
+      <div class="kpi"><div class="big">2–3</div><div class="lbl">human review gates <span class="m">(per workflow)</span></div></div>
+      <div class="kpi"><div class="big">35</div><div class="lbl">rubric checkpoints <span class="m">(incl. 5 code-scoped)</span></div></div>
+      <div class="kpi"><div class="big">19</div><div class="lbl">focused AI prompts</div></div>
+    </div>
+  </div>
+</div></header>
+
+<div class="shell">
+
+<!-- ================= 1 · FLOW ================= -->
+<section class="block" id="flow"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">1</span> End-to-end flow</span>
+    <h2 class="sec">One continuous run, three pauses for a human</h2>
+    <p class="sec-lead">The faithful graph of the LangGraph run, checkpointed to Postgres — so it can pause at a
+      gate for hours and resume exactly where it left off. Dashed amber arrows are <b>self-correction loops</b>
+      (capped at 2); dashed green arrows are the <b>learning loop</b> — every gate <b>reject or improve</b> flows
+      into memory, and memory injects learned rules back into <b>every step that reads them</b> — generate,
+      refine, critic, optimize, variants &amp; improve (the green dashed fan). <b>Click any blue stage or diamond</b>
+      to open its prompt blueprint.</p>
+  </div>
+
+  <div class="flow-legend">
+    <span class="leg"><b class="sq" style="background:var(--brand)"></b> AI stage — click to inspect</span>
+    <span class="leg"><b class="sq" style="background:var(--red)"></b> Human gate</span>
+    <span class="leg"><b class="sq" style="background:var(--green)"></b> Self-evolving memory</span>
+    <span class="leg"><i style="border-color:var(--brand)"></i> Pipeline step</span>
+    <span class="leg"><i class="dot" style="border-color:var(--amber)"></i> Self-correction loop (≤2)</span>
+    <span class="leg"><i class="dot" style="border-color:var(--green)"></i> Reject / improve → memory → injected into every author/critic step</span>
+  </div>
+
+  <div class="flow" id="flowDiagram"><!-- built by JS --></div>
+</div></section>
+
+<!-- ================= 2 · GATES ================= -->
+<section class="block" id="gates"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">2</span> The three human gates</span>
+    <h2 class="sec">The agent does the work — the human makes the calls</h2>
+    <p class="sec-lead">Each gate pauses the run and shows the work in a <b>Set 1 / Set 2</b> two-column review,
+      with exactly one "Action needed" banner at a time, so it's never ambiguous whether you must act.</p>
+  </div>
+  <div class="g3">
+    <div class="card"><h4><span class="ic r">1</span> Generation gate</h4>
+      <p>The freshly generated questions, each with its concept-coverage check. You <span class="k">accept</span>,
+      <span class="k">improve</span>, or <span class="k">delete</span>. Deleting asks <i>why</i> — and that reason feeds learning.</p></div>
+    <div class="card"><h4><span class="ic r">2</span> Rubric gate</h4>
+      <p>Each accepted question scored green / red against the 25 per-question checkpoints, with a
+      plain-language "what's wrong + a suggested fix". You <span class="k">approve · improve · reject</span>.</p></div>
+    <div class="card"><h4><span class="ic r">3</span> Variants gate</h4>
+      <p>Every approved question with its its typed variants beneath it, each scored. You
+      <span class="k">approve · improve · reject</span> before the portal files are written.</p></div>
+  </div>
+  <div class="callout">🔁 <b>Every "no" — and every "improve" — teaches.</b> A reason is required to reject or delete,
+    and <b>Improve</b> (you type feedback → the agent rewrites that question → you confirm) feeds the same loop.
+    The feedback is distilled into a generic authoring rule and, on recurrence, sharpens the rubric checkpoint
+    itself (see §5). The system gets better every time you correct it — not only when you reject.</div>
+</div></section>
+
+<!-- ================= 3 · RUBRIC ================= -->
+<section class="block" id="rubric"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">3</span> One evaluator</span>
+    <h2 class="sec">A single self-evolving rubric — and Python does the math</h2>
+    <p class="sec-lead">No gold dataset, no spreadsheet. Every question is judged only against the rubric, which
+      <b>lives in memory</b> and is refined over time. The LLM returns only which checkpoints <i>failed</i>; the
+      score is computed in deterministic Python — so the model never grades itself. Each checkpoint is
+      <b>scoped</b>: the code-quality checkpoints apply only to code questions, so a text question's bar is
+      unchanged.</p>
+  </div>
+  <h3 class="subh">25 per-question checkpoints · 4 categories · <span style="color:var(--red)">all required</span></h3>
+  <div class="g4">
+    <div class="catcard"><h4>Question Text <span class="pill red">9/9</span></h4>
+      <ul><li><b>Clarity</b> — understandable in one read</li><li>No platform/tool reference unless needed</li>
+      <li>No analogy as the question's basis</li><li>Tests understanding, not syntax recall</li><li>No unknown jargon</li></ul></div>
+    <div class="catcard"><h4>Options <span class="pill red">8/8</span></h4>
+      <ul><li><b>Uniform length</b> (~50–70 chars)</li><li>No partial correctness in wrong options</li>
+      <li>Distractors meaningfully plausible</li><li>Parallel option format</li><li>No "None"/"All" misuse</li></ul></div>
+    <div class="catcard"><h4>Answer Validity <span class="pill red">3/3</span></h4>
+      <ul><li><b>Definitively correct</b> — not "most correct"</li><li>Length doesn't give it away</li>
+      <li>Derivable from the session only</li></ul></div>
+    <div class="catcard"><h4>Pedagogy <span class="pill red">5/5</span></h4>
+      <ul><li><b>Right Bloom level</b> (apply/analyze)</li><li>No subjective questions</li>
+      <li>No answer-by-elimination</li><li>Grounded real-world scenarios</li><li>Keyword highlighting</li></ul></div>
+  </div>
+  <p style="margin:12px 2px 0;font-size:12.5px;color:var(--mut)">Every checkpoint in every category must be met — a single miss (in any category) bands the question <b style="color:var(--red)">RED</b>.</p>
+
+  <h3 class="subh">+ 5 code-scoped checkpoints · <span class="m">code questions only (Feature 7)</span> · all required</h3>
+  <div class="g4">
+    <div class="catcard"><h4>Code Question Quality <span class="pill red">up to 5</span></h4>
+      <ul><li><b>Code shown &amp; complete</b> — no <code>…</code>, snippet not in the question text</li>
+      <li><b>Code must not reveal the answer</b> — no give-away comment or printed result</li>
+      <li><b>OUTPUT matches execution</b> — exact, for textual &amp; fill-in-the-blank</li>
+      <li><b>FIB: one correct InlineBlank</b> at the tested token</li>
+      <li><b>Error/fix tied to the learning outcome</b> — minimal, LO-explainable</li></ul></div>
+  </div>
+  <p style="margin:12px 2px 0;font-size:12.5px;color:var(--mut)">Applicability is per question type: a text MCQ stays at <b>25</b> per-question points; a code-analysis MCQ adds 3 (→ 28), a fill-in-the-blank coding question adds 4 (→ 29). New checkpoints ride the same reject→distill→promote loop, so the rubric keeps learning for code too.</p>
+
+  <h3 class="subh">5 per-set checkpoints · the whole set · all required</h3>
+  <div class="g2">
+    <div class="catcard"><h4>Type &amp; Format + Redundancy <span class="pill red">4/4 · 1/1</span></h4>
+      <ul><li><b>≥3 distinct question types</b> in a set</li><li>Both <b>True</b> &amp; <b>False</b> variants present</li>
+      <li>Code shown where the question needs it</li><li>Match-the-following mappings unambiguous</li>
+      <li><b>No redundancy</b> — no two questions test the same thing (1.4)</li></ul></div>
+    <div>
+      <h4 style="margin:0 0 12px;font-size:15px">Banding — a binary gate</h4>
+      <div class="bandrow" style="flex-direction:column">
+        <div class="bandcard green"><h4>🟢 GREEN — pass</h4><p><b>Every</b> applicable checkpoint is met.</p></div>
+        <div class="bandcard red"><h4>🔴 RED — fail</h4><p><b>Any</b> unmet checkpoint → auto-optimize loop fires; still red after the cap → human gate.</p></div>
+      </div>
+      <p style="margin:10px 2px 0;font-size:12.5px;color:var(--mut)">No minimums, no amber — an unambiguous pass/fail. The per-category counts below show only <i>what</i> failed.</p>
+    </div>
+  </div>
+  <div class="callout">Same rubric, two scopes: <code>per_question</code> inside the scoring loop,
+    <code>per_set</code> once over the finished variant set before export.</div>
+
+  <!-- ===== LIVE WALKTHROUGH: one real question, five cases ===== -->
+  <h3 class="subh">One real question, followed through five cases</h3>
+  <div class="callout" style="border-left-color:var(--green)">
+    <b>Q001 · introduction_to_langchain · set 1</b> — “When working directly with LLM providers
+    <i>without</i> a framework, which of the following is a manual repetitive task developers must perform?”<br>
+    <span style="color:var(--mut)">OPTION&nbsp;1 — Automatically scaling infrastructure &nbsp;·&nbsp;
+    <b style="color:var(--green)">OPTION&nbsp;2 — Rewriting tool schemas for different providers ✓ (keyed correct)</b> &nbsp;·&nbsp;
+    OPTION&nbsp;3 — Optimizing network latency &nbsp;·&nbsp; OPTION&nbsp;4 — Encrypting data before sending</span><br>
+    <span style="font-size:12.5px;color:var(--mut)">Pass needs <b>every</b> checkpoint met — Question
+    <b>9/9</b> · Options <b>8/8</b> · Answer-Validity <b>3/3</b> · Pedagogy <b>5/5</b>. Any single miss → RED.
+    The critic returns only the <i>failed</i> checkpoints; Python rolls them up.</span>
+  </div>
+  <div class="g2">
+    <div class="card"><h4><span class="pill green">🟢 GREEN</span> Case 1 · clean → approve</h4>
+      <p><b>Critic flags:</b> <code>problems: []</code> — nothing wrong.</p>
+      <p><b>Scoring:</b> Question 9/9 · Options 8/8 · Answer-Validity 3/3 · Pedagogy 5/5 — every checkpoint met.</p>
+      <p><b>Outcome:</b> band <b>GREEN</b>, passes → shown at the rubric gate ready to <span class="k">approve</span>.</p></div>
+
+    <div class="card"><h4><span class="pill red">🔴 RED</span> Case 2 · one minor miss → fail</h4>
+      <p><b>Critic flags:</b> just <code>2.1</code> — the option lengths are uneven. Everything else (incl. the answer key) is fine.</p>
+      <p><b>Scoring:</b> Options <b>7/8</b> — one checkpoint short. Under the strict gate that alone fails the question.</p>
+      <p><b>Outcome:</b> band <b>RED</b> → the <b>optimize loop</b> rewrites the options → re-scored (≤2 rounds). No "amber" — anything less than perfect is RED.</p></div>
+
+    <div class="card"><h4><span class="pill red">🔴 RED</span> Case 3 · wrong answer caught</h4>
+      <p><b>Setup:</b> the key is wrong — it points at <b>OPTION&nbsp;1</b> (scaling infra), which the material never calls a manual task.</p>
+      <p><b>Critic flags:</b> <code>3.1</code> — “the reading material supports OPTION&nbsp;2 (rewriting tool schemas), not OPTION&nbsp;1.”</p>
+      <p><b>Scoring:</b> Answer-Validity <b>2/3</b> — a checkpoint unmet → band <b>RED</b>.</p>
+      <p><b>Outcome:</b> optimize loop tries to fix; <b>still red after 2 rounds → stated NOT passed</b> → human gate.
+        <span style="color:var(--mut)">(Measured: the live critic caught <b>100%</b> of wrong-answer keys across 4 sessions, 0% false alarms.)</span></p></div>
+
+    <div class="card"><h4><span class="pill red">⚠️ FAIL-SAFE</span> Case 4 · critic can’t evaluate</h4>
+      <p><b>Setup:</b> the critic LLM times out or returns unparseable output for this batch.</p>
+      <p><b>What happens:</b> the call is <b>retried once</b>; if it still fails, the question is flagged on
+        <code>3.1</code> — “critic could not evaluate — flagged for human review.”</p>
+      <p><b>Outcome:</b> band <b>RED, NOT passed</b> → human gate. <span style="color:var(--mut)">Previously this path
+        silently turned the whole batch <b>green</b> — that was the bug; now it fails safe.</span></p></div>
+
+    <div class="card" style="border-left:4px solid var(--green)"><h4><span class="pill mem">♻️ LEARN</span> Case 5 · reject → memory → next run</h4>
+      <p><b>At the gate (after the loop):</b> the human <span class="k">rejects</span> Case 3 with a reason.</p>
+      <p><b>finalize writes memory:</b> the reason is distilled into <i>one generic, category-tagged rule</i>,
+        stored in <span style="color:var(--green)">feedback</span> (deduped — a paraphrase bumps its hit-count &amp; is kept as an alias, never deleted).</p>
+      <p><b>Next run:</b> that rule is injected into the critic/optimize prompts; once it recurs enough it
+        <b>sharpens the checkpoint’s <code>met_when</code></b> itself. See §5.</p></div>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--green)">🧠 <b>Where memory touches the rubric (and where it doesn’t).</b>
+    <b>READ during the loop</b> — the rubric <i>itself lives in memory</i> (<code>load_rubric</code>), and
+    learned feedback rules are injected as <i>guidance</i> into the critic/optimize prompts.
+    <b>WRITTEN right after the loop ends</b> (<code>finalize</code>) — a reject/improve becomes a rule and, on
+    recurrence, sharpens a checkpoint. <b>But the met/not-met verdict is decided by the critic + deterministic
+    Python (<code>score_question</code>) — never by memory.</b> So when the critic can’t judge, the system states
+    the question <b>NOT passed</b> rather than guessing.</div>
+</div></section>
+
+<!-- ================= 4 · VARIANTS ================= -->
+<section class="block" id="variants"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">4</span> Variants &amp; export</span>
+    <h2 class="sec">Typed variants per question — in exact portal format</h2>
+    <p class="sec-lead">Each approved question is reformatted into variants that test the same outcome
+      different ways. Every variant is emitted with the <b>exact portal field keys</b>, so the JSON + zip
+      conversion is a direct mapping — no second transformation.</p>
+    <p class="sec-lead"><b>Per-base, language-aware (Feature 7).</b> In a coding session, each approved base is
+      classified: <b>code-related</b> bases get the <b>code variant set</b> (code-analysis MC + output-prediction,
+      error-id, fix, functionality, logic, plus one free-text output and one fill-in-the-blank coding) authored in
+      the session's detected language; <b>conceptual</b> bases keep the text set. A non-coding session is unchanged.
+      Option-less types (<code>CODE_ANALYSIS_TEXTUAL</code>, <code>FIB_CODING</code>) export valid portal JSON with
+      <code>options: []</code> + an <code>expected_output</code> answer.</p>
+  </div>
+  <h3 class="subh">Text variant types <span class="m">— conceptual bases &amp; non-coding sessions</span></h3>
+  <div class="g4" id="variantGrid"><!-- built by JS --></div>
+  <h3 class="subh">Code variant types <span class="m">— code-related bases in a coding session</span></h3>
+  <div class="g4" id="codeVariantGrid"><!-- built by JS --></div>
+  <h3 class="subh">What each run writes to the repo</h3>
+  <pre class="codebox">generated_quizzes/{course}/{session}/classroom_quiz/
+  <span class="h">set_01/</span>  reading_material.md · classroom_quiz.md <span class="m">(-END- blocks)</span> · classroom_quiz.json
+  <span class="h">set_02/</span>  reading_material.md · classroom_quiz.md · classroom_quiz.json
+  <span class="g">{session}_set_01_classroom_quiz.zip</span>   <span class="m">→ Default_new/…json  (portal upload)</span>
+  <span class="g">{session}_set_02_classroom_quiz.zip</span></pre>
+  <div class="callout">The <code>.md</code> and <code>.json</code> share the same <code>QUESTION_ID</code> /
+    <code>OPTION_x_ID</code> UUIDs, a base question and its variants ship together, and a re-run
+    <b>replaces</b> (not appends) the set folders.</div>
+  <div class="callout">⬇ <b>Download from the done screen.</b> When the run completes, each set has a
+    <b>Download zip</b> button (<code>GET /api/agent/download/&lt;run_id&gt;?set=set_01</code>) — pull
+    <code>{session}_set_NN_classroom_quiz.zip</code> straight to your machine, no file digging.</div>
+  <div class="callout">ℹ <b>Small sessions make a single set.</b> If a session is too small/short to split
+    coherently, the agent generates <b>one set</b> (the empty half is skipped by design) — the run view
+    shows just that set, clearly labelled.</div>
+</div></section>
+
+<!-- ================= 5 · MCQ PRACTICE ================= -->
+<section class="block" id="practice"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">5</span> Three workflows, one engine</span>
+    <h2 class="sec">The same pipeline, pointed at three products</h2>
+    <p class="sec-lead">A <code>workflow</code> flag on the run picks the path; everything in between is reused
+      unchanged. <b>Classroom Quiz</b> <i>splits</i> one session into Set 1 / Set 2 and grows typed variants.
+      <b>MCQ Practice</b> takes the whole session as one pool and stops after the rubric — no variants.
+      <b>Module Quiz</b> <i>merges</i> several sessions into one assessment, consolidates their outcomes, and
+      keeps the full variants pipeline.</p>
+  </div>
+
+  <div class="g3">
+    <div class="card"><h4><span class="ic b">▥</span> Classroom Quiz</h4>
+      <p><b>Split</b> one session into <span class="k">Set 1 / Set 2</span> → plan → generate base MCQs →
+      <span class="k">3 gates</span> (generation · rubric · variants) → each approved base grows
+      <b>9 text + 8 code</b> typed variants → export <code>set_01 / set_02</code> + two portal zips.</p></div>
+    <div class="card"><h4><span class="ic p">◉</span> MCQ Practice <span class="pill brand">Feature 8</span></h4>
+      <p><b>No split</b> — the <span class="k">whole session</span> becomes one pool → plan
+      (<b>count always a multiple of 5</b>) → generate questions <b>spread across all content types</b> →
+      <span class="k">2 gates</span> (generation · rubric) → <b>no variants</b> → export a single
+      <code>mcq_practice</code> quiz + one portal zip.</p></div>
+    <div class="card"><h4><span class="ic g">◈</span> Module Quiz <span class="pill brand">Feature 9</span></h4>
+      <p><b>Merge</b> several selected sessions into one <span class="k">module</span> body → an LLM picks
+      the <b>≥6 most important concepts per session</b> (no cap) → generate one <b>assessment-level</b> base
+      per concept (<b>APPLY / ANALYZE / EVALUATE — no rote recall</b>) →
+      <span class="k">3 gates</span> → the <b>same typed variants</b> → export a single
+      <code>module_quiz</code> quiz + one portal zip.</p></div>
+  </div>
+
+  <h3 class="subh">The practice run — one continuous pass, two pauses</h3>
+  <p class="sec-lead" style="margin-bottom:18px">Same graph as the classroom flow with the two practice
+    forks applied: <b>no Split</b> (the whole session is one pool) and <b>no Variants / Gate 3</b> — it
+    exports straight after the rubric gate. The self-evolving memory still feeds and learns from every step.</p>
+  <div class="flow-legend">
+    <span class="leg"><b class="sq" style="background:var(--brand)"></b> AI stage — click to inspect</span>
+    <span class="leg"><b class="sq" style="background:var(--red)"></b> Human gate</span>
+    <span class="leg"><b class="sq" style="background:var(--green)"></b> Self-evolving memory</span>
+    <span class="leg"><i class="dot" style="border-color:var(--amber)"></i> Self-correction loop (≤2)</span>
+  </div>
+  <div class="flow" id="practiceFlow"><!-- built by JS --></div>
+
+  <div class="g4">
+    <div class="card"><h4><span class="ic b">1</span> Whole-session plan</h4>
+      <p>Reads the full reading material (no seam) and lists the learning outcomes — a count rounded to a
+      <b>multiple of 5</b> (5, 10, 15 …). One question per outcome.</p></div>
+    <div class="card"><h4><span class="ic p">2</span> Typed pool</h4>
+      <p>Each question is authored <b>as a content type</b> — multiple choice, match, fill-in-the-blank,
+      true/false, statement-based, multi-select, all/none, and <b>code-analysis / FIB</b> for coding
+      sessions — validated by the same deterministic type checks the variants use.</p></div>
+    <div class="card"><h4><span class="ic r">3</span> Two human gates</h4>
+      <p><b>Generation</b> (accept · improve · delete the pool) then <b>rubric</b>
+      (approve · improve · reject). The <span class="pill gate">variants gate</span> is skipped entirely.</p></div>
+    <div class="card"><h4><span class="ic g">4</span> Same learning</h4>
+      <p>The <b>25-checkpoint rubric</b>, the <span class="pill loop">auto-optimize loop (≤2)</span>, and the
+      <span class="pill mem">self-evolving memory</span> all apply — every reject / improve teaches, and
+      learned rules are injected back into practice generation.</p></div>
+  </div>
+
+  <div class="callout">📦 <b>Output.</b> Approved questions are written to
+    <code>generated_quizzes/&lt;course&gt;/&lt;session&gt;/mcq_practice/</code> as
+    <code>mcq_practice.md</code> + <code>mcq_practice.json</code> + <code>reading_material.md</code>, and
+    packaged as <code>{session}_mcq_practice.zip</code> — one set-less pool, ready for the portal.</div>
+  <div class="callout">♻ <b>Built by reuse, not duplication.</b> Practice has its own nodes
+    (<code>generate_practice_pool</code>, <code>practice_gate</code>, <code>practice_export</code>), prompts
+    (<code>16_mcq_practice_plan</code>, <code>17_mcq_practice_generate</code>) and <code>pool</code> label —
+    so the word "set" never leaks in. The rubric scoring, both gates' learning loop, and the export writer
+    are shared, made label-neutral.</div>
+</div></section>
+
+<!-- ================= 5b · MODULE QUIZ ================= -->
+<section class="block" id="module"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">5b</span> A third workflow</span>
+    <h2 class="sec">Module Quiz — merge several sessions into one assessment <span class="pill brand">Feature 9</span></h2>
+    <p class="sec-lead">Where the classroom flow <b>splits one session</b>, Module Quiz does the inverse: the
+      reviewer <b>multi-selects several sessions</b> and the run <b>merges</b> them into one body. An LLM plans
+      <b>each session independently</b>, picking that session's <b>≥6 most important concepts</b> (no upper cap),
+      then authors one <b>assessment-level</b> base per concept — <b>APPLY / ANALYZE / EVALUATE with a scenario
+      stem, never rote recall</b> — then runs the <b>same rubric + typed-variants pipeline</b> as the classroom
+      quiz. Code question types are added automatically when any selected session is a coding session.</p>
+  </div>
+
+  <div class="g4">
+    <div class="card"><h4><span class="ic b">1</span> Merge &amp; select per session</h4>
+      <p>The selected sessions are concatenated under per-session headers; an LLM
+      (<code>18_module_plan</code>) runs <b>once per session</b> and picks that session's <b>≥6 most important,
+      assessment-worthy concepts</b> (no cap — more if the session is deep). The reviewer <b>names the quiz</b>
+      (prefilled from the session titles) — that name is the export identity.</p></div>
+    <div class="card"><h4><span class="ic p">2</span> Assessment-level bases</h4>
+      <p>One base per concept (<code>19_module_generate</code>) — <b>every</b> question is
+      <b>APPLY / ANALYZE / EVALUATE</b> with a scenario stem, <b>no rote recall or bare definitions</b>. Count
+      is uncapped (= sum of each session's concepts). Single <code>module</code> label, no Set 1 / Set 2.</p></div>
+    <div class="card"><h4><span class="ic r">3</span> Three human gates</h4>
+      <p><b>Generation</b> → <b>rubric</b> → <b>variants</b> — the full classroom review, rendered as one
+      flat "module" column. Each approved base grows the <b>same 9 text + 8 code typed variants</b>.</p></div>
+    <div class="card"><h4><span class="ic g">4</span> Same engine, label-neutral</h4>
+      <p>Reuses the rubric, variants, and export phases verbatim — the five per-set loops are now
+      <code>present_labels</code>-driven, so one <code>module</code> label flows through unchanged. Every
+      reject / improve still teaches the <span class="pill mem">self-evolving memory</span>.</p></div>
+  </div>
+
+  <div class="callout">📦 <b>Output.</b> Approved bases + variants are written to
+    <code>generated_quizzes/&lt;course&gt;/&lt;module_slug&gt;/module_quiz/</code> as
+    <code>module_quiz.md</code> + <code>module_quiz.json</code> + <code>reading_material.md</code>, and packaged
+    as <code>{module_slug}_module_quiz.zip</code> — one merged assessment, ready for the portal.</div>
+  <div class="callout">♻ <b>Built by reuse, not duplication.</b> Module Quiz adds only a merge-aware
+    <code>assemble</code>, a <code>generate_module</code> node, and two prompts
+    (<code>18_module_plan</code>, <code>19_module_generate</code>). The rubric scoring, the typed-variants
+    phase, both later gates' learning loop, and the export writer are all shared — finishing the
+    label-neutrality the practice workflow began.</div>
+</div></section>
+
+<!-- ================= 6 · MEMORY ================= -->
+<section class="block" id="memory"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">6</span> Self-evolving memory</span>
+    <h2 class="sec">It learns from every correction</h2>
+    <p class="sec-lead">Three small stores in Postgres. The one that makes it <i>agentic</i> is <b>feedback</b>:
+      a human <b>reject</b> or <b>improve</b> becomes a generic rule, the rule is retrieved by <i>relevance to the
+      problem at hand</i>, and a recurring rule sharpens the rubric itself. Nothing is ever deleted — rules
+      <b>evolve</b>. <span style="color:var(--mut)">Full deep-dive: <code>.claude/plan/memory-and-feedback-explained.md</code>.</span></p>
+  </div>
+  <div class="g3">
+    <div class="card"><h4><span class="ic g">1</span> Sessions</h4>
+      <p>The ingested reading material (chunks + full source) the quiz is grounded in.</p></div>
+    <div class="card"><h4><span class="ic g">2</span> Rubric (global)</h4>
+      <p>The rubric checkpoints — <i>this is what the critic loads each run</i> (<code>load_rubric</code>), editable,
+      and auto-refined by the learning loop below.</p></div>
+    <div class="card"><h4><span class="ic g">3</span> Feedback (by category)</h4>
+      <p>Generic authoring rules distilled from rejections &amp; improvements — <b>embedded</b> for meaning-based
+      retrieval and shown read-only at <code>/learned</code> (<code>GET /api/feedback-rules</code>).</p></div>
+  </div>
+
+  <h3 class="subh">How a rule is stored — evolve in place, never delete</h3>
+  <pre class="codebox">a new rule arrives (distilled from a reject / improve)
+  <span class="h">→</span> same lesson already stored?  <span class="m">(cosine ≥ 0.85, same category — a paraphrase)</span>
+      <span class="g">YES</span> <span class="h">→</span> bump its <span class="g">hit_count</span> + keep the new wording in <span class="g">aliases</span>   <span class="m">(the lesson gets STRONGER — no new row)</span>
+      <span class="g">NO</span>  <span class="h">→</span> store a new embedded rule
+  <span class="m">Nothing is ever deleted. `memory_admin fold` merges old duplicates by flagging them superseded (still stored).</span></pre>
+
+  <h3 class="subh">How a rule is retrieved — by the PROBLEM, not the topic</h3>
+  <pre class="codebox"><span class="m"># feedback_retrieval_mode = frequency | semantic | hybrid   (default: frequency)</span>
+generate · critic · variant-generate            <span class="h">→</span> top rules by <span class="g">hit_count</span>   <span class="m">(no failure to target — inject general guidance)</span>
+refine · optimize · variant-optimize · improve  <span class="h">→</span> rules most <span class="g">relevant to the failure</span>   <span class="m">(hybrid = relevance + hit_count)</span>
+
+<span class="m">e.g. problem "distractors are unrelated" → hybrid surfaces the distractor rules even at hit_count=1,</span>
+<span class="m">which a frequency-only top-8 would bury under unrelated high-count rules.</span></pre>
+
+  <h3 class="subh">Where learned rules are injected (and on what basis)</h3>
+  <p class="sec-lead">Every author step pulls rules into its prompt's <code>{{feedback_rules}}</code> slot — not just
+    Generate. Both helpers (<code>rules_block()</code>, <code>_fb_block()</code>) call one brain,
+    <code>relevant_feedback_rules()</code>: a <b>blank query</b> (or <code>frequency</code> mode) → top-k by
+    <code>hit_count</code>; a <b>query</b> in <code>semantic</code>/<code>hybrid</code> mode → vector search on that problem.</p>
+  <table class="rt">
+    <thead><tr><th>Step (prompt)</th><th>Call</th><th>Query passed</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr><td>Generate (03)</td><td><code>rules_block()</code></td><td>— none</td><td><b>frequency</b></td></tr>
+      <tr><td>Refine (05)</td><td><code>rules_block(query=…)</code></td><td>concept-check failure reasons</td><td><b>relevance</b></td></tr>
+      <tr><td>Rubric critic (07)</td><td><code>_fb_block()</code></td><td>— none (judges all dimensions)</td><td><b>frequency</b></td></tr>
+      <tr><td>Rubric optimize (08)</td><td><code>_fb_block(query=…)</code></td><td>failing-checkpoint reasons</td><td><b>relevance</b></td></tr>
+      <tr><td>Variant generate (11)</td><td><code>_fb_block()</code></td><td>— none</td><td><b>frequency</b></td></tr>
+      <tr><td>Variant optimize (12)</td><td><code>_fb_block(query=…)</code></td><td>failing-checkpoint reasons</td><td><b>relevance</b></td></tr>
+      <tr><td>Improve (14)</td><td><code>_fb_block(query=…)</code></td><td>reviewer note + question snippet</td><td><b>relevance</b></td></tr>
+    </tbody>
+  </table>
+  <div class="callout">Only the <b>rule text</b> is injected (never <code>hit_count</code>/<code>category</code>/questions).
+    <b>Default mode is <code>frequency</code></b>, so out of the box every step is <code>hit_count</code>-ranked and the
+    <code>query=</code> is ignored — turning on relevance is just <code>memory_admin backfill</code> +
+    <code>FEEDBACK_RETRIEVAL_MODE=hybrid</code>.</div>
+
+  <h3 class="subh">The learning loop — reads before scoring, writes after the loop ends</h3>
+  <pre class="codebox">human <span class="r">rejects</span> or <span class="r">improves</span> a question + gives feedback   <span class="m">(required at all 3 gates)</span>
+  <span class="h">→</span> distill ONE generic, category-tagged rule   <span class="m">(no session facts — reusable everywhere)</span>
+  <span class="h">→</span> store in <span class="g">feedback</span>   <span class="m">(evolve-in-place: bump + alias, never deleted)</span>
+  <span class="h">→</span> next run <span class="g">reads</span> the relevant rules into the generate / critic / optimize prompts <span class="m">(guidance only)</span>
+  <span class="h">→</span> when a rule recurs (hit-count ≥ threshold) <span class="h">→</span> it <span class="g">sharpens that checkpoint's "met_when"</span>   <span class="m">(tagged "learned from reviews" on the Rubric view)</span>
+
+<span class="m">Timing: guidance is READ each run BEFORE scoring; corrections are WRITTEN after the loop ends (finalize).</span>
+<span class="m">The verdict itself stays with the critic + Python — memory shapes what the agent applies tomorrow, not today's math.</span></pre>
+</div></section>
+
+<!-- ================= 6 · COST ================= -->
+<section class="block" id="cost"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">7</span> Cost, speed &amp; observability</span>
+    <h2 class="sec">Fast, measured in rupees, fully traceable</h2>
+  </div>
+  <div class="g3">
+    <div class="card"><h4><span class="ic b">⚡</span> Faster by design</h4>
+      <p>Independent model calls run on a bounded thread pool; round-2 re-scores only what changed; telemetry
+      writes are batched off the critical path. Typically <span class="k">~65% less model wall-time</span>
+      (≈12 min → ≈4 min).</p></div>
+    <div class="card"><h4><span class="ic g">💰</span> Real cost in ₹ &amp; $</h4>
+      <p>The run snapshots OpenRouter usage before/after, so you see the <span class="k">exact rupee cost</span>
+      of that session (e.g. "₹25.18 ≈ $0.302"), plus a live account-balance badge. Rate is configurable
+      (<code>USD_TO_INR</code>).</p></div>
+    <div class="card"><h4><span class="ic p">🔭</span> Per-session traces</h4>
+      <p>With <code>LANGSMITH_TRACING=true</code> + a key in <code>.env</code>, every run is a full
+      <span class="k">LangSmith</span> trace tree — per-call latency, tokens and cost — the drill-down view
+      for any individual session.</p></div>
+  </div>
+  <div class="callout">📁 <b>Two manager views, by intent.</b> This document is the <b>whole-system</b>
+    architecture (the demo). For <b>one specific session</b>, open its run in LangSmith to see every prompt,
+    gate decision, token and rupee — no per-session HTML to dig through.</div>
+</div></section>
+
+<!-- ================= 7 · PROMPTS ================= -->
+<section class="block" id="prompts"><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-tag"><span class="num">8</span> The interactive blueprint</span>
+    <h2 class="sec">The 19 prompts — click any one to see its inputs &amp; outputs</h2>
+    <p class="sec-lead">Each stage is one focused prompt. <b>Click a card to expand it</b> and see exactly what it
+      reads in, what structured shape it returns, the model it runs on, and its intent. Generation/refine prompts
+      are fed the learned feedback rules; the critic returns only failed checkpoints; the optimizer re-emits exact
+      portal blocks.</p>
+  </div>
+  <div id="promptZone"><!-- built by JS --></div>
+</div></section>
+
+</div><!-- /shell -->
+
+<div class="footer"><div class="wrap">
+  <b>Agentic MCQs Auto-Generation Workflow</b> · Classroom Quiz (split → generate → rubric → variants → export) ·
+  MCQ Practice (whole-session pool → generate → rubric → export) · Module Quiz (merge sessions → consolidate →
+  generate → rubric → variants → export) · one self-evolving rubric · grounded only in the session's own material.
+</div></div>
+
+<script>
+/* ============================================================
+   Single source of truth: the 17 prompts (from backend/agent/prompts/*.md
+   + nodes.py / rubric.py / variants.py). Flow nodes and the §7 grid both
+   render + toggle from this.
+   ============================================================ */
+const CRITIC = {model:"Claude Haiku 4.5 · via OpenRouter", temp:"critic · temp 0.0"};
+const BASE   = {model:"Claude Haiku 4.5 · via OpenRouter", temp:"author · temp 0.4"};
+
+const PROMPTS = [
+  { id:"p01", num:"01", name:"split_session", phase:"gen", stage:"Split",
+    mc:CRITIC,
+    intent:"You are organizing a reading session into two parts (Set A and Set B) for two short quizzes.",
+    inputs:[
+      ["session_title","The session being quizzed."],
+      ["sections","The ordered reading sections (index · heading · snippet)."],
+      ["course_outcomes","Course-level outcomes to distribute across the two sets."]],
+    outputs:[
+      ["seam_index : int","First section index that belongs to Set B."],
+      ["set_a {topics[], outcomes[]}","Topics & outcomes assigned to Set 1."],
+      ["set_b {topics[], outcomes[]}","Topics & outcomes assigned to Set 2."]],
+    schema:"_SplitResult", route:"Defines the Set 1 / Set 2 boundary. Full text — never sampled." },
+
+  { id:"p02", num:"02", name:"plan_outcomes", phase:"gen", stage:"Plan",
+    mc:CRITIC,
+    intent:"You are planning a short quiz for one half of a session — identify the key learning outcomes a learner should demonstrate.",
+    inputs:[
+      ["set_label","\"set_a\" or \"set_b\"."],
+      ["set_content","Full text of this set (ground truth)."],
+      ["set_topics","Topics carried over from the split."],
+      ["set_outcomes","Outcomes carried over from the split."]],
+    outputs:[
+      ["outcomes : List[str]","One target learning outcome per planned question."]],
+    schema:"_PlanResult", route:"Outcome count = the number of questions generated next." },
+
+  { id:"p03", num:"03", name:"generate_mcq", phase:"gen", stage:"Generate",
+    mc:BASE,
+    intent:"Act as a Technical Instructional Designer. Generate exactly {question_count} multiple-choice questions — one per learning outcome, in order.",
+    inputs:[
+      ["reading_material","Full text of the set."],
+      ["learning_outcomes","The numbered outcomes from the plan step."],
+      ["question_count","How many questions to write (= #outcomes)."],
+      ["feedback_rules","Learned authoring rules from past rejections."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","TOPIC · SUB_TOPIC · CONCEPT · QUESTION_KEY · QUESTION_TEXT · OPTION_1..4 · CORRECT_OPTION · EXPLANATION · BLOOM_LEVEL."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Streamed live — each block is emitted to the UI as it arrives." },
+
+  { id:"p04", num:"04", name:"concept_check", phase:"gen", stage:"Concept-check",
+    mc:CRITIC,
+    intent:"You are validating generated MCQs before any rubric scoring. For each question decide MET or NOT MET — it is MET only if it passes both tests.",
+    inputs:[
+      ["planned_outcomes","The outcomes each question must cover."],
+      ["set_content","Full text (ground truth)."],
+      ["questions","The freshly generated questions."]],
+    outputs:[
+      ["checks : [{qid, met:bool, reason}]","Per-question verdict + why."],
+      ["confidence : float","Reviewer's confidence in the MET verdicts."]],
+    schema:"_CheckResult", route:"NOT MET → refine (05). Loops back here, capped at MAX_REFINE = 3." },
+
+  { id:"p05", num:"05", name:"refine", phase:"gen", stage:"Refine",
+    mc:BASE,
+    intent:"The questions below FAILED concept-coverage review. Rewrite each to fix the cited problem while keeping it grounded in the set content. Preserve each QUESTION_KEY exactly.",
+    inputs:[
+      ["feedback_rules","Learned authoring rules."],
+      ["set_content","Full text (ground truth)."],
+      ["not_met_questions","The failed questions + their reasons."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","Rewritten questions, QUESTION_KEY preserved."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Re-enters concept-check (04) until all MET or the loop cap is hit." },
+
+  { id:"p06", num:"06", name:"feedback_distill", phase:"gen", stage:"Gate 1 · learning",
+    mc:CRITIC,
+    intent:"Turn the recurring reasons questions failed (and reasons a human edited or deleted them) into a few generic, reusable authoring rules.",
+    inputs:[
+      ["not_met_reasons","Concept-check failure reasons this run."],
+      ["human_reasons","Why the reviewer edited/deleted at Gate 1."]],
+    outputs:[
+      ["List[str] rules (≤5)","Generic, session-agnostic authoring rules."]],
+    schema:"stored to the feedback memory", route:"Runs once after Gate 1 (collect_accepted) — feeds future generation." },
+
+  { id:"p07", num:"07", name:"rubric_critic", phase:"rub", stage:"Rubric score",
+    mc:CRITIC,
+    intent:"You are a strict MCQ quality critic. Given the source material, the rubric checkpoints, and a batch of questions, return only the checkpoints each question FAILS.",
+    inputs:[
+      ["set_content","Full reading material (ground truth)."],
+      ["checkpoints","The applicable per-question checkpoints — 25 base (+ the code-scoped 6.x for code questions)."],
+      ["feedback_rules","Top learned authoring rules."],
+      ["questions","A batch (≤5) of questions to score."]],
+    outputs:[
+      ["scores : [{qid, problems:[{checkpoint, reason}]}]","Failed checkpoints only — anything unlisted is treated as met."]],
+    schema:"_CriticBatch", route:"Deterministic score_question() turns verdicts → points · band · pass. Batches of ≤5." },
+
+  { id:"p08", num:"08", name:"rubric_optimize", phase:"rub", stage:"Optimize",
+    mc:BASE,
+    intent:"You are an expert MCQ author. Each question below failed specific rubric checkpoints. Rewrite each so it passes those checkpoints while staying grounded in the material.",
+    inputs:[
+      ["set_content","Full reading material."],
+      ["feedback_rules","Learned authoring rules."],
+      ["failing_questions","Questions + the checkpoints they failed + reasons."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","Rewritten questions, QUESTION_KEY preserved."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Re-scored by 07. Loops until all pass or MAX_RUBRIC = 2." },
+
+  { id:"p09", num:"09", name:"gate_briefing", phase:"rub", stage:"Gate 2 · briefing",
+    mc:CRITIC,
+    intent:"You are preparing a reviewer briefing. For each question that didn't fully pass, write a short, jargon-free note the reviewer can read at a glance.",
+    inputs:[
+      ["source_excerpt","First ~3000 chars of the reading material."],
+      ["flagged","Non-green questions + their failed checkpoints + reasons."]],
+    outputs:[
+      ["cards : [{qid, summary, suggested_fix}]","Plain-language \"what's wrong\" + one concrete fix."]],
+    schema:"_BriefingBatch", route:"Builds the cards the reviewer sees at the Rubric gate." },
+
+  { id:"p10", num:"10", name:"rubric_feedback_distill", phase:"rub", stage:"Gate 2/3 · learning",
+    mc:CRITIC,
+    intent:"A reviewer rejected a question for a quality problem in a rubric category. Turn their feedback into one generic, reusable authoring rule.",
+    inputs:[
+      ["category","The rubric category of the problem (e.g. \"Options Quality\")."],
+      ["rejection","The human rejection note + the question snippet."],
+      ["existing_rules","Rules already stored for this category."]],
+    outputs:[
+      ["rule : str","One generic authoring rule (empty if duplicate)."],
+      ["checkpoint_ref : str","Which checkpoint it sharpens (e.g. \"2.5\")."],
+      ["promote : bool","Whether to promote that checkpoint on recurrence."]],
+    schema:"_DistillRule", route:"Fires per rejection at Gate 2 & 3 → put_feedback_rule → promote_checkpoint_from_feedback." },
+
+  { id:"p11", num:"11", name:"variant_generate", phase:"var", stage:"Variants generate",
+    mc:BASE,
+    intent:"You are an expert assessment author. Given one approved base question and its material, produce a set of variants that test the same learning outcome from different angles.",
+    inputs:[
+      ["reading_material","Full text of the set."],
+      ["base_question","The approved base question."],
+      ["variant_types","The 8 type definitions + hints."],
+      ["feedback_rules","Learned authoring rules."]],
+    outputs:[
+      ["8 × Question (-END- blocks)","Each with VARIANT_TYPE, BASE_QUESTION_KEYS = base key, QUESTION_KEY = base_<suffix>; same topic/concept/outcome/Bloom."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Run in parallel across all approved bases (bounded thread pool, pmap)." },
+
+  { id:"p12", num:"12", name:"variant_optimize", phase:"var", stage:"Optimize",
+    mc:BASE,
+    intent:"Each variant below failed specific rubric checkpoints. Rewrite each so it passes — keeping the same learning outcome and keeping its variant type unchanged.",
+    inputs:[
+      ["reading_material","Full text."],
+      ["feedback_rules","Learned authoring rules."],
+      ["failing_variants","Variants + failed checkpoints + reasons."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","Rewritten variants — QUESTION_KEY, variant_type & BASE_QUESTION_KEYS unchanged."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Re-scored by variants_score. Loops until pass or MAX_VARIANT = 2." },
+
+  { id:"p13", num:"13", name:"variant_briefing", phase:"var", stage:"Gate 3 · briefing",
+    mc:CRITIC,
+    intent:"You are briefing a reviewer at a quality gate. Each item is a question variant that didn't fully pass — write a short, jargon-free note the reviewer can act on.",
+    inputs:[
+      ["flagged","Non-green variants + their variant type + failed checkpoints + reasons."]],
+    outputs:[
+      ["cards : [{qid, summary, suggested_fix}]","Plain-language note tailored to the variant type."]],
+    schema:"_BriefingBatch (reused)", route:"Builds the cards the reviewer sees at the Variants gate." },
+
+  { id:"p14", num:"14", name:"improve_question", phase:"imp", stage:"Any gate · Improve",
+    mc:BASE,
+    intent:"A human reviewer wants this question improved. Rewrite it so it directly satisfies their feedback, staying grounded in the set content and testing the same outcome — preserve its QUESTION_KEY (and a variant's type).",
+    inputs:[
+      ["question","The one question the reviewer chose to improve."],
+      ["feedback","The reviewer's free-text feedback — what to change."],
+      ["set_content","Full text of the question's set (ground truth)."],
+      ["feedback_rules","Learned authoring rules."]],
+    outputs:[
+      ["One Question (-END- block)","The rewritten question; QUESTION_KEY / variant_type / base preserved, re-validated."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Preview via POST /improve. On confirm the feedback is distilled into memory (self-evolving) and the rewrite flows downstream — at all three gates." },
+
+  { id:"p15", num:"15", name:"code_variant_generate", phase:"var", stage:"Variants generate · code",
+    mc:BASE,
+    intent:"You are an expert programming-assessment author. Given one code-related base question and its material, produce code-analysis & fill-in-the-blank variants that test the same outcome — all snippets in the session's detected language, never revealing the answer in the code.",
+    inputs:[
+      ["reading_material","Full text of the set."],
+      ["base_question","The code-related approved base."],
+      ["variant_types","The 8 code type definitions + hints."],
+      ["feedback_rules","Learned authoring rules."],
+      ["language","The session's detected programming language."]],
+    outputs:[
+      ["Code variants (-END- blocks)","CODE_ANALYSIS_MULTIPLE_CHOICE / CODE_ANALYSIS_TEXTUAL / FIB_CODING with CODE, CODE_LANGUAGE, and INPUT/OUTPUT (or <InlineBlank>) as the type requires."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Chosen per base by _classify_code_bases in a coding session; conceptual bases use prompt 11 instead." },
+
+  { id:"p16", num:"16", name:"mcq_practice_plan", phase:"prac", stage:"MCQ Practice · Plan",
+    mc:CRITIC,
+    intent:"You are planning a standalone MCQ practice quiz for an entire session (no Set 1/Set 2). Identify the key learning outcomes — a count that is always a multiple of 5.",
+    inputs:[
+      ["content","The full session text (ground truth) — not a half."],
+      ["suggested_topics","Section headings from the whole session."],
+      ["suggested_outcomes","Course-level outcomes for the session."]],
+    outputs:[
+      ["outcomes : List[str]","One outcome per question; the list length is a multiple of 5."]],
+    schema:"_PlanResult", route:"A deterministic guard rounds the count to the nearest multiple of 5 (min 5)." },
+
+  { id:"p17", num:"17", name:"mcq_practice_generate", phase:"prac", stage:"MCQ Practice · Generate",
+    mc:BASE,
+    intent:"Build a standalone practice quiz: exactly {question_count} questions, one per outcome, SPREAD across all content types (no variants are added later, so the types are authored here directly).",
+    inputs:[
+      ["reading_material","The full session text."],
+      ["learning_outcomes","The numbered outcomes from the practice plan."],
+      ["question_count","The multiple-of-5 target."],
+      ["text_types","The 9 text content types (catalog reused from variants.py)."],
+      ["code_types_block","The 8 code types — only for coding sessions, else empty."],
+      ["feedback_rules","Learned authoring rules from past rejections."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","Each tagged with its content type via a QUESTION_KEY suffix; validated by structural_ok + validate_variant_type."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Single pool (label \"pool\"); flows into the shared rubric — no Set 1/Set 2, no variants." },
+
+  { id:"p18", num:"18", name:"module_plan", phase:"mod", stage:"Module Quiz · Select concepts per session",
+    mc:CRITIC,
+    intent:"Called ONCE PER SELECTED SESSION. Pick that session's most important, ASSESSMENT-worthy concepts (at least 6, no upper cap) — favour apply/analyse/evaluate concepts, drop trivial recall/definition ones. One base question is authored per concept.",
+    inputs:[
+      ["session_title","The title of THIS one session being planned."],
+      ["min_count","The per-session floor (6) — pick at least this many concepts, more if the session is deep."],
+      ["session_outcomes","This session's suggested outcomes (hints — keep the important, assessable ones)."],
+      ["content","THIS session's text (the ground truth for selection)."]],
+    outputs:[
+      ["outcomes : List[str]","This session's selected concept list (≥6, no cap; one base question each)."]],
+    schema:"_PlanResult", route:"Per-session calls run in parallel; results concatenate (exact-dupes dropped) into the \"module\" outcome set → shared generation gate → rubric → variants tail." },
+
+  { id:"p19", num:"19", name:"module_generate", phase:"mod", stage:"Module Quiz · Generate (assessment-level)",
+    mc:BASE,
+    intent:"Build a module ASSESSMENT: exactly {question_count} base MCQs, one per selected concept. EVERY question is assessment-level (BLOOM_LEVEL APPLY / ANALYZE / EVALUATE) with a scenario stem — never rote recall or bare definition. Keep these standard MCQs — typed code/text variants are added later by the shared variants phase.",
+    inputs:[
+      ["reading_material","The full merged module text."],
+      ["learning_outcomes","The numbered concepts selected per session by prompt 18."],
+      ["question_count","The total number of selected concepts (uncapped = sum across sessions)."],
+      ["feedback_rules","Learned authoring rules from past rejections."]],
+    outputs:[
+      ["List<Question> (-END- blocks)","One base per concept, each with BLOOM_LEVEL APPLY/ANALYZE/EVALUATE (no REMEMBER/UNDERSTAND)."]],
+    schema:"-END- delimited Markdown → mcq_parser", route:"Label \"module\"; concept-check ↔ refine, then the classroom rubric + variants pipeline (reused)." },
+];
+
+const P = Object.fromEntries(PROMPTS.map(p=>[p.id,p]));
+
+/* ---------- flow diagram — SVG replica of the LangGraph (light theme) ----------
+   Faithful to the original graph: down-spine pipeline, decision diamonds with
+   yes/no branches, dashed self-correction loop-backs, a Self-evolving memory
+   node fed by all three gates, and memory → Generate ("injects learned rules").
+   Every blue stage/diamond stays clickable → opens its prompt blueprint.       */
+const VB_W = 1040, VB_H = 1760;
+const N = {
+  S:  {cx:430, cy:46,   w:250, h:50,  kind:"start",  icon:"▶",  title:"Start", desc:"course · session"},
+  ASM:{cx:430, cy:140,  w:330, h:62,  kind:"mem",    icon:"📥", title:"Assemble", desc:"load Markdown · sections · detect coding + language"},
+  SPL:{cx:430, cy:236,  w:330, h:62,  kind:"ai", pid:"p01", icon:"✂️", title:"Split", desc:"partition into Set 1 / Set 2 · full text"},
+  PL: {cx:430, cy:332,  w:330, h:62,  kind:"ai", pid:"p02", icon:"🗂️", title:"Plan", desc:"key learning outcomes per set"},
+  GEN:{cx:430, cy:428,  w:330, h:62,  kind:"ai", pid:"p03", icon:"✍️", title:"Generate", desc:"one MCQ per outcome · uses learned rules"},
+  CC: {cx:430, cy:560,  w:184, h:108, kind:"dec", pid:"p04", title:"Covers its outcome?", hint:"04"},
+  RF: {cx:150, cy:560,  w:210, h:60,  kind:"loop", pid:"p05", icon:"↻", title:"Refine", desc:"rewrite the misses · uses learned rules"},
+  G1: {cx:430, cy:692,  w:350, h:66,  kind:"gate", icon:"👤", title:"Gate 1 · Generation", desc:"accept · improve · delete"},
+  EV: {cx:430, cy:812,  w:330, h:62,  kind:"ai", pid:"p07", icon:"📊", title:"Rubric score", desc:"25 checkpoints · failures only"},
+  R1: {cx:430, cy:936,  w:150, h:98,  kind:"dec", title:"Pass?"},
+  OPT:{cx:150, cy:874,  w:210, h:60,  kind:"loop", pid:"p08", icon:"↻", title:"Optimize", desc:"fix the failures · uses learned rules"},
+  G2: {cx:430, cy:1064, w:350, h:66,  kind:"gate", icon:"👤", title:"Gate 2 · Rubric", desc:"approve · improve · reject"},
+  VG: {cx:430, cy:1184, w:330, h:62,  kind:"ai", pid:"p11", icon:"🧬", title:"Variants generate", desc:"typed variants / question (text or code)"},
+  VS: {cx:430, cy:1280, w:330, h:62,  kind:"stage", icon:"🧪", title:"Score variants", desc:"per-question + per-set + type validator"},
+  R2: {cx:430, cy:1404, w:196, h:98,  kind:"dec", title:"Pass?"},
+  VO: {cx:150, cy:1342, w:210, h:60,  kind:"loop", pid:"p12", icon:"↻", title:"Optimize", desc:"fix variants · uses learned rules"},
+  G3: {cx:430, cy:1532, w:350, h:66,  kind:"gate", icon:"👤", title:"Gate 3 · Variants", desc:"approve · improve · reject"},
+  EX: {cx:430, cy:1648, w:350, h:66,  kind:"export", icon:"📦", title:"Export", desc:"set_01/ + set_02/ · md · json · portal zip"},
+  D:  {cx:430, cy:1738, w:300, h:50,  kind:"start", icon:"✅", title:"Quiz ready for the portal"},
+  MEM:{cx:880, cy:1090, w:184, h:128, kind:"memcyl", icon:"🧠", title:"Self-evolving memory", desc:"rubric · learned rules"},
+};
+/* [from, to, type, label]  type: flow | yes | branch | loop | mem | inject */
+const EDGES = [
+  ["S","ASM","flow"], ["ASM","SPL","flow"], ["SPL","PL","flow"], ["PL","GEN","flow"], ["GEN","CC","flow"],
+  ["CC","G1","yes","yes"], ["CC","RF","branch","no"], ["RF","CC","loop","loop ≤2"],
+  ["G1","EV","flow"], ["EV","R1","flow"],
+  ["R1","G2","yes","yes"], ["R1","OPT","branch","no"], ["OPT","EV","loop","loop ≤2"],
+  ["G2","VG","flow"], ["VG","VS","flow"], ["VS","R2","flow"],
+  ["R2","G3","yes","yes"], ["R2","VO","branch","red / wrong-format"], ["VO","VS","loop","loop ≤2"],
+  ["G3","EX","flow"], ["EX","D","flow"],
+  ["G1","MEM","mem","reject / improve"], ["G2","MEM","mem","reject / improve"], ["G3","MEM","mem","reject / improve"],
+  // memory injects learned rules into EVERY step that reads them (dashed green, drawn on top).
+  // GEN/EV/VG = frequency (no query) · RF/OPT/VO = relevance (the failure is the query). Improve
+  // also reads them, but it runs inside the gates (no dedicated node).
+  ["MEM","GEN","inject","injects learned rules"],
+  ["MEM","RF","inject",""], ["MEM","EV","inject",""], ["MEM","OPT","inject",""],
+  ["MEM","VG","inject",""], ["MEM","VS","inject",""], ["MEM","VO","inject",""],
+];
+
+function port(n, side){
+  const hw=n.w/2, hh=n.h/2;
+  if(side==="top")    return [n.cx, n.cy-hh];
+  if(side==="bottom") return [n.cx, n.cy+hh];
+  if(side==="left")   return [n.cx-hw, n.cy];
+  return [n.cx+hw, n.cy]; // right
+}
+function lbl(x,y,text,cls){ return `<text class="elabel ${cls||"blue"}" x="${x}" y="${y}" text-anchor="middle">${text}</text>`; }
+
+function edgeSVG(e, nodes){
+  nodes = nodes || N;
+  const [a,b,type,label]=e, A=nodes[a], B=nodes[b];
+  let d, marker, parts="";
+  if(type==="flow" || type==="yes"){
+    const s=port(A,"bottom"), t=port(B,"top");
+    d=`M${s[0]},${s[1]} L${t[0]},${t[1]}`; marker="arrB";
+    if(label) parts+=lbl((s[0]+t[0])/2+18, (s[1]+t[1])/2+4, label, "blue");
+    return `<path d="${d}" class="e-flow" marker-end="url(#${marker})"/>${parts}`;
+  }
+  if(type==="branch"){
+    const s=port(A,"left"), t=port(B,"right");
+    d=`M${s[0]},${s[1]} L${t[0]},${t[1]}`; marker="arrB";
+    parts+=lbl((s[0]+t[0])/2, Math.min(s[1],t[1])-9, label, "blue");
+    return `<path d="${d}" class="e-flow" marker-end="url(#${marker})"/>${parts}`;
+  }
+  if(type==="loop"){ // loop node TOP curves up-left into target LEFT (nudged up so it clears the 'no' branch)
+    const s=port(A,"top"); let t=port(B,"left"); t=[t[0], t[1]-18];
+    d=`M${s[0]},${s[1]} C ${s[0]-60},${s[1]-58} ${t[0]-90},${t[1]} ${t[0]},${t[1]}`;
+    parts+=lbl((s[0]+t[0])/2-34, Math.min(s[1],t[1])-12, label, "amber");
+    return `<path d="${d}" class="e-loop" marker-end="url(#arrA)"/>${parts}`;
+  }
+  if(type==="mem"){ // gate RIGHT → memory LEFT (stagger the three entry points)
+    const s=port(A,"right");
+    const off = a==="G1" ? -36 : (a==="G3" ? 36 : 0);
+    const t=[B.cx-B.w/2, B.cy+off];
+    d=`M${s[0]},${s[1]} C ${s[0]+120},${s[1]} ${t[0]-90},${t[1]} ${t[0]},${t[1]}`;
+    if(label) parts+=lbl((s[0]+t[0])/2+6, (s[1]+t[1])/2 - (a==="G2"?10:6), label, "green");
+    return `<path d="${d}" class="e-mem" marker-end="url(#arrG)"/>${parts}`;
+  }
+  // inject (drawn ON TOP of the nodes so it never hides behind a box): the self-evolving memory
+  // feeds learned rules into EVERY author/critic step — generate, refine, critic, optimize, variants.
+  const s=port(A,"left"), t=port(B,"right");
+  const dx=s[0]-t[0];
+  d=`M${s[0]},${s[1]} C ${s[0]-dx*0.45},${s[1]} ${t[0]+dx*0.45},${t[1]} ${t[0]},${t[1]}`;
+  if(label) parts+=lbl(A.cx, A.cy-A.h/2-10, label, "green");
+  return `<path d="${d}" class="e-inject" marker-end="url(#arrG)"/>${parts}`;
+}
+
+function decSVG(n){
+  const y=n.cy-n.h/2, hw=n.w/2, hh=n.h/2;
+  const pts=`${n.cx},${y} ${n.cx+hw},${n.cy} ${n.cx},${y+n.h} ${n.cx-hw},${n.cy}`;
+  const clk = n.pid ? ` clk" onclick="openPrompt('${n.pid}')"` : '"';
+  const hint = n.pid ? `<div class="dh">prompt ${P[n.pid].num} ▸</div>` : "";
+  const fx=n.cx-n.w*0.36, fy=n.cy-n.h*0.32, fw=n.w*0.72, fh=n.h*0.64;
+  return `<polygon points="${pts}" fill="#ffffff" stroke="var(--brand)" stroke-width="1.7"/>`+
+    `<foreignObject x="${fx}" y="${fy}" width="${fw}" height="${fh}">`+
+    `<div xmlns="http://www.w3.org/1999/xhtml" class="gdec${clk}><div class="dq">${n.title}</div>${hint}</div>`+
+    `</foreignObject>`;
+}
+function memSVG(n){
+  const hw=n.w/2, top=n.cy-n.h/2, x0=n.cx-hw, ry=14;
+  const body=`M${x0},${top+ry} A ${hw} ${ry} 0 0 0 ${n.cx+hw} ${top+ry} `+
+             `L ${n.cx+hw} ${top+n.h-ry} A ${hw} ${ry} 0 0 1 ${x0} ${top+n.h-ry} Z`;
+  const lip=`M${x0},${top+ry} A ${hw} ${ry} 0 0 1 ${n.cx+hw} ${top+ry}`;
+  const fx=x0+8, fy=top+ry+6, fw=n.w-16, fh=n.h-ry-14;
+  return `<path d="${body}" fill="#eef9f3" stroke="var(--green)" stroke-width="1.7"/>`+
+    `<path d="${lip}" fill="#dff3ea" stroke="var(--green)" stroke-width="1.7"/>`+
+    `<foreignObject x="${fx}" y="${fy}" width="${fw}" height="${fh}">`+
+    `<div xmlns="http://www.w3.org/1999/xhtml" class="gnode mem clk" style="box-shadow:none;border:none;background:transparent;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:0" onclick="goTo('#memory')">`+
+    `<span class="gic">${n.icon}</span><div class="gtxt"><div class="gt" style="justify-content:center">${n.title}</div><div class="gd">${n.desc}</div></div></div>`+
+    `</foreignObject>`;
+}
+function boxSVG(n){
+  if(n.kind==="dec") return decSVG(n);
+  if(n.kind==="memcyl") return memSVG(n);
+  const x=n.cx-n.w/2, y=n.cy-n.h/2;
+  const clk = n.pid ? " clk" : "";
+  const onclick = n.pid ? ` onclick="openPrompt('${n.pid}')"` : "";
+  const ic = n.icon ? `<span class="gic">${n.icon}</span>` : "";
+  const hint = n.pid ? `<span class="hn">${P[n.pid].num}</span>` : "";
+  const desc = n.desc ? `<div class="gd">${n.desc}</div>` : "";
+  return `<foreignObject x="${x}" y="${y}" width="${n.w}" height="${n.h}">`+
+    `<div xmlns="http://www.w3.org/1999/xhtml" class="gnode ${n.kind}${clk}"${onclick}>`+
+    `${ic}<div class="gtxt"><div class="gt">${n.title}${hint}</div>${desc}</div></div></foreignObject>`;
+}
+
+function buildFlow(){
+  const defs = `<defs>
+    <marker id="arrB" markerWidth="11" markerHeight="11" refX="8" refY="4.2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.2 L0,8.4 Z" fill="var(--brand)"/></marker>
+    <marker id="arrA" markerWidth="11" markerHeight="11" refX="8" refY="4.2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.2 L0,8.4 Z" fill="var(--amber)"/></marker>
+    <marker id="arrG" markerWidth="11" markerHeight="11" refX="8" refY="4.2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.2 L0,8.4 Z" fill="var(--green)"/></marker>
+  </defs>`;
+  // Inject edges are drawn AFTER the nodes so the green "learning overlay" sits on top, never hidden.
+  const baseEdges = EDGES.filter(e=>e[2]!=="inject").map(e=>edgeSVG(e, N)).join("");
+  const injectEdges = EDGES.filter(e=>e[2]==="inject").map(e=>edgeSVG(e, N)).join("");
+  const nodes = Object.keys(N).map(k=>boxSVG(N[k])).join("");
+  const svg = `<div class="flowwrap"><svg class="flowsvg" viewBox="0 0 ${VB_W} ${VB_H}" role="img" aria-label="Classroom Quiz end-to-end agent flow">`+
+    `<style>
+      .e-flow{fill:none;stroke:var(--brand);stroke-width:2.2}
+      .e-loop{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:6 5}
+      .e-mem{fill:none;stroke:var(--green);stroke-width:2;stroke-dasharray:6 5}
+      .e-inject{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:4 5;opacity:.62}
+    </style>`+
+    defs + baseEdges + nodes + injectEdges + `</svg></div>`;
+  document.getElementById("flowDiagram").innerHTML = svg;
+}
+
+/* ---------- MCQ Practice flow (Feature 8) ----------
+   The same node vocabulary as the classroom flow, with the two practice forks: no Split (whole
+   session → one pool) and no Variants/Gate 3 (export straight after the rubric gate). Reuses the
+   shared boxSVG / edgeSVG renderers (edgeSVG takes its own node map) and the classroom SVG's arrow
+   markers (resolved document-wide via url(#…)). */
+const PN = {
+  S:  {cx:430, cy:46,   w:300, h:50,  kind:"start",  icon:"▶",  title:"Start", desc:"course · session · workflow = mcq_practice"},
+  ASM:{cx:430, cy:140,  w:340, h:62,  kind:"mem",    icon:"📥", title:"Assemble", desc:"load Markdown · whole session · detect coding"},
+  PL: {cx:430, cy:236,  w:340, h:62,  kind:"ai", pid:"p16", icon:"🗂️", title:"Plan · whole session", desc:"outcomes · count = a multiple of 5"},
+  GEN:{cx:430, cy:332,  w:340, h:62,  kind:"ai", pid:"p17", icon:"✍️", title:"Generate the pool", desc:"all content types · one per outcome"},
+  CC: {cx:430, cy:466,  w:184, h:108, kind:"dec", pid:"p04", title:"Covers its outcome?"},
+  RF: {cx:150, cy:466,  w:210, h:60,  kind:"loop", pid:"p05", icon:"↻", title:"Refine", desc:"rewrite the misses · uses learned rules"},
+  G1: {cx:430, cy:598,  w:350, h:66,  kind:"gate", icon:"👤", title:"Gate 1 · Generation", desc:"accept · improve · delete"},
+  EV: {cx:430, cy:718,  w:340, h:62,  kind:"ai", pid:"p07", icon:"📊", title:"Rubric score", desc:"25 checkpoints · failures only"},
+  R1: {cx:430, cy:842,  w:150, h:98,  kind:"dec", title:"Pass?"},
+  OPT:{cx:150, cy:780,  w:210, h:60,  kind:"loop", pid:"p08", icon:"↻", title:"Optimize", desc:"fix the failures · uses learned rules"},
+  G2: {cx:430, cy:970,  w:350, h:66,  kind:"gate", icon:"👤", title:"Gate 2 · Rubric", desc:"approve · improve · reject"},
+  EX: {cx:430, cy:1086, w:360, h:66,  kind:"export", icon:"📦", title:"Export", desc:"mcq_practice/ · md · json · single portal zip"},
+  D:  {cx:430, cy:1176, w:340, h:50,  kind:"start", icon:"✅", title:"Practice quiz ready for the portal"},
+  MEM:{cx:880, cy:742,  w:184, h:128, kind:"memcyl", icon:"🧠", title:"Self-evolving memory", desc:"rubric · learned rules"},
+};
+const PEDGES = [
+  ["S","ASM","flow"], ["ASM","PL","flow"], ["PL","GEN","flow"], ["GEN","CC","flow"],
+  ["CC","G1","yes","yes"], ["CC","RF","branch","no"], ["RF","CC","loop","loop ≤2"],
+  ["G1","EV","flow"], ["EV","R1","flow"],
+  ["R1","G2","yes","yes"], ["R1","OPT","branch","no"], ["OPT","EV","loop","loop ≤2"],
+  ["G2","EX","flow"], ["EX","D","flow"],
+  ["G1","MEM","mem","reject / improve"], ["G2","MEM","mem","reject / improve"],
+  ["MEM","GEN","inject","injects learned rules"],
+  ["MEM","RF","inject",""], ["MEM","EV","inject",""], ["MEM","OPT","inject",""],
+];
+function buildPracticeFlow(){
+  const host = document.getElementById("practiceFlow");
+  if(!host) return;
+  const baseEdges = PEDGES.filter(e=>e[2]!=="inject").map(e=>edgeSVG(e, PN)).join("");
+  const injectEdges = PEDGES.filter(e=>e[2]==="inject").map(e=>edgeSVG(e, PN)).join("");
+  const nodes = Object.keys(PN).map(k=>boxSVG(PN[k])).join("");
+  host.innerHTML = `<div class="flowwrap"><svg class="flowsvg" viewBox="0 0 1040 1240" role="img" aria-label="MCQ Practice end-to-end agent flow">`+
+    `<style>
+      .e-flow{fill:none;stroke:var(--brand);stroke-width:2.2}
+      .e-loop{fill:none;stroke:var(--amber);stroke-width:2;stroke-dasharray:6 5}
+      .e-mem{fill:none;stroke:var(--green);stroke-width:2;stroke-dasharray:6 5}
+      .e-inject{fill:none;stroke:var(--green);stroke-width:1.5;stroke-dasharray:4 5;opacity:.62}
+    </style>`+
+    baseEdges + nodes + injectEdges + `</svg></div>`;
+}
+
+/* ---------- variant chips ---------- */
+const VARIANTS = [
+  ["Standard MCQ","_v2","Single correct option (3–4 options)."],
+  ["True / False — True","_tf_true","Two options; the true statement is correct."],
+  ["True / False — False","_tf_false","Two options; the false statement is correct."],
+  ["Statement-based","_sb_two","Statement I / II combinations (Only I, Both, Neither…)."],
+  ["Fill in the blank","_fill","Escaped-underscore blank; options are fill-ins."],
+  ["Multiple correct","_multi","≥2 correct · MORE_THAN_ONE_MULTIPLE_CHOICE."],
+  ["All of the given","_all","Sentinel last option; every other option is correct."],
+  ["None of the given","_none","Sentinel last option; every other option is wrong."],
+  ["Match the following","_match","List I / List II; options are mapping permutations (A-2, B-1…)."],
+];
+// Code variant set (Feature 7) — used for code-related bases in a coding session, authored in the
+// session's detected language. CODE_ANALYSIS_MULTIPLE_CHOICE unless noted.
+const CODE_VARIANTS = [
+  ["Output prediction (MC)","_co","Show CODE; ask the output. One correct option."],
+  ["Output prediction (T/F)","_cotf","A statement about the output; True / False."],
+  ["Error identification","_cerr","One LO-tied error in CODE; ask what it is."],
+  ["Identify &amp; fix","_cfix","LO-tied error; pick the minimal correct fix."],
+  ["Functionality","_cfun","What the whole snippet accomplishes."],
+  ["Logic","_clogic","What a conditional / loop inside the code does."],
+  ["Output (free-text)","_ctxt","CODE_ANALYSIS_TEXTUAL · no options · INPUT/OUTPUT answer."],
+  ["Fill-in-the-blank coding","_cfib","FIB_CODING · one &lt;InlineBlank&gt; in CODE · OUTPUT_1."],
+];
+function buildVariants(){
+  const chip = v=>`<div class="vchip"><span class="vk">${v[1]}</span><div class="vt">${v[0]}</div><p>${v[2]}</p></div>`;
+  document.getElementById("variantGrid").innerHTML = VARIANTS.map(chip).join("");
+  const cg = document.getElementById("codeVariantGrid");
+  if (cg) cg.innerHTML = CODE_VARIANTS.map(chip).join("");
+}
+
+/* ---------- prompt grid + accordion ---------- */
+const PHASES = [
+  {key:"gen", lbl:"Generation phase", cls:"gen"},
+  {key:"rub", lbl:"Rubric phase", cls:"rub"},
+  {key:"var", lbl:"Variants phase", cls:"var"},
+  {key:"prac", lbl:"MCQ Practice phase (Feature 8)", cls:"prac"},
+  {key:"mod", lbl:"Module Quiz phase (Feature 9)", cls:"mod"},
+  {key:"imp", lbl:"Improve (all gates)", cls:"imp"},
+];
+function ioRows(list, side){
+  return list.map(([vn,vd])=>`<div class="iorow"><span class="vn">${vn}</span><span class="vd">${vd}</span></div>`).join("");
+}
+function promptCardHTML(p){
+  const cls = p.phase;
+  return `<div class="pcard" id="card-${p.id}" data-id="${p.id}">
+    <div class="phead" onclick="togglePrompt('${p.id}')">
+      <span class="pnum ${cls}">${p.num}</span>
+      <div><div class="pname">${p.name}</div><div class="pstage">${p.stage}</div></div>
+      <span class="chev">▼</span>
+    </div>
+    <div class="pbody">
+      <div class="pmeta">
+        <span class="chip model">🧠 ${p.mc.model}</span>
+        <span class="chip temp">${p.mc.temp}</span>
+        <span class="chip">schema · ${p.schema}</span>
+      </div>
+      <div class="pintent">${p.intent}</div>
+      <div class="io">
+        <div class="col inp"><h5 class="in">▸ Inputs</h5>${ioRows(p.inputs)}</div>
+        <div class="col out"><h5 class="out">▸ Outputs</h5>${ioRows(p.outputs)}</div>
+      </div>
+      <div class="proute"><span class="rk">Routing</span> ${p.route}</div>
+    </div>
+  </div>`;
+}
+function buildPrompts(){
+  const zone = document.getElementById("promptZone");
+  let html = "";
+  PHASES.forEach(ph=>{
+    const items = PROMPTS.filter(p=>p.phase===ph.key);
+    html += `<div class="phasebar"><span class="lbl">${ph.lbl}</span><span class="ln"></span>
+      <span class="cnt">${items.length} prompts</span></div>`;
+    html += `<div class="pgrid">${items.map(promptCardHTML).join("")}</div>`;
+  });
+  zone.innerHTML = html;
+}
+
+let openCard = null;
+function togglePrompt(id){
+  const card = document.getElementById("card-"+id);
+  if(openCard && openCard !== card) openCard.classList.remove("open");
+  const nowOpen = !card.classList.contains("open");
+  card.classList.toggle("open", nowOpen);
+  openCard = nowOpen ? card : null;
+}
+function openPrompt(id){
+  goTo("#prompts");
+  const card = document.getElementById("card-"+id);
+  if(openCard && openCard !== card) openCard.classList.remove("open");
+  card.classList.add("open"); openCard = card;
+  setTimeout(()=>card.scrollIntoView({behavior:"smooth", block:"center"}), 420);
+}
+
+/* ---------- nav ---------- */
+function goTo(sel){ document.querySelector(sel).scrollIntoView({behavior:"smooth", block:"start"}); }
+
+function initNavSpy(){
+  const links = [...document.querySelectorAll("#topnav a")];
+  const map = Object.fromEntries(links.map(a=>[a.getAttribute("href").slice(1), a]));
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>a.classList.remove("active"));
+        if(map[e.target.id]) map[e.target.id].classList.add("active");
+      }
+    });
+  }, {rootMargin:"-45% 0px -50% 0px"});
+  ["flow","gates","rubric","variants","practice","memory","cost","prompts"].forEach(id=>{
+    const el = document.getElementById(id); if(el) obs.observe(el);
+  });
+}
+
+buildFlow(); buildPracticeFlow(); buildVariants(); buildPrompts(); initNavSpy();
+</script>
+</body>
+</html>

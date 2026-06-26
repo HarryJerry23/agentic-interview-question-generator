@@ -1,0 +1,25 @@
+# Feature 1 — data ingestion into LangGraph memory (PostgresStore)
+# Floors track the LangChain/LangGraph 1.x line the code is built + verified against
+# (LangGraph 1.0 GA, Oct 2025). Keeping them ≥1.0 stops a fresh install from resolving to a
+# pre-1.0 major whose interrupt/Command/StateGraph semantics differ.
+langgraph>=1.0
+langgraph-checkpoint-postgres>=3.0     # PostgresStore (long-term memory + pgvector)
+langchain>=1.0
+langchain-openai>=1.0                  # OpenAIEmbeddings (OpenAI-compatible endpoint)
+psycopg[binary]>=3.1                   # PostgresStore connection driver
+tiktoken>=0.8                          # token-aware chunking
+openpyxl>=3.1                          # curriculum xlsx (optional enrichment)
+pydantic-settings>=2.2                 # typed settings from .env (pydantic v2)
+python-dotenv>=1.0                     # .env loading
+flask>=3.0                             # content + rubric API (Feature 2)
+flask-cors>=6.0                        # CORS for the React dev server
+
+# Feature 3 — agentic generation (LangGraph workflow + LLM)
+langgraph-checkpoint>=2.1              # base checkpointer interfaces (MemorySaver, etc.)
+
+# Feature 11 — mock interview (harvest REAL interview questions)
+# Part 1: GitHub-repos connector (GitHub REST API over httpx).
+# Part 2: Tavily search-extract over the source allowlist + trafilatura for clean text extraction.
+httpx>=0.27                            # GitHub API + polite HTTP fetches + link-resolve checks
+tavily-python>=0.5                     # search-extract over the legitimate source allowlist
+trafilatura>=1.12                      # clean main-text extraction from fetched pages

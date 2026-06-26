@@ -1,0 +1,230 @@
+[
+  {
+    "status": "published",
+    "outcome": "few_shot_cot",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [
+      {
+        "url": "https://www.glassdoor.com/Interview/Write-prompts-using-few-shot-and-chai-of-thought-for-extraction-of-data-from-multiple-documents-Large-Large-scale-as-he-p-QTN_8857073.htm",
+        "name": "Tredence"
+      }
+    ],
+    "last_seen": "2026-06-24T17:16:10.172113+00:00",
+    "first_seen": "2026-06-24T17:16:04.561396+00:00",
+    "source_urls": [
+      "https://www.glassdoor.com/Interview/Write-prompts-using-few-shot-and-chai-of-thought-for-extraction-of-data-from-multiple-documents-Large-Large-scale-as-he-p-QTN_8857073.htm"
+    ],
+    "company_count": 1,
+    "question_text": "Write prompts using few shot and chai of thought for extraction of data from multiple documents (Large Large scale, as he put it)."
+  },
+  {
+    "status": "published",
+    "outcome": "natural_language_prompt_writing",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [
+      {
+        "url": "https://www.tryexponent.com/guides/anthropic-ai-safety-fellow-interview",
+        "name": "Anthropic"
+      }
+    ],
+    "last_seen": "2026-06-24T17:16:05.654766+00:00",
+    "first_seen": "2026-06-24T17:15:56.958815+00:00",
+    "source_urls": [
+      "https://www.tryexponent.com/guides/anthropic-ai-safety-fellow-interview"
+    ],
+    "company_count": 1,
+    "question_text": "Design and evaluate a prompt that uses an LLM as a classifier, including how you'd test the output for accuracy."
+  },
+  {
+    "status": "published",
+    "outcome": "ai_agent_core_components",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:17:31.321386+00:00",
+    "first_seen": "2026-06-24T17:17:31.321386+00:00",
+    "source_urls": [
+      "https://www.analyticsvidhya.com/blog/2026/02/agentic-ai-interview-questions-and-answers"
+    ],
+    "company_count": 0,
+    "question_text": "Q2. What are the core components of an AI Agent?"
+  },
+  {
+    "status": "published",
+    "outcome": "context_window_limitations",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:17:20.806841+00:00",
+    "first_seen": "2026-06-24T17:17:20.806841+00:00",
+    "source_urls": [
+      "https://www.datacamp.com/blog/llm-interview-questions",
+      "https://medium.com/@huanzidage/llm-interview-series-context-windows-memory-and-long-context-reasoning-84bdb3ca0e0b"
+    ],
+    "company_count": 0,
+    "question_text": "(Interview Question 1) What is a context window in an LLM, and why does it matter?"
+  },
+  {
+    "status": "published",
+    "outcome": "model_category_comparison",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:17:13.900710+00:00",
+    "first_seen": "2026-06-24T17:17:13.900710+00:00",
+    "source_urls": [
+      "https://www.datacamp.com/blog/llm-interview-questions",
+      "https://www.datainterview.com/blog/llms-and-transformers-interview-questions"
+    ],
+    "company_count": 0,
+    "question_text": "What is the Transformer architecture, and how is it used in LLMs?"
+  },
+  {
+    "status": "published",
+    "outcome": "chain_of_thought_prompting",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:17:04.245816+00:00",
+    "first_seen": "2026-06-24T17:17:04.245816+00:00",
+    "source_urls": [
+      "https://medium.com/@cs.merlin2113/top-50-frequently-asked-interview-question-for-prompt-engineering-1f3ae5b199d1"
+    ],
+    "company_count": 0,
+    "question_text": "What is chain-of-thought prompting?"
+  },
+  {
+    "status": "published",
+    "outcome": "zero_shot_prompting",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:56.279053+00:00",
+    "first_seen": "2026-06-24T17:16:56.279053+00:00",
+    "source_urls": [
+      "https://www.glassdoor.com/Interview/research-ai-engineer-internship-interview-questions-SRCH_KO0,31_SDRD.htm"
+    ],
+    "company_count": 0,
+    "question_text": "Define a zero-shot prompting while interacting with a model."
+  },
+  {
+    "status": "published",
+    "outcome": "ai_agent_core_components",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:49.403615+00:00",
+    "first_seen": "2026-06-24T17:16:49.403615+00:00",
+    "source_urls": [
+      "https://www.tryexponent.com/questions?role=pm&type=machine-learning"
+    ],
+    "company_count": 0,
+    "question_text": "What are the ethical risks of deploying agentic AI systems in high-stakes environments?"
+  },
+  {
+    "status": "published",
+    "outcome": "llm_hallucination_problem",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:39.680432+00:00",
+    "first_seen": "2026-06-24T17:16:39.680432+00:00",
+    "source_urls": [
+      "https://www.tryexponent.com/questions?role=pm&type=machine-learning"
+    ],
+    "company_count": 0,
+    "question_text": "Define hallucinations in LLMs."
+  },
+  {
+    "status": "published",
+    "outcome": "context_window_limitations",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:30.050118+00:00",
+    "first_seen": "2026-06-24T17:16:30.050118+00:00",
+    "source_urls": [
+      "https://www.tryexponent.com/questions?role=pm&type=machine-learning"
+    ],
+    "company_count": 0,
+    "question_text": "What's the effect of adjusting an LLM's context window size?"
+  },
+  {
+    "status": "published",
+    "outcome": "anti_hallucination_prompting",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:26.565790+00:00",
+    "first_seen": "2026-06-24T17:16:17.531231+00:00",
+    "source_urls": [
+      "https://www.tryexponent.com/questions?role=pm&type=machine-learning"
+    ],
+    "company_count": 0,
+    "question_text": "How would you handle hallucinations in a generative AI model deployed to users?"
+  },
+  {
+    "status": "published",
+    "outcome": "ai_agent_core_components",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:16:14.066465+00:00",
+    "first_seen": "2026-06-24T17:16:11.812300+00:00",
+    "source_urls": [
+      "https://www.ambitionbox.com/interviews/r-systems-international-interview-questions?page=3",
+      "https://medium.com/@tahirbalarabe2/%EF%B8%8Flangchain-vs-langgraph-a-comparative-analysis-ce7749a80d9c",
+      "https://www.simplilearn.com/langchain-vs-langgraph-article"
+    ],
+    "company_count": 0,
+    "question_text": "Q.What is the main difference between Langchain and Langgraph?"
+  },
+  {
+    "status": "published",
+    "outcome": "zero_shot_cot",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:15:59.926530+00:00",
+    "first_seen": "2026-06-24T17:15:51.615156+00:00",
+    "source_urls": [
+      "https://www.ambitionbox.com/interviews/bold-technology-systems-interview-questions/senior-soft-engineer",
+      "https://www.geeksforgeeks.org/artificial-intelligence/zero-shot-chain-of-thought-prompting"
+    ],
+    "company_count": 0,
+    "question_text": "Q1.What are the differences between COT prompting and zero-shot prompting?"
+  },
+  {
+    "status": "published",
+    "outcome": "prompt_engineering_techniques",
+    "run_ids": [
+      "f69c5c0eb3a94338bf62f1d82d1e5269"
+    ],
+    "companies": [],
+    "last_seen": "2026-06-24T17:15:55.640595+00:00",
+    "first_seen": "2026-06-24T17:15:45.690878+00:00",
+    "source_urls": [
+      "https://www.ambitionbox.com/interviews/symbiosis-international-university-interview-questions/experienced-candidates",
+      "https://www.ambitionbox.com/interviews/question/what-are-different-prompting-techniques-bvn7aAGE6?expandQuestion=true",
+      "https://medium.com/@cs.merlin2113/top-50-frequently-asked-interview-question-for-prompt-engineering-1f3ae5b199d1",
+      "https://www.tryexponent.com/courses/gen-ai-interviews/prompt-engineering-approach"
+    ],
+    "company_count": 0,
+    "question_text": "Q.What are different prompting techniques?"
+  }
+]

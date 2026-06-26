@@ -8,6 +8,7 @@ async function j(res) {
 export const api = {
   getSessions: () => fetch('/api/sessions').then(j),
   getTopics: () => fetch('/api/topics').then(j),
+  getHistory: () => fetch('/api/history').then(j),
 
   generate: (sessionNames, maxQuestions) =>
     fetch('/api/generate', {

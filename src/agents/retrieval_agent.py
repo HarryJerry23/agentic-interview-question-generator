@@ -26,6 +26,26 @@ class RetrievalAgent(BaseAgent):
     def get_tool_dispatch(self) -> dict:
         return _DISPATCH
 
+    def run(self, state: "AgentState", emit) -> None:
+        """Run Tavily first (company questions), then the LLM loop (bank + GitHub fill remaining)."""
+        from src.tools import tool_search_web_questions
+        from src.agent import _summarize_result
+
+        # Run Tavily before bank/GitHub — guaranteed company-attributed questions.
+        # Running first ensures capacity is available before bank/GitHub fill up.
+        outcomes = (state.session_context.learning_outcomes
+                    if state.session_context else [])
+        if outcomes:
+            emit("search_web_questions", "running",
+                 "Retrieving Questions: fetching company-attributed questions from Tavily...")
+            result = tool_search_web_questions(state, outcomes)
+            state.tool_log.append({"agent": "retrieval", "tool": "search_web_questions",
+                                   "args_keys": ["outcomes"], "has_error": "error" in result})
+            emit("search_web_questions", "done", _summarize_result("search_web_questions", result))
+
+        # LLM loop fills remaining capacity with bank + GitHub questions
+        super().run(state, emit)
+
     def get_system_prompt(self, state: AgentState) -> str:
         if not state.session_context:
             return "No session context available — do not call any tools."
@@ -49,8 +69,12 @@ class RetrievalAgent(BaseAgent):
 
 ## Retrieval Strategy
 1. Call `search_question_bank` 3–5 times, once per query below
-2. If accumulated total < {min_q} after bank searches: call `search_github_questions`
-3. If still < {min_q}: call `search_web_questions`
+2. Call `search_github_questions` — always, for structured technical questions from curated repos
+3. Call `search_web_questions` — always, to get real company-attributed questions from Glassdoor, AmbitionBox, Exponent etc.
+   Pass SHORT topic keywords (2–4 words each), NOT full outcome sentences.
+   Good: ["LangChain RAG", "AI agents memory", "RAG retrieval augmented generation"]
+   Bad:  ["Implement LangChain RecursiveCharacterTextSplitter", "Build RAG pipelines using LangChain"]
+4. Stop once you reach {max_q} questions or all queries are exhausted
 
 ## Queries to Use
 {queries}
@@ -58,9 +82,9 @@ class RetrievalAgent(BaseAgent):
 ## Rules
 - DO NOT generate questions — only retrieve from real sources
 - Use the exact queries listed above; do not invent generic terms
-- Stop once you reach {max_q} questions OR all three sources are exhausted
 - Do NOT repeat the same query twice
-- {bank_hint}"""
+- {bank_hint}
+- web search brings real company interview questions with attribution — always run it"""
 
     def get_user_prompt(self, state: AgentState) -> str:
         if not state.session_context:

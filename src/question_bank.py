@@ -66,9 +66,6 @@ class QuestionBankRetriever:
 
         results = []
         for score, row in candidates[:limit]:
-            # Determine source field
-            q_source = "web" if row.get("source_url") else "interview_db"
-
             results.append(QuestionDetail(
                 question_id=row.get("id", ""),
                 category=row.get("category", row.get("question_type", "GENERAL")),
@@ -77,7 +74,9 @@ class QuestionBankRetriever:
                 sub_topic=row.get("sub_topic"),
                 difficulty=row.get("difficulty", "Medium"),
                 asked_in_company=row.get("company"),
-                source=q_source,
+                role=row.get("role"),
+                source_url=row.get("source_url"),
+                source="interview_db",
             ))
 
         return results
@@ -90,7 +89,7 @@ class QuestionBankRetriever:
         sources = {}
         difficulties = {}
         for q in self._corpus:
-            s = "web" if q.get("source_url") else "interview_db"
+            s = "interview_db"
             sources[s] = sources.get(s, 0) + 1
             d = q.get("difficulty", "Medium")
             difficulties[d] = difficulties.get(d, 0) + 1

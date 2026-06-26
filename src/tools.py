@@ -22,6 +22,33 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from src.models import QuestionDetail, CodingQuestion
 from src.llm_client import chat_completion_json
+
+
+def _usage_cb(state: "AgentState"):
+    """Return an on_usage callback that accumulates LLM token stats into state.api_usage."""
+    def _cb(usage):
+        state.api_usage["llm_calls"] += 1
+        state.api_usage["prompt_tokens"] += usage.prompt_tokens or 0
+        state.api_usage["completion_tokens"] += usage.completion_tokens or 0
+    return _cb
+
+
+def _url_is_alive(url: str, timeout: float = 4.0) -> bool:
+    """HEAD-check a URL; returns True if reachable (or no URL / network error)."""
+    if not url:
+        return True
+    try:
+        import requests
+        r = requests.head(url, timeout=timeout, allow_redirects=True,
+                          headers={"User-Agent": "nxtwave-iqg-bot/1.0"})
+        # Anti-bot blocks mean the page exists
+        if r.status_code in (401, 403, 429):
+            return True
+        return r.status_code < 400
+    except Exception:
+        return True  # network error ≠ dead
+
+
 from src.config import DEDUP_THRESHOLD
 from src.question_bank import get_retriever
 
@@ -331,6 +358,16 @@ def tool_validate_relevance(state: AgentState) -> dict:
     if not state.session_context or not state.questions:
         return {"error": "Call understand_session first and gather questions"}
 
+    from src import memory as _memory
+    learned_rules = _memory.get_learned_rules()
+    rules_block = ""
+    if learned_rules:
+        rules_block = (
+            "## Learned rejection rules (apply these first):\n"
+            + "\n".join(f"- {r}" for r in learned_rules[:20])
+            + "\n\n"
+        )
+
     outcomes_str = "\n".join(f"- {o}" for o in state.session_context.learning_outcomes)
     concepts_str = ", ".join(state.session_context.key_concepts)
     scope_out_str = ", ".join(state.session_context.scope_out) if state.session_context.scope_out else "none"
@@ -340,7 +377,7 @@ def tool_validate_relevance(state: AgentState) -> dict:
         q_list.append({"id": q.question_id, "content": q.content[:250]})
 
     result = chat_completion_json(
-        system_prompt=f"""You are evaluating interview questions for relevance to a specific session.
+        system_prompt=f"""{rules_block}You are evaluating interview questions for relevance to a specific session.
 
 Session: {state.session_context.session_name}
 
@@ -362,6 +399,7 @@ Only remove questions that are entirely unrelated (e.g. a SQL question in a Reac
 Foundational questions about the session's core technology (e.g. "What is RAG?" for a RAG session) should always be KEPT.""",
         user_prompt=f"Questions to evaluate:\n{json.dumps(q_list)}",
         max_tokens=2048,
+        on_usage=_usage_cb(state),
     )
 
     evaluations = result.get("evaluations", [])
@@ -418,7 +456,37 @@ def tool_deduplicate_questions(state: AgentState) -> dict:
 
     for idx in to_remove:
         state.questions.pop(questions[idx].question_id, None)
-    return {"kept": len(state.questions), "removed": len(to_remove)}
+
+    within_run_removed = len(to_remove)
+
+    # Cross-run dedup: remove questions too similar to previously approved ones
+    cross_run_removed = 0
+    if state.session_context:
+        try:
+            from src import memory as _memory
+            bank_qs = _memory.get_bank_questions(state.session_context.session_name)
+            if bank_qs and state.questions:
+                bank_texts = [b["content"] for b in bank_qs]
+                current_qs = list(state.questions.values())
+                current_texts = [q.content for q in current_qs]
+                all_texts = bank_texts + current_texts
+                vec2 = TfidfVectorizer(stop_words="english", max_features=5000)
+                tfidf2 = vec2.fit_transform(all_texts)
+                bank_mat = tfidf2[:len(bank_texts)]
+                curr_mat = tfidf2[len(bank_texts):]
+                cross_sim = cosine_similarity(curr_mat, bank_mat)
+                for i, row in enumerate(cross_sim):
+                    if row.max() > DEDUP_THRESHOLD:
+                        state.questions.pop(current_qs[i].question_id, None)
+                        cross_run_removed += 1
+        except Exception:
+            pass
+
+    return {
+        "kept": len(state.questions),
+        "removed": within_run_removed,
+        "cross_run_removed": cross_run_removed,
+    }
 
 
 def tool_check_difficulty_balance(state: AgentState) -> dict:
@@ -465,6 +533,7 @@ def tool_generate_expected_answers(state: AgentState) -> dict:
 For each, provide 2-3 bullet points as a SINGLE STRING with bullets separated by newlines.
 Respond in JSON: {"answers": ["- point1\\n- point2", ...]}""",
         user_prompt=f"Questions:\n{q_list}", max_tokens=3000,
+        on_usage=_usage_cb(state),
     )
     answers = result.get("answers", [])
     for i, q in enumerate(batch):
@@ -523,6 +592,7 @@ Example output format:
 
 Respond in JSON: {{"coding_questions": [...]}}""",
         user_prompt=f"Generate {count} coding questions in {language}.", max_tokens=4000,
+        on_usage=_usage_cb(state),
     )
 
     added = []
@@ -576,6 +646,7 @@ def tool_search_github_questions(state: AgentState, outcomes: list) -> dict:
             topic=rec.source_type.split(":")[-1] if ":" in rec.source_type else "Interview",
             difficulty="Medium",
             source="web",
+            source_url=rec.source_url,
         )
         state.questions[q_id] = qd
         added.append({
@@ -601,24 +672,79 @@ def tool_search_web_questions(state: AgentState, outcomes: list) -> dict:
         return {"error": "TAVILY_API_KEY not set — skipping web search", "status": "skipped"}
 
     from src.sources.tavily_search import TavilyConnector
-    records = TavilyConnector().fetch(outcomes)
+    # Use scope_in (short topic labels) as primary queries — better Tavily recall than full
+    # outcome sentences. Supplement with whatever the agent passed.
+    ctx = state.session_context
+    search_terms = list(ctx.scope_in[:5]) if (ctx and ctx.scope_in) else []
+    for out in outcomes:
+        if out.lower() not in {t.lower() for t in search_terms}:
+            search_terms.append(out)
+    search_terms = search_terms[:8]
+    records, tavily_calls = TavilyConnector().fetch(search_terms or outcomes)
+    state.api_usage["tavily_calls"] += tavily_calls
+
+    # Link-aliveness check: filter dead source URLs (HEAD-check first 10, keep rest unchecked)
+    if len(records) >= 5:
+        import concurrent.futures
+        to_check, rest = records[:10], records[10:]
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
+            alive_flags = list(ex.map(lambda r: _url_is_alive(r.source_url), to_check))
+        records = [r for r, ok in zip(to_check, alive_flags) if ok] + rest
 
     current = len(state.questions) + len(state.coding_questions)
     capacity = state.config.max_questions - current
     if capacity <= 0:
         return {"found": 0, "warning": f"Already at max ({state.config.max_questions})."}
 
+    # Prioritise attributed company questions and premium sources over Reddit noise
+    _PRIORITY_SOURCES = {"tryexponent.com", "ambitionbox.com", "glassdoor.com",
+                         "interviewquery.com", "datalemur.com", "prepfully.com",
+                         "igotanoffer.com", "leetcode.com"}
+    records.sort(key=lambda r: (
+        0 if r.company else 1,
+        0 if any(s in r.source_type for s in _PRIORITY_SOURCES) else 1,
+    ))
+
+    # Use session topic for proper metadata
+    session_topic = (state.session_context.key_concepts[0]
+                     if state.session_context and state.session_context.key_concepts
+                     else "Interview")
+
+    # Build a set of topic keywords for pre-filtering (avoids off-topic guide pages)
+    topic_keywords: set[str] = set()
+    if ctx:
+        for term in (ctx.scope_in + ctx.key_concepts + ctx.learning_outcomes):
+            for w in term.lower().split():
+                if len(w) >= 4 and w not in {
+                    "with", "that", "this", "from", "what", "have", "will",
+                    "about", "using", "build", "create", "learn", "your",
+                    "into", "some", "each", "when", "which", "should",
+                }:
+                    topic_keywords.add(w)
+
+    # Take up to capacity+10; pre-filter by topic relevance first
+    take = min(len(records), capacity + 20)
     added = []
-    for rec in records[:capacity]:
+    for rec in records[:take]:
+        # Skip records with no topical relevance to this session
+        if topic_keywords:
+            q_lower = rec.question_text.lower()
+            if not any(kw in q_lower for kw in topic_keywords):
+                continue
+
+        if len(added) >= capacity + 10:
+            break
+
         q_id = str(uuid.uuid4())
         qd = QuestionDetail(
             question_id=q_id,
-            category="THEORY",
+            category="GEN_AI",
             content=rec.question_text,
-            topic=rec.source_type.split(":")[-1] if ":" in rec.source_type else "Interview",
+            topic=session_topic,
             difficulty="Medium",
             source="web",
             asked_in_company=rec.company,
+            source_url=rec.source_url,
         )
         state.questions[q_id] = qd
         added.append({

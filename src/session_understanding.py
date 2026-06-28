@@ -134,6 +134,18 @@ def _from_knowledge_graph(
     )
 
 
+def _safe_topic_matches(raw: list) -> list[TopicMatch]:
+    out = []
+    for t in raw:
+        if not isinstance(t, dict):
+            continue
+        try:
+            out.append(TopicMatch(**t))
+        except Exception:
+            pass
+    return out
+
+
 def _from_llm(
     session_names: list[str],
     combined_name: str,
@@ -161,13 +173,18 @@ def _from_llm(
 
     matched_kps = []
     for kp_data in result.get("matched_kp_ids", []):
-        kp_id = kp_data.get("kp_id", "")
-        matched_kps.append(KPMatch(
-            kp_id=kp_id,
-            kp_label=kp_data.get("kp_label", data_store.kp_catalog.get(kp_id, "")),
-            relevance=kp_data.get("relevance", 0.5),
-            source_file=data_store.kp_source_map.get(kp_id, "unknown"),
-        ))
+        if not isinstance(kp_data, dict):
+            continue
+        try:
+            kp_id = kp_data.get("kp_id", "")
+            matched_kps.append(KPMatch(
+                kp_id=kp_id,
+                kp_label=kp_data.get("kp_label", data_store.kp_catalog.get(kp_id, "")),
+                relevance=float(kp_data.get("relevance", 0.5)),
+                source_file=data_store.kp_source_map.get(kp_id, "unknown"),
+            ))
+        except Exception:
+            pass
 
     kp_ids = [kp.kp_id for kp in matched_kps]
     prereq_chain = data_store.get_kp_ancestors(kp_ids)
@@ -180,7 +197,7 @@ def _from_llm(
         scope_out=result.get("scope_out", []),
         session_type=result.get("session_type", "mixed"),
         matched_kp_ids=matched_kps,
-        matched_csv_topics=[TopicMatch(**t) for t in result.get("matched_csv_topics", [])],
+        matched_csv_topics=_safe_topic_matches(result.get("matched_csv_topics", [])),
         prerequisite_kp_chain=prereq_chain,
         difficulty_distribution={"easy": 0.3, "medium": 0.5, "hard": 0.2},
     )

@@ -1,0 +1,98 @@
+{
+  "Course Overview": [
+    "Your Learning Journey"
+  ],
+  "Advanced Gen AI Capabilities": [
+    "Exploring Gen AI Capabilities"
+  ],
+  "Productivity Power-Up with AI Tools & Prompt Engineering Fundamentals": [
+    "Productivity Power Up with AI Tools",
+    "Prompt Engineering Fundamentals"
+  ],
+  "No-Code AI Automation": [
+    "Building Social Media Content Automation Workflow",
+    "Advanced Prompt Engineering"
+  ],
+  "AI Workflows for Enhanced Productivity": [
+    "Build Your Own AI News Summarizer | Part 1",
+    "Build Your Own AI News Summarizer | Part 2",
+    "Productivity Power-Up with AI Tools | Part 2"
+  ],
+  "Mastering Image Generation": [
+    "Mastering Image Generation",
+    "Setting Up Your Kaggle Environment",
+    "Mastering Image Generation with Stable Diffusion"
+  ],
+  "Mastering Audio Generation & No-Code Application Building": [
+    "Mastering AI Audio Generation",
+    "Building No-Code Applications with AI",
+    "Mastering AI Audio Generation using F5-TTS"
+  ],
+  "Building AI Agents": [
+    "Introduction to AI Agents",
+    "Building a Learning Path Generator"
+  ],
+  "Building an AI Shopping Assistant": [
+    "Build Your Own AI Shopping Assistant | Part 1",
+    "Build Your Own AI Shopping Assistant | Part 2"
+  ],
+  "Agents with Memory & Introduction to MCP": [
+    "Building an Agent with Memory",
+    "Introduction to Model Context Protocol"
+  ],
+  "Getting Started with Third-Party Packages": [
+    "Introduction to Google Colab",
+    "Introduction to Third Party Packages"
+  ],
+  "Building REST API's using Flask": [
+    "Introduction to Flask",
+    "Building Rest APIs using Flask",
+    "Integrating Flask APIs in Frontend"
+  ],
+  "Building LLM Applications Using Python": [
+    "Building LLM Applications Using Python | Part 1",
+    "Building LLM Applications Using Python | Part 2"
+  ],
+  "Building UI and Deploying LLM Applications": [
+    "Building UI for LLM Applications",
+    "Deploying LLM Applications"
+  ],
+  "Understanding How LLMs Works & Enhancing Productivity with AI": [
+    "Understanding How LLMs Work | Part 1",
+    "Understanding How LLMs Work | Part 2",
+    "Enhancing Productivity with AI"
+  ],
+  "Tools Use & Function Calling in LLMs": [
+    "Tool use & Function Calling in LLMs",
+    "Effective Prompting Techniques"
+  ],
+  "Introduction to LangChain and Retrieval-Augmented Generation (RAG)": [
+    "Introduction to Langchain",
+    "Introduction to Retrieval-Augmented Generation | Part 1",
+    "Introduction to Retrieval-Augmented Generation | Part 2"
+  ],
+  "Building AI Agents Using LangChain and Memory Agents": [
+    "Building AI Agents using Langchain",
+    "Building Memory Agents",
+    "AI in the Real World"
+  ],
+  "Building AI-Powered Conversational Interview Assistant and RAG Agent Using LangChain": [
+    "Building an AI-Powered Conversational Interview Assistant | Part 1",
+    "Building an AI-Powered Conversational Interview Assistant | Part 2"
+  ],
+  "Introduction to Context Engineering and MCP": [
+    "Introduction to Context Engineering",
+    "Integrating MCP"
+  ],
+  "Building Multi Agent Systems and LLM Evaluation": [
+    "Building Multi Agent Systems Using Crew AI",
+    "Building a Game Development Crew",
+    "Introduction to LLM Evaluation | Part 1",
+    "Introduction to LLM Evaluation | Part 2"
+  ],
+  "Running Models locally and Fine-Tuning LLMs": [
+    "Running Models Locally",
+    "Fine-Tuning LLMs | Part 1",
+    "Fine-Tuning LLMs | Part 2"
+  ]
+}

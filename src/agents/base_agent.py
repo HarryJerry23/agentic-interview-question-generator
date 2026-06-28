@@ -57,14 +57,24 @@ class BaseAgent:
         stop_requested = False
 
         while tool_call_count < self.max_tool_calls and not stop_requested:
-            response = client.chat.completions.create(
-                model=LLM_MODEL,
-                messages=messages,
-                tools=tool_schemas,
-                tool_choice="auto",
-                temperature=0.3,
-                max_tokens=4096,
-            )
+            try:
+                response = client.chat.completions.create(
+                    model=LLM_MODEL,
+                    messages=messages,
+                    tools=tool_schemas,
+                    tool_choice="auto",
+                    temperature=0.3,
+                    max_tokens=4096,
+                )
+            except Exception as exc:
+                short = str(exc).split('\n')[0][:200]
+                emit(f"phase:{self.name}", "error", f"{self.display_name} — API error: {short}")
+                return
+
+            if getattr(response, "usage", None):
+                state.api_usage["llm_calls"] += 1
+                state.api_usage["prompt_tokens"] += response.usage.prompt_tokens or 0
+                state.api_usage["completion_tokens"] += response.usage.completion_tokens or 0
 
             msg = response.choices[0].message
             messages.append(_msg_to_dict(msg))

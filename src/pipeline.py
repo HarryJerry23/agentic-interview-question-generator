@@ -73,6 +73,7 @@ class AgentPipeline:
             # ── Build result ──────────────────────────────────────────────
             result.curated_output = state.to_curated_output()
             result.quality_report = _build_quality_report(state, revision_round)
+            result.quality_report.api_usage = dict(state.api_usage)
             result.context = state.session_context or _fallback_context(config, state)
 
             total_calls = len(state.tool_log)
@@ -81,8 +82,11 @@ class AgentPipeline:
                  f"Done! {total_q} questions, {total_calls} total tool calls, {revision_round} revision(s)")
 
         except Exception as exc:
-            result.error = str(exc)
-            emit("error", "error", str(exc))
+            import traceback
+            traceback.print_exc()
+            short = str(exc).split('\n')[0][:200]
+            result.error = short
+            emit("error", "error", f"Pipeline failed: {short}")
 
         return result
 

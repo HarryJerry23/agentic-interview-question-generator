@@ -43,6 +43,13 @@ class AgentState:
     suggested_queries: list[str] = field(default_factory=list)
     # Quality gate revision instructions (set by pipeline, read by EvaluationAgent)
     revision_notes: list[dict] = field(default_factory=list)
+    # API usage tracking across all agents and tool calls in this run
+    api_usage: dict = field(default_factory=lambda: {
+        "llm_calls": 0,
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "tavily_calls": 0,
+    })
 
     @property
     def total_questions(self) -> int:
@@ -143,6 +150,11 @@ Respond in JSON:
         user_prompt=f"Theory questions:\n{json.dumps(q_list)}\n\nCoding questions:\n{json.dumps(cq_list)}",
         max_tokens=1500,
         temperature=0.0,
+        on_usage=lambda u: (
+            state.api_usage.__setitem__("llm_calls", state.api_usage["llm_calls"] + 1),
+            state.api_usage.__setitem__("prompt_tokens", state.api_usage["prompt_tokens"] + (u.prompt_tokens or 0)),
+            state.api_usage.__setitem__("completion_tokens", state.api_usage["completion_tokens"] + (u.completion_tokens or 0)),
+        ),
     )
 
     return result

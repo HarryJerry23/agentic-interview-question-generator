@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../lib/api.js'
-import QuestionCard from '../components/QuestionCard.jsx'
-import CodingCard from '../components/CodingCard.jsx'
+import PipelineStepper from '../components/PipelineStepper.jsx'
 
 function QualityBar({ report }) {
   if (!report) return null
@@ -26,6 +25,70 @@ function QualityBar({ report }) {
   )
 }
 
+function CompactQuestion({
+  id, content, title, difficulty,
+  company, role, topic, subTopic, language, source, sourceUrl,
+  snippet, decision, onDecide, index,
+}) {
+  const [open, setOpen] = useState(false)
+  const isCoding = !!title
+  const diff = difficulty || 'Medium'
+  const diffClass = diff === 'Easy' ? 'd-easy' : diff === 'Hard' ? 'd-hard' : 'd-medium'
+
+  return (
+    <div className={`cq-row${decision === 'accepted' ? ' cq-row-accepted' : decision === 'rejected' ? ' cq-row-rejected' : ''}`}>
+      <div className="cq-main" onClick={() => setOpen(o => !o)}>
+        <span className="cq-num">Q{index + 1}</span>
+        <span className="cq-text">{isCoding ? title : content}</span>
+        <div className="cq-tags">
+          {company && <span className="cq-company" title={company}>{company}</span>}
+          <span className={`cq-diff ${diffClass}`}>{diff}</span>
+        </div>
+        <div className="cq-btns" onClick={e => e.stopPropagation()}>
+          <button
+            className={`cq-btn cq-accept${decision === 'accepted' ? ' active' : ''}`}
+            onClick={() => onDecide(id, 'accepted')}
+          >✓</button>
+          <button
+            className={`cq-btn cq-reject${decision === 'rejected' ? ' active' : ''}`}
+            onClick={() => onDecide(id, 'rejected')}
+          >✕</button>
+        </div>
+      </div>
+
+      {open && (
+        <div className="cq-detail">
+          {isCoding && content && (
+            <p style={{ fontSize: '0.82rem', color: '#c9d1d9', marginBottom: '0.5rem' }}>{content}</p>
+          )}
+          {snippet?.code_content && (
+            <pre className="q-code-pre">{snippet.code_content}</pre>
+          )}
+          {sourceUrl && (
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cq-resource-link"
+              onClick={e => e.stopPropagation()}
+            >
+              ↗ Verify source
+            </a>
+          )}
+          <div className="cq-meta-tags">
+            {company  && <span className="cq-tag cq-tag-company">{company}</span>}
+            {role     && <span className="cq-tag cq-tag-role">{role}</span>}
+            {topic    && <span className="cq-tag cq-tag-topic">{topic}</span>}
+            {subTopic && <span className="cq-tag cq-tag-subtopic">{subTopic}</span>}
+            {language && <span className="cq-tag cq-tag-lang">{language}</span>}
+            {source   && <span className="cq-tag cq-tag-source">{source}</span>}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function Review() {
   const { runId } = useParams()
   const navigate = useNavigate()
@@ -42,8 +105,8 @@ export default function Review() {
       .catch(e => { setError(e.message); setLoading(false) })
   }, [runId])
 
-  function onDecide(qid, status, feedback = '') {
-    setDecisions(cur => ({ ...cur, [qid]: { status, feedback } }))
+  function onDecide(qid, status) {
+    setDecisions(cur => ({ ...cur, [qid]: { status } }))
   }
 
   async function handleApprove() {
@@ -55,13 +118,9 @@ export default function Review() {
     ]
     for (const id of allIds) {
       const d = decisions[id]
-      if (!d || d.status === 'accepted') {
-        acceptedIds.push(id)
-      } else {
-        rejectedFeedback[id] = d.feedback || ''
-      }
+      if (!d || d.status === 'accepted') acceptedIds.push(id)
+      else rejectedFeedback[id] = ''
     }
-
     setSubmitting(true)
     try {
       await api.approve(runId, acceptedIds, rejectedFeedback, 'approve')
@@ -84,8 +143,27 @@ export default function Review() {
     }
   }
 
-  if (loading) return <div className="page"><p className="muted loading">Loading results…</p></div>
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>
+  if (loading) return (
+    <>
+      <header className="topbar">
+        <div className="topbar-title-group">
+          <span className="topbar-title">Review Questions</span>
+        </div>
+        <PipelineStepper completedUntil="gate" activeStage="review" />
+      </header>
+      <div className="page-content"><p className="muted loading">Loading results…</p></div>
+    </>
+  )
+
+  if (error && !result) return (
+    <>
+      <header className="topbar">
+        <div className="topbar-title-group"><span className="topbar-title">Review Questions</span></div>
+      </header>
+      <div className="page-content"><div className="alert alert-error">{error}</div></div>
+    </>
+  )
+
   if (!result) return null
 
   const questions = result.output?.question_details || []
@@ -93,51 +171,71 @@ export default function Review() {
   const snippets = result.output?.code_snippets || []
   const snippetMap = Object.fromEntries(snippets.map(s => [s.code_id, s]))
   const total = questions.length + codingQs.length
+  const rejectedCount = Object.values(decisions).filter(d => d.status === 'rejected').length
+  const approvedCount = total - rejectedCount
 
   if (done) {
-    const accepted = Object.values(decisions).filter(d => d.status === 'accepted').length
-    const approved = total - Object.values(decisions).filter(d => d.status === 'rejected').length
     return (
-      <div className="page">
-        <div className="done-banner">
-          <h1>✅ Approved!</h1>
-          <p>{approved} question{approved !== 1 ? 's' : ''} saved successfully.</p>
-          <button className="btn btn-primary" onClick={() => navigate('/')}>
-            ← Generate more
-          </button>
+      <>
+        <header className="topbar">
+          <div className="topbar-title-group"><span className="topbar-title">Export Complete</span></div>
+          <PipelineStepper completedUntil="export" />
+        </header>
+        <div className="page-content">
+          <div className="done-banner">
+            <h1>✅ Approved!</h1>
+            <p>{approvedCount} question{approvedCount !== 1 ? 's' : ''} exported to Google Sheets.</p>
+            <button className="btn btn-primary" onClick={() => navigate('/')}>← Generate more</button>
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 
-  const rejectedCount = Object.values(decisions).filter(d => d.status === 'rejected').length
+  const sessionName = result.context?.session_name || 'Session'
+  const sessionType = result.context?.session_type
 
   return (
-    <div className="page">
-      <div className="page-header">
-        <div>
-          <h1 className="page-title">Review Questions</h1>
-          <p className="page-sub">
-            {total} questions for <strong>{result.context?.session_name}</strong>
-            {result.context?.session_type && ` (${result.context.session_type})`}
-          </p>
+    <>
+      <header className="topbar">
+        <div className="topbar-title-group">
+          <span className="topbar-title">Review Questions</span>
+          <span className="topbar-sub">{sessionName}{sessionType ? ` · ${sessionType}` : ''}</span>
         </div>
-        <div className="review-actions">
+        <PipelineStepper completedUntil="gate" activeStage="review" />
+      </header>
+
+      {/* Action banner */}
+      <div className="action-banner">
+        <div className="ab-text">
+          <span className="ab-title">Action needed — Review before publishing to portal</span>
+          <span className="ab-sub">
+            {total} questions for <strong style={{ color: '#c9d1d9' }}>{sessionName}</strong>
+            {' · '}{questions.length} theory · {codingQs.length} coding
+            {result.report && ` · Quality ${Math.round(result.report.composite_score * 100)}/100`}
+            {result.report?.loops_used > 0 && ` · ${result.report.loops_used} revision(s)`}
+          </span>
+        </div>
+        <div className="ab-btns">
           <button className="btn btn-reject-all" disabled={submitting} onClick={handleReject}>
             ↺ Reject &amp; Regenerate
           </button>
           <button className="btn btn-primary" disabled={submitting} onClick={handleApprove}>
-            {submitting ? 'Saving…' : `✓ Approve (${total - rejectedCount} questions)`}
+            {submitting ? 'Exporting…' : `↑ Export to Sheets (${approvedCount})`}
           </button>
         </div>
       </div>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className="alert alert-error" style={{ margin: '0 1.25rem' }}>{error}</div>}
 
-      <QualityBar report={result.report} />
+      {/* Quality bar */}
+      <div style={{ padding: '0.75rem 1.25rem 0' }}>
+        <QualityBar report={result.report} />
+      </div>
 
+      {/* Learning outcomes */}
       {result.context?.learning_outcomes?.length > 0 && (
-        <details className="card outcomes-card">
+        <details className="card outcomes-card" style={{ margin: '0.75rem 1.25rem 0' }}>
           <summary>
             <strong>Learning Outcomes</strong> ({result.context.learning_outcomes.length})
           </summary>
@@ -147,47 +245,70 @@ export default function Review() {
         </details>
       )}
 
-      {questions.length > 0 && (
-        <section>
-          <h2 className="section-title">Theory Questions ({questions.length})</h2>
-          <div className="questions-grid">
-            {questions.map(q => (
-              <QuestionCard
-                key={q.question_id}
-                question={q}
-                decision={decisions[q.question_id]?.status}
-                onDecide={onDecide}
-              />
-            ))}
+      {/* 2-column compact question sets */}
+      <div className="q-sets-grid">
+        <div className="q-set-panel">
+          <div className="q-set-head">
+            <span className="q-set-title">Theory Questions</span>
+            <span className="q-set-badge">{questions.length}</span>
           </div>
-        </section>
-      )}
-
-      {codingQs.length > 0 && (
-        <section>
-          <h2 className="section-title">Coding Questions ({codingQs.length})</h2>
-          <div className="questions-grid">
-            {codingQs.map(q => (
-              <CodingCard
-                key={q.id}
-                question={q}
-                snippet={snippetMap[q.code_id]}
-                decision={decisions[q.id]?.status}
-                onDecide={onDecide}
-              />
-            ))}
+          <div className="q-set-body">
+            {questions.length === 0 ? (
+              <p className="muted" style={{ padding: '1rem' }}>No theory questions.</p>
+            ) : (
+              questions.map((q, i) => (
+                <CompactQuestion
+                  key={q.question_id}
+                  id={q.question_id}
+                  content={q.question || q.content}
+                  difficulty={q.difficulty_level || q.difficulty}
+                  company={q.asked_in_company}
+                  role={q.role}
+                  topic={q.topic}
+                  subTopic={q.sub_topic}
+                  source={q.source}
+                  sourceUrl={q.source_url}
+                  decision={decisions[q.question_id]?.status}
+                  onDecide={onDecide}
+                  index={i}
+                />
+              ))
+            )}
           </div>
-        </section>
-      )}
+        </div>
 
-      <div className="review-footer">
-        <button className="btn btn-reject-all" disabled={submitting} onClick={handleReject}>
-          ↺ Reject &amp; Regenerate
-        </button>
-        <button className="btn btn-primary btn-lg" disabled={submitting} onClick={handleApprove}>
-          {submitting ? 'Saving…' : `✓ Approve ${total - rejectedCount} Questions`}
-        </button>
+        <div className="q-set-panel">
+          <div className="q-set-head">
+            <span className="q-set-title">Coding Questions</span>
+            <span className="q-set-badge">{codingQs.length}</span>
+          </div>
+          <div className="q-set-body">
+            {codingQs.length === 0 ? (
+              <p className="muted" style={{ padding: '1rem' }}>No coding questions.</p>
+            ) : (
+              codingQs.map((q, i) => (
+                <CompactQuestion
+                  key={q.id}
+                  id={q.id}
+                  title={q.title}
+                  content={q.problem_statement || q.content}
+                  difficulty={q.difficulty}
+                  company={q.asked_in_company}
+                  topic={q.topic}
+                  subTopic={q.sub_topic}
+                  language={q.language}
+                  source={q.source}
+                  sourceUrl={q.source_url}
+                  snippet={snippetMap[q.code_id]}
+                  decision={decisions[q.id]?.status}
+                  onDecide={onDecide}
+                  index={i}
+                />
+              ))
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

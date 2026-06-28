@@ -25,6 +25,13 @@ _MAX_RECORDS = 800
 _ATTRIBUTION_DOMAINS = ["glassdoor.com", "ambitionbox.com", "tryexponent.com", "datalemur.com",
                         "levels.fyi", "interviewquery.com", "prepfully.com", "igotanoffer.com",
                         "teamblind.com", "leetcode.com"]
+_BROAD_DOMAINS = [
+    "glassdoor.com", "ambitionbox.com", "tryexponent.com", "datalemur.com",
+    "levels.fyi", "interviewquery.com", "prepfully.com", "igotanoffer.com",
+    "teamblind.com", "leetcode.com",
+    "reddit.com", "stackoverflow.com", "github.com", "medium.com", "dev.to",
+    "geeksforgeeks.org", "quora.com", "hackerrank.com",
+]
 
 
 def _client():
@@ -37,13 +44,15 @@ def _on_allowlist(dom: str, allow: set) -> bool:
 
 
 def _company_from_url(url: str) -> Optional[str]:
-    """Best-effort company name from URLs that embed it (Glassdoor, AmbitionBox, Levels)."""
+    """Best-effort company name from URLs that embed it (Glassdoor, AmbitionBox, Levels, etc.)."""
+    from urllib.parse import parse_qs
     net = domain(url)
-    path = urlparse(url).path
+    parsed = urlparse(url)
+    path = parsed.path
     if "glassdoor." in net:
         m = re.search(r"/Interview/([A-Za-z0-9\-]+?)-Interview-Questions", path)
         if m:
-            return m.group(1).replace("-", " ").strip()
+            return m.group(1).replace("-", " ").title()
     if net.endswith("ambitionbox.com"):
         m = re.search(r"/(?:interviews|overview)/([a-z0-9\-]+?)-(?:interview-questions|interviews)", path)
         if m:
@@ -53,7 +62,23 @@ def _company_from_url(url: str) -> Optional[str]:
         if m:
             return m.group(1).replace("-", " ").title()
     if net.endswith("tryexponent.com"):
-        m = re.search(r"/guides/([a-z0-9\-]+?)-(?:data|machine|software|ml|ai|product|senior|engineer)", path)
+        # Try role-specific page first: /guides/<company>-<role>
+        m = re.search(r"/guides/([a-z0-9\-]+?)-(?:data|machine|software|ml|ai|product|senior|engineer|backend|frontend|fullstack|devops|cloud)", path)
+        if m:
+            return m.group(1).replace("-", " ").title()
+        # Broader fallback: /guides/<company>/ or /guides/<company>-interview
+        m = re.search(r"/guides/([a-z0-9][a-z0-9\-]*?)(?:/|-interview)", path)
+        if m:
+            slug = m.group(1)
+            if slug not in {"data", "machine", "software", "ml", "ai", "interview"}:
+                return slug.replace("-", " ").title()
+    if net.endswith("interviewquery.com"):
+        params = parse_qs(parsed.query)
+        company = params.get("company", [None])[0]
+        if company:
+            return company.replace("-", " ").title()
+    if net.endswith("datalemur.com"):
+        m = re.search(r"/(?:sql-interview-questions|interview-questions)/([a-z0-9\-]+?)-[a-z]", path)
         if m:
             return m.group(1).replace("-", " ").title()
     return None
@@ -165,22 +190,35 @@ def _records_from_results(results, allow: set, seen: set) -> List[Record]:
 class TavilyConnector:
     name = "tavily"
 
-    def fetch(self, outcomes: List[str]) -> List[Record]:
+    def fetch(self, outcomes: List[str]) -> tuple:
+        """Return (records, search_call_count) — call count for API usage tracking."""
         if not config.TAVILY_API_KEY:
-            return []
+            return [], 0
         allow = set(config.INTERVIEW_SOURCE_ALLOWLIST or [])
         client = _client()
         records: List[Record] = []
         seen: set = set()
+        search_count = 0
         for outcome in (outcomes or [])[:_MAX_OUTCOMES]:
             q = outcome.replace("_", " ").strip()
+            # Pass 1 (broad — community + attribution): catch forum/community questions
             records.extend(_records_from_results(
-                _search(client, f"{q} interview question asked at company"), allow, seen))
+                _search(client, f"{q} interview question asked at company",
+                        include_domains=_BROAD_DOMAINS), allow, seen))
+            search_count += 1
+            # Pass 2 (attribution — company-keyed sites only)
             records.extend(_records_from_results(
-                _search(client, f"{q} interview questions", include_domains=_ATTRIBUTION_DOMAINS), allow, seen))
+                _search(client, f"{q} interview questions",
+                        include_domains=_ATTRIBUTION_DOMAINS), allow, seen))
+            search_count += 1
+            # Pass 3 (technical qualifier — avoids hiring-process/prep pages)
+            records.extend(_records_from_results(
+                _search(client, f"{q} technical interview questions",
+                        include_domains=_ATTRIBUTION_DOMAINS), allow, seen))
+            search_count += 1
             if len(records) >= _MAX_RECORDS:
                 break
-        return records[:_MAX_RECORDS]
+        return records[:_MAX_RECORDS], search_count
 
 
 def search_question(question: str) -> List[Record]:

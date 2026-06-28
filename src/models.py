@@ -66,6 +66,8 @@ class QuestionDetail(BaseModel):
     framework: str | None = None
     tool: str | None = None
     asked_in_company: str | None = None
+    role: str | None = None
+    source_url: str | None = None
     source: Literal["curriculum", "interview_db", "web", "generated"]
     kp_label: str | None = None
     expected_answer: str | None = None
@@ -159,3 +161,4 @@ class QualityReport(BaseModel):
     flagged_questions: list[FlaggedQuestion] = Field(default_factory=list)
     critique: list[str] = Field(default_factory=list)
     loops_used: int = 0
+    api_usage: dict = Field(default_factory=dict)

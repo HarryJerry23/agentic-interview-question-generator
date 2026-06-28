@@ -1161,7 +1161,7 @@
     },
     "Exploring Gen AI Capabilities": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Advanced Gen AI Capabilities",
       "kp_ids": [
         "KP_GLOBAL_0783",
@@ -1239,7 +1239,7 @@
     },
     "Building Social Media Content Automation Workflow": {
       "course": "gen_ai",
-      "session_type": "code_heavy",
+      "session_type": "theory_heavy",
       "topic": "No-Code AI Automation",
       "kp_ids": [
         "KP_GLOBAL_0816"
@@ -1253,7 +1253,7 @@
     },
     "Advanced Prompt Engineering": {
       "course": "gen_ai",
-      "session_type": "code_heavy",
+      "session_type": "theory_heavy",
       "topic": "No-Code AI Automation",
       "kp_ids": [
         "KP_GLOBAL_0821",
@@ -1334,7 +1334,7 @@
     },
     "Productivity Power-Up with AI Tools | Part 2": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "AI Workflows for Enhanced Productivity",
       "kp_ids": [
         "KP_GLOBAL_0738",
@@ -1444,7 +1444,7 @@
     },
     "Mastering AI Audio Generation": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Mastering Audio Generation & No-Code Application Building",
       "kp_ids": [
         "KP_GLOBAL_0816",
@@ -1502,7 +1502,7 @@
     },
     "Mastering AI Audio Generation using F5-TTS": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Mastering Audio Generation & No-Code Application Building",
       "kp_ids": [
         "KP_GLOBAL_0816",
@@ -1531,7 +1531,7 @@
     },
     "Introduction to AI Agents": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Building AI Agents",
       "kp_ids": [
         "KP_GLOBAL_0803",
@@ -1551,7 +1551,7 @@
     },
     "Building a Learning Path Generator": {
       "course": "gen_ai",
-      "session_type": "code_heavy",
+      "session_type": "theory_heavy",
       "topic": "Building AI Agents",
       "kp_ids": [
         "KP_GLOBAL_0795",
@@ -1617,7 +1617,7 @@
     },
     "Building an Agent with Memory": {
       "course": "gen_ai",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Agents with Memory & Introduction to MCP",
       "kp_ids": [
         "KP_GLOBAL_0778",
@@ -1696,7 +1696,7 @@
     },
     "Introduction to Google Colab": {
       "course": "llm_apps",
-      "session_type": "theory_heavy",
+      "session_type": "mixed",
       "topic": "Getting Started with Third-Party Packages",
       "kp_ids": [
         "KP_GLOBAL_0769",
@@ -1968,7 +1968,7 @@
     },
     "Effective Prompting Techniques": {
       "course": "llm_apps",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Tools Use & Function Calling in LLMs",
       "kp_ids": [
         "KP_GLOBAL_0771",
@@ -1988,7 +1988,7 @@
     },
     "Introduction to Langchain": {
       "course": "llm_apps",
-      "session_type": "theory_heavy",
+      "session_type": "mixed",
       "topic": "Introduction to LangChain and Retrieval-Augmented Generation (RAG)",
       "kp_ids": [
         "KP_GLOBAL_0740",
@@ -2183,7 +2183,7 @@
     },
     "Integrating MCP": {
       "course": "llm_apps",
-      "session_type": "mixed",
+      "session_type": "theory_heavy",
       "topic": "Introduction to Context Engineering and MCP",
       "kp_ids": [
         "KP_GLOBAL_0766",
@@ -2209,7 +2209,7 @@
     },
     "Building Multi Agent Systems Using Crew AI": {
       "course": "llm_apps",
-      "session_type": "mixed",
+      "session_type": "code_heavy",
       "topic": "Building Multi Agent Systems and LLM Evaluation",
       "kp_ids": [
         "KP_GLOBAL_0750",

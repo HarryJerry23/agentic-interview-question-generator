@@ -235,6 +235,15 @@ def api_approve(run_id: str):
             ]
         result.approved = True
         total_q = len(result.curated_output.question_details) + len(result.curated_output.coding_questions)
+        # Save accepted questions to cross-run bank for future dedup
+        try:
+            session_name = result.context.session_name if result.context else "Unknown"
+            accepted_set = set(accepted_ids) if accepted_ids else None
+            for q in result.curated_output.question_details:
+                if accepted_set is None or q.question_id in accepted_set:
+                    memory.save_question_to_bank(q.question_id, session_name, q.content, q.source)
+        except Exception:
+            pass
         try:
             memory.save_run(
                 run_id=run_id,
@@ -243,12 +252,24 @@ def api_approve(run_id: str):
                 composite_score=result.quality_report.composite_score if result.quality_report else 0,
                 loops_used=result.quality_report.loops_used if result.quality_report else 0,
                 approved=True,
+                api_usage=dict(result.quality_report.api_usage) if result.quality_report else None,
             )
         except Exception:
             pass
         return jsonify({"status": "approved", "saved": total_q})
 
     elif action == "reject":
+        # Distil rejection reasons into learned rules (max 5 per run)
+        reasons = [v for v in rejected_feedback.values() if isinstance(v, str) and v.strip()]
+        for reason in reasons[:5]:
+            try:
+                rule = memory.distill_rule(
+                    result.context.session_name if result.context else "Unknown", reason)
+                if rule:
+                    memory.append_learned_rule(rule)
+            except Exception:
+                pass
+
         session_names = result.context.session_name.split(" + ")
         config = GenerationConfig(session_names=session_names, max_questions=15)
         try:
@@ -275,16 +296,46 @@ def api_approve(run_id: str):
     return jsonify({"error": "Unknown action"}), 400
 
 
+@app.route("/api/history")
+def api_history():
+    # Start from persisted SQLite runs (survive server restarts)
+    db_runs = memory.get_run_history(limit=100)
+    db_ids = {r["run_id"] for r in db_runs}
+    # Prepend any in-memory runs not yet approved/persisted
+    for run_id, result in list(_results.items()):
+        if run_id not in db_ids:
+            session_name = "Unknown"
+            q_count = 0
+            try:
+                if result.context:
+                    session_name = result.context.session_name
+                if result.curated_output:
+                    q_count = (len(result.curated_output.question_details) +
+                               len(result.curated_output.coding_questions))
+            except Exception:
+                pass
+            db_runs.insert(0, {"run_id": run_id, "session_name": session_name,
+                                "question_count": q_count, "composite_score": None,
+                                "approved": 0, "created_at": None, "api_usage": {}})
+    return jsonify({"runs": db_runs})
+
+
 # ── React SPA catch-all ───────────────────────────────────────────────────────
+# Flask's static_url_path="" intercepts unknown paths before the /<path> route,
+# so we use a 404 handler to serve the SPA for all non-API client-side routes.
 
 if _has_react:
     @app.route("/", defaults={"path": ""})
     @app.route("/<path:path>")
     def serve_react(path):
-        # Serve static assets (JS, CSS, etc.) directly
         if path and os.path.exists(os.path.join(REACT_DIST, path)):
             return send_from_directory(REACT_DIST, path)
-        # All other paths → React index.html (client-side routing)
+        return send_from_directory(REACT_DIST, "index.html")
+
+    @app.errorhandler(404)
+    def spa_fallback(e):
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "Not found"}), 404
         return send_from_directory(REACT_DIST, "index.html")
 
 

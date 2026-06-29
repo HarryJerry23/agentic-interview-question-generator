@@ -394,9 +394,10 @@ For EACH question, decide:
 Respond in JSON:
 {{"evaluations": [{{"id": "...", "verdict": "keep", "reason": "Tests outcome X"}}]}}
 
-IMPORTANT: Be LENIENT. Keep a question if it touches any concept related to the session topic.
-Only remove questions that are entirely unrelated (e.g. a SQL question in a React session).
-Foundational questions about the session's core technology (e.g. "What is RAG?" for a RAG session) should always be KEPT.""",
+IMPORTANT: Be LENIENT for borderline questions — keep a question if it genuinely touches the session's concepts.
+Only remove questions that are clearly off-topic.
+STRICT DOMAIN CHECK: The session name is the primary guide. If a question belongs to a fundamentally different AI domain than the session (e.g., RAG/retrieval questions for an image generation session, or image generation questions for a RAG session), mark it "remove" even if keywords overlap.
+Foundational questions about the session's actual core technology should always be KEPT.""",
         user_prompt=f"Questions to evaluate:\n{json.dumps(q_list)}",
         max_tokens=2048,
         on_usage=_usage_cb(state),

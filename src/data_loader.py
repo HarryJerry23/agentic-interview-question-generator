@@ -34,6 +34,7 @@ class DataStore:
         # From interview_questions.json + scraped_questions.json
         self.interview_questions: list[dict] = []
         self.scraped_questions: list[dict] = []
+        self.curriculum_questions: list[dict] = []
 
         # From reading materials
         self.reading_materials: dict[str, str] = {}  # session_name -> section text
@@ -157,7 +158,7 @@ class DataStore:
         ]
 
     def _load_curriculum_kps(self):
-        """Load KP catalog from curriculum JSONs (supplements knowledge_graph)."""
+        """Load KP catalog from curriculum JSONs and add questions to bank."""
         json_files = [
             (GEN_AI_JSON, "gen_ai"),
             (LLM_APPS_JSON, "llm_applications"),
@@ -169,11 +170,32 @@ class DataStore:
             with open(filepath, "r", encoding="utf-8") as f:
                 data = json.load(f)
             for q in data.get("questions", []):
-                for kp in q.get("selected_knowledge_points", []):
+                # KP catalog
+                kps = q.get("selected_knowledge_points", [])
+                for kp in kps:
                     kp_id = kp["resolved_kp_id"]
                     if kp_id not in self.kp_catalog:
                         self.kp_catalog[kp_id] = kp["resolved_kp_label"]
                         self.kp_source_map[kp_id] = course_name
+                # Normalize into question bank format
+                text = (q.get("question_text_with_code_context") or "").strip()
+                if not text or len(text) < 10:
+                    continue
+                topic = kps[0].get("resolved_kp_label", course_name) if kps else course_name
+                diff_raw = q.get("question_difficulty", "medium")
+                difficulty = diff_raw.capitalize() if diff_raw else "Medium"
+                self.curriculum_questions.append({
+                    "id": q.get("question_id", ""),
+                    "content": text,
+                    "difficulty": difficulty,
+                    "category": q.get("question_type", "GENERAL"),
+                    "topic": topic,
+                    "sub_topic": None,
+                    "company": None,
+                    "role": None,
+                    "source": "curriculum",
+                })
+        print(f"Loaded {len(self.curriculum_questions)} curriculum questions into bank")
 
     # ── Public API ──────────────────────────────────────────────────────
 
@@ -218,8 +240,9 @@ class DataStore:
             return list(all_kps)
 
     def get_all_questions(self) -> list[dict]:
-        """Return all questions (interview + scraped) for the question bank."""
-        return self.interview_questions + self.scraped_questions
+        """Return only interview questions with verified company attribution.
+        Scraped questions are excluded — they lack company/role tags required for output."""
+        return self.interview_questions
 
 
 # Singleton

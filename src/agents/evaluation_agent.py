@@ -55,9 +55,9 @@ Use `remove_question` for flagged IDs, then re-check and submit.
 """
 
         coding_section = (
-            "- Call `generate_coding_questions` (2–3 Qs) if session is code_heavy or mixed"
-            if session_type in ("code_heavy", "mixed")
-            else "- DO NOT call `generate_coding_questions` (theory-only session)"
+            "- Call `generate_coding_questions` (2–3 Qs) — session is code_heavy"
+            if session_type == "code_heavy"
+            else "- DO NOT call `generate_coding_questions` (not a code-heavy session)"
         )
 
         return f"""You are the final evaluator for an interview question set.

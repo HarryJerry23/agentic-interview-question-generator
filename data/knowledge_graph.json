@@ -1339,20 +1339,15 @@
       "kp_ids": [
         "KP_GLOBAL_0738",
         "KP_GLOBAL_0743",
-        "KP_GLOBAL_0788",
-        "KP_GLOBAL_1097"
+        "KP_GLOBAL_0788"
       ],
       "learning_outcomes": [
         "Understand embeddings and tokenization in LLM workflows",
-        "Implement embeddings and tokenization in LLM workflows",
-        "Explore AI speech generation tools",
-        "Understand AI speech generation tools"
+        "Implement embeddings and tokenization in LLM workflows"
       ],
       "key_concepts": [
         "understand embeddings and tokenization in llm workflows",
-        "implement embeddings and tokenization in llm workflows",
-        "ai speech generation tools",
-        "ai speech generation tools"
+        "implement embeddings and tokenization in llm workflows"
       ]
     },
     "Mastering Image Generation": {
@@ -1362,26 +1357,17 @@
       "kp_ids": [
         "KP_GLOBAL_0788",
         "KP_GLOBAL_0801",
-        "KP_GLOBAL_0817",
-        "KP_GLOBAL_0748",
-        "KP_GLOBAL_1097",
-        "KP_GLOBAL_1385"
+        "KP_GLOBAL_0817"
       ],
       "learning_outcomes": [
         "Understand AI speech generation tools",
         "Explain Diffusion Models Generation Phase",
-        "Describe Napkin AI visual generation capabilities",
-        "Understand retrieval augmented generation (RAG) fundamentals",
-        "Recognize AI speech generation tools",
-        "Understand Diffusion Models Generation Phase"
+        "Describe Napkin AI visual generation capabilities"
       ],
       "key_concepts": [
         "ai speech generation tools",
         "diffusion models generation phase",
-        "napkin ai visual generation capabilities",
-        "understand retrieval augmented generation (rag) fundamentals",
-        "ai speech generation tools",
-        "diffusion models generation phase"
+        "napkin ai visual generation capabilities"
       ]
     },
     "Setting Up Your Kaggle Environment": {
@@ -1391,26 +1377,17 @@
       "kp_ids": [
         "KP_GLOBAL_0788",
         "KP_GLOBAL_0801",
-        "KP_GLOBAL_0817",
-        "KP_GLOBAL_0748",
-        "KP_GLOBAL_1097",
-        "KP_GLOBAL_1385"
+        "KP_GLOBAL_0817"
       ],
       "learning_outcomes": [
         "Understand AI speech generation tools",
         "Explain Diffusion Models Generation Phase",
-        "Describe Napkin AI visual generation capabilities",
-        "Understand retrieval augmented generation (RAG) fundamentals",
-        "Recognize AI speech generation tools",
-        "Understand Diffusion Models Generation Phase"
+        "Describe Napkin AI visual generation capabilities"
       ],
       "key_concepts": [
         "ai speech generation tools",
         "diffusion models generation phase",
-        "napkin ai visual generation capabilities",
-        "understand retrieval augmented generation (rag) fundamentals",
-        "ai speech generation tools",
-        "diffusion models generation phase"
+        "napkin ai visual generation capabilities"
       ]
     },
     "Mastering Image Generation with Stable Diffusion": {
@@ -1448,27 +1425,13 @@
       "topic": "Mastering Audio Generation & No-Code Application Building",
       "kp_ids": [
         "KP_GLOBAL_0816",
-        "KP_GLOBAL_1360",
-        "KP_GLOBAL_0788",
-        "KP_GLOBAL_0801",
-        "KP_GLOBAL_0817",
-        "KP_GLOBAL_0748"
+        "KP_GLOBAL_0788"
       ],
       "learning_outcomes": [
-        "Identify AI-powered application-building platforms",
-        "Identify AI-powered application-building platforms",
-        "Explore AI speech generation tools",
-        "Understand Diffusion Models Generation Phase",
-        "Understand and apply Napkin AI visual generation capabilities",
-        "Understand retrieval augmented generation (RAG) fundamentals"
+        "Explore AI speech generation tools"
       ],
       "key_concepts": [
-        "identify ai-powered application-building platforms",
-        "identify ai-powered application-building platforms",
-        "ai speech generation tools",
-        "diffusion models generation phase",
-        "napkin ai visual generation capabilities",
-        "understand retrieval augmented generation (rag) fundamentals"
+        "ai speech generation tools"
       ]
     },
     "Building No-Code Applications with AI": {
@@ -1506,27 +1469,13 @@
       "topic": "Mastering Audio Generation & No-Code Application Building",
       "kp_ids": [
         "KP_GLOBAL_0816",
-        "KP_GLOBAL_1360",
-        "KP_GLOBAL_0788",
-        "KP_GLOBAL_0801",
-        "KP_GLOBAL_0817",
-        "KP_GLOBAL_0748"
+        "KP_GLOBAL_0788"
       ],
       "learning_outcomes": [
-        "Identify AI-powered application-building platforms",
-        "Identify AI-powered application-building platforms",
-        "Explore AI speech generation tools",
-        "Understand Diffusion Models Generation Phase",
-        "Understand and apply Napkin AI visual generation capabilities",
-        "Understand retrieval augmented generation (RAG) fundamentals"
+        "Explore AI speech generation tools"
       ],
       "key_concepts": [
-        "identify ai-powered application-building platforms",
-        "identify ai-powered application-building platforms",
-        "ai speech generation tools",
-        "diffusion models generation phase",
-        "napkin ai visual generation capabilities",
-        "understand retrieval augmented generation (rag) fundamentals"
+        "ai speech generation tools"
       ]
     },
     "Introduction to AI Agents": {
@@ -1702,21 +1651,18 @@
         "KP_GLOBAL_0769",
         "KP_GLOBAL_0772",
         "KP_GLOBAL_0744",
-        "KP_GLOBAL_0750",
         "KP_GLOBAL_0755"
       ],
       "learning_outcomes": [
         "Integrate LLM APIs and manage authentication",
         "Integrate tool calling into prompt structures",
         "Build Gradio interfaces for LLM applications",
-        "Build RAG pipelines using LangChain",
         "Define system prompts and LLM roles"
       ],
       "key_concepts": [
         "integrate llm apis and manage authentication",
         "integrate tool calling into prompt structures",
         "build gradio interfaces for llm applications",
-        "build rag pipelines using langchain",
         "define system prompts and llm roles"
       ]
     },
@@ -1765,16 +1711,13 @@
       "session_type": "code_heavy",
       "topic": "Building REST API's using Flask",
       "kp_ids": [
-        "KP_GLOBAL_0769",
-        "KP_GLOBAL_0750"
+        "KP_GLOBAL_0769"
       ],
       "learning_outcomes": [
-        "Integrate LLM APIs and manage authentication",
-        "Build RAG pipelines using LangChain"
+        "Integrate LLM APIs and manage authentication"
       ],
       "key_concepts": [
-        "integrate llm apis and manage authentication",
-        "build rag pipelines using langchain"
+        "integrate llm apis and manage authentication"
       ]
     },
     "Integrating Flask APIs in Frontend": {

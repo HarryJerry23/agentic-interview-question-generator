@@ -46,8 +46,9 @@ def understand_session(session_names: list[str], data_store: DataStore) -> Sessi
 
     Strategy:
     1. Check SQLite cache
-    2. Try knowledge_graph.json (instant, no LLM)
-    3. Fall back to LLM if not in graph
+    2. Reading material available → LLM extracts KPs from actual content (accurate)
+    3. No reading material → knowledge_graph.json (pre-computed KPs)
+    4. Not in graph either → pure LLM fallback
     """
     combined_name = " + ".join(session_names)
 
@@ -56,14 +57,20 @@ def understand_session(session_names: list[str], data_store: DataStore) -> Sessi
     if cached:
         return SessionContext(**cached)
 
-    # Try knowledge graph first (no LLM needed)
-    context = _from_knowledge_graph(session_names, combined_name, data_store)
-    if context:
-        memory.cache_resolution(combined_name, context.model_dump())
-        return context
+    # Reading material is primary: LLM reads actual content and extracts only
+    # KPs that are directly taught — prevents wrong KP mappings from the KG.
+    has_reading_material = any(
+        data_store.get_session_content(name) for name in session_names
+    )
 
-    # Fallback: LLM-based analysis
-    context = _from_llm(session_names, combined_name, data_store)
+    if has_reading_material:
+        context = _from_llm(session_names, combined_name, data_store)
+    else:
+        # No reading material: fall back to pre-computed KG mappings
+        context = _from_knowledge_graph(session_names, combined_name, data_store)
+        if not context:
+            context = _from_llm(session_names, combined_name, data_store)
+
     memory.cache_resolution(combined_name, context.model_dump())
     return context
 

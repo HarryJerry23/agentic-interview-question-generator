@@ -2,6 +2,7 @@
 
 import os
 import json
+import uuid
 import gspread
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -53,7 +54,7 @@ def _get_gspread_client() -> gspread.Client:
             }
 
             flow = InstalledAppFlow.from_client_config(client_config, SCOPES)
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port=8090)
 
         # Save token for next run
         with open(TOKEN_PATH, "w") as f:
@@ -71,8 +72,15 @@ def write_to_sheets(
     """Write CuratedOutput to a new Google Sheet. Returns the Sheet URL."""
     client = _get_gspread_client()
 
-    # Create new spreadsheet
-    title = f"InterviewQ - {session_name} - {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+    # Per-run IDs and derived values
+    org_id = str(uuid.uuid4())
+    interview_id = str(uuid.uuid4())
+    question_ids_str = ", ".join(q.question_id for q in output.question_details)
+    q_count = len(output.question_details)
+
+    # Create new spreadsheet — name: Topic_Name_NxtMock_Unit
+    topic_slug = "_".join(w for w in session_name.replace("|", "").split())
+    title = f"{topic_slug}_NxtMock_Unit"
     spreadsheet = client.create(title)
 
     # --- Tab 1: QuestionDetails ---
@@ -81,62 +89,100 @@ def write_to_sheets(
 
     qd_headers = [
         "question_id", "category", "content", "topic", "sub_topic",
-        "difficulty", "asked_in_company", "source", "kp_label",
-        "expected_answer", "feedback",
+        "difficulty", "language", "framework", "tool", "asked_in_company",
+        "source", "expected_answer", "feedback",
     ]
     qd_rows = [qd_headers]
     for q in output.question_details:
         qd_rows.append([
             q.question_id, q.category, q.content, q.topic,
-            q.sub_topic or "", q.difficulty or "", q.asked_in_company or "",
-            q.source, q.kp_label or "", q.expected_answer or "", "",
+            q.sub_topic or "", q.difficulty or "",
+            q.language or "", q.framework or "", q.tool or "",
+            q.asked_in_company or "", q.source, q.expected_answer or "", "",
         ])
 
     if qd_rows:
         ws_qd.update(range_name="A1", values=qd_rows)
 
-    # Add feedback dropdown validation
-    _add_dropdown_validation(ws_qd, col_index=11, row_count=len(output.question_details))
+    _add_dropdown_validation(ws_qd, col_index=13, row_count=len(output.question_details))
 
-    # --- Tab 2: CodingQuestion (only if coding questions exist) ---
-    if output.coding_questions:
-        ws_cq = spreadsheet.add_worksheet(
-            title="CodingQuestion",
-            rows=len(output.coding_questions) + 1,
-            cols=12,
-        )
+    # --- Tab 2: Organisation ---
+    ws_org = spreadsheet.add_worksheet(title="Organisation", rows=2, cols=3)
+    ws_org.update(range_name="A1", values=[
+        ["org_id", "name", "logo_utl"],
+        [org_id, "NxtWave", "https://nxtwave-website-media-files.s3.ap-south-1.amazonaws.com/ccbp-website/Nxtwave_Colored.svg"],
+    ])
 
-        cq_headers = [
-            "id", "category", "title", "content", "topic", "sub_topic",
-            "difficulty", "language", "asked_in_company", "source",
-            "expected_answer", "feedback",
-        ]
-        cq_rows = [cq_headers]
-        for q in output.coding_questions:
-            cq_rows.append([
-                q.id, q.category, q.title, q.content[:1000], q.topic,
-                q.sub_topic or "", q.difficulty or "", q.language,
-                q.asked_in_company or "", q.source,
-                q.expected_answer or "", "",
-            ])
+    # --- Tab 3: InterviewMinimalConfig ---
+    ws_imc = spreadsheet.add_worksheet(title="InterviewMinimalConfig", rows=25, cols=13)
+    imc_rows = [
+        ["org_id", org_id],
+        ["interview_id", interview_id],
+        ["title", "MOCK INTERVIEW"],
+        ["description", "This interview focuses on assessing candidates' knowledge applicability, hands-on practical experience, and overall knowledge testing."],
+        ["max_attempts_allowed", 5],
+        ["duration_in_secs", 1800],
+        ["time_gap", 0],
+        ["video_enabled", True],
+        ["is_proctoring_enabled", True],
+        ["category", "TESTING_CATEGORY"],
+        ["Tags", "INTENSIVE_OFFLINE_JAVA7"],
+        ["visibility", "should_show_report"],
+        [None, True],
+        ["slot_start_datetime", None],
+        ["slot_end_datetime", None],
+        ["lp_enroll_plans_supported", "CCBP_TECH_INTENSIVE_OFFLINE"],
+        # assess_entity table header
+        ["assess_entity", "no_of_questions", "language", "topic", "sub_topic",
+         "difficulty", "asked_in_company", "framework", "tool", "prompt_name_enum",
+         "question_ids", "source_content", "preferred_language"],
+        # SELF_INTRO row (keep as-is)
+        ["SELF_INTRO", 1, None, "SELF_INTRO"],
+        # GEN_AI row (replaces JAVA; question_ids populated from QuestionDetails)
+        ["GEN_AI", q_count, "GEN_AI", None, None, None, None, None, None, None, question_ids_str],
+    ]
+    ws_imc.update(range_name="A1", values=imc_rows)
 
-        ws_cq.update(range_name="A1", values=cq_rows)
-        _add_dropdown_validation(ws_cq, col_index=12, row_count=len(output.coding_questions))
-
-    # --- Tab 3: CodeSnippet (only if snippets exist) ---
+    # --- Tab 4: CodeSnippet (only if snippets exist) ---
     if output.code_snippets:
         ws_cs = spreadsheet.add_worksheet(
             title="CodeSnippet",
             rows=len(output.code_snippets) + 1,
             cols=3,
         )
-
-        cs_headers = ["code_id", "code_content", "Language"]
-        cs_rows = [cs_headers]
+        cs_rows = [["code_id", "code_content", "Language"]]
         for s in output.code_snippets:
             cs_rows.append([s.code_id, s.code_content[:1000], s.language])
-
         ws_cs.update(range_name="A1", values=cs_rows)
+
+    # --- Tab 5: CodingQuestion (only if coding questions exist) ---
+    if output.coding_questions:
+        ws_cq = spreadsheet.add_worksheet(
+            title="CodingQuestion",
+            rows=len(output.coding_questions) + 1,
+            cols=15,
+        )
+        cq_headers = [
+            "id", "category", "title", "content", "code_id", "topic", "sub_topic",
+            "difficulty", "language", "framework", "tool", "asked_in_company",
+            "source", "expected_answer", "feedback",
+        ]
+        cq_rows = [cq_headers]
+        for q in output.coding_questions:
+            cq_rows.append([
+                q.id, q.category, q.title, q.content[:1000], q.code_id or "",
+                q.topic, q.sub_topic or "", q.difficulty or "", q.language,
+                q.framework or "", q.tool or "", q.asked_in_company or "",
+                q.source, q.expected_answer or "", "",
+            ])
+        ws_cq.update(range_name="A1", values=cq_rows)
+        _add_dropdown_validation(ws_cq, col_index=15, row_count=len(output.coding_questions))
+
+    # --- Tab 6: CodeAnalysisQuestion (headers only — generation not yet wired) ---
+    ws_caq = spreadsheet.add_worksheet(title="CodeAnalysisQuestion", rows=2, cols=6)
+    ws_caq.update(range_name="A1", values=[
+        ["question_id", "tag_name", "content", "code_id", "Title", "correct_answer"],
+    ])
 
     return spreadsheet.url
 

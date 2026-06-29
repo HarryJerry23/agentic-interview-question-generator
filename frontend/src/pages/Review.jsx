@@ -98,6 +98,8 @@ export default function Review() {
   const [decisions, setDecisions] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
+  const [sheetUrl, setSheetUrl] = useState(null)
+  const [sheetError, setSheetError] = useState(null)
 
   useEffect(() => {
     api.getResult(runId)
@@ -123,7 +125,9 @@ export default function Review() {
     }
     setSubmitting(true)
     try {
-      await api.approve(runId, acceptedIds, rejectedFeedback, 'approve')
+      const resp = await api.approve(runId, acceptedIds, rejectedFeedback, 'approve')
+      if (resp.sheet_url) setSheetUrl(resp.sheet_url)
+      if (resp.sheet_error) setSheetError(resp.sheet_error)
       setDone(true)
     } catch (e) {
       setError(e.message)
@@ -183,9 +187,23 @@ export default function Review() {
         </header>
         <div className="page-content">
           <div className="done-banner">
-            <h1>✅ Approved!</h1>
-            <p>{approvedCount} question{approvedCount !== 1 ? 's' : ''} exported to Google Sheets.</p>
-            <button className="btn btn-primary" onClick={() => navigate('/')}>← Generate more</button>
+            <h1>Approved!</h1>
+            {sheetUrl ? (
+              <>
+                <p>{approvedCount} question{approvedCount !== 1 ? 's' : ''} exported to Google Sheets.</p>
+                <a href={sheetUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ marginBottom: '0.75rem', display: 'inline-block' }}>
+                  Open Google Sheet
+                </a>
+              </>
+            ) : sheetError ? (
+              <>
+                <p>{approvedCount} question{approvedCount !== 1 ? 's' : ''} approved (saved locally).</p>
+                <p style={{ color: '#f85149', fontSize: '0.85rem' }}>Sheets export failed: {sheetError}</p>
+              </>
+            ) : (
+              <p>{approvedCount} question{approvedCount !== 1 ? 's' : ''} approved and saved.</p>
+            )}
+            <button className="btn btn-primary" onClick={() => navigate('/')}>Generate more</button>
           </div>
         </div>
       </>

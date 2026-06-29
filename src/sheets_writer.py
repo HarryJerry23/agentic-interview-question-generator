@@ -33,12 +33,13 @@ def _get_gspread_client() -> gspread.Client:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            client_id = os.getenv("GOOGLE_CLIENT_ID")
-            client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
+            client_id = os.getenv("GOOGLE_CLIENT_ID") or os.getenv("Client_ID")
+            client_secret = os.getenv("GOOGLE_CLIENT_SECRET") or os.getenv("Client_Secret")
 
             if not client_id or not client_secret:
                 raise ValueError(
-                    "GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must be set in .env"
+                    "Google OAuth credentials must be set in .env "
+                    "(GOOGLE_CLIENT_ID / Client_ID and GOOGLE_CLIENT_SECRET / Client_Secret)"
                 )
 
             client_config = {

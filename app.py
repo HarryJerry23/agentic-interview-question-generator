@@ -256,7 +256,26 @@ def api_approve(run_id: str):
             )
         except Exception:
             pass
-        return jsonify({"status": "approved", "saved": total_q})
+        # Export to Google Sheets
+        sheet_url = None
+        sheet_error = None
+        try:
+            from src.sheets_writer import write_to_sheets
+            session_name = result.context.session_name if result.context else "Unknown"
+            sheet_url = write_to_sheets(
+                output=result.curated_output,
+                report=result.quality_report,
+                session_name=session_name,
+                run_id=run_id,
+            )
+        except Exception as e:
+            sheet_error = str(e)
+        resp = {"status": "approved", "saved": total_q}
+        if sheet_url:
+            resp["sheet_url"] = sheet_url
+        if sheet_error:
+            resp["sheet_error"] = sheet_error
+        return jsonify(resp)
 
     elif action == "reject":
         # Distil rejection reasons into learned rules (max 5 per run)

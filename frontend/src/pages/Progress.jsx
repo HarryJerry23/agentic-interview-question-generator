@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAgentRun } from '../hooks/useAgentRun.js'
 import PipelineStepper from '../components/PipelineStepper.jsx'
@@ -50,6 +51,14 @@ export default function Progress() {
 
   const isDone = status === 'done'
   const isError = status === 'error'
+
+  // Go straight to review once the pipeline completes (brief pause so the
+  // "complete" state is visible). The button below remains as a manual fallback.
+  useEffect(() => {
+    if (!isDone) return
+    const t = setTimeout(() => navigate(`/review/${runId}`), 800)
+    return () => clearTimeout(t)
+  }, [isDone, runId, navigate])
 
   // Derive critique status from raw events
   const critiqueEvents = events.filter(e => e.step === 'critique')

@@ -44,11 +44,15 @@ Rules:
 def understand_session(session_names: list[str], data_store: DataStore) -> SessionContext:
     """Extract structured understanding of session(s).
 
-    Strategy:
-    1. Check SQLite cache
-    2. Reading material available → LLM extracts KPs from actual content (accurate)
-    3. No reading material → knowledge_graph.json (pre-computed KPs)
-    4. Not in graph either → pure LLM fallback
+    Each session is resolved from ITS OWN reading material (or the knowledge
+    graph) and the results are merged. This keeps every selected unit's content
+    fairly represented instead of concatenating them into one truncated blob —
+    the key to relevant, on-topic questions for multi-session topics.
+
+    Per-session strategy:
+    1. Reading material available → LLM extracts KPs from that session's content
+    2. No reading material → knowledge_graph.json (pre-computed KPs)
+    3. Not in graph either → pure LLM fallback
     """
     combined_name = " + ".join(session_names)
 
@@ -57,22 +61,70 @@ def understand_session(session_names: list[str], data_store: DataStore) -> Sessi
     if cached:
         return SessionContext(**cached)
 
-    # Reading material is primary: LLM reads actual content and extracts only
-    # KPs that are directly taught — prevents wrong KP mappings from the KG.
-    has_reading_material = any(
-        data_store.get_session_content(name) for name in session_names
-    )
-
-    if has_reading_material:
-        context = _from_llm(session_names, combined_name, data_store)
+    if len(session_names) == 1:
+        context = _resolve_single(session_names[0], data_store)
     else:
-        # No reading material: fall back to pre-computed KG mappings
-        context = _from_knowledge_graph(session_names, combined_name, data_store)
-        if not context:
-            context = _from_llm(session_names, combined_name, data_store)
+        per_session = [_resolve_single(name, data_store) for name in session_names]
+        context = _merge_contexts(per_session, combined_name)
 
     memory.cache_resolution(combined_name, context.model_dump())
     return context
+
+
+def _resolve_single(name: str, data_store: DataStore) -> SessionContext:
+    """Resolve one session to a SessionContext using its own content."""
+    if data_store.get_session_content(name):
+        # Reading material is primary: extract only KPs that are directly taught.
+        return _from_llm([name], name, data_store)
+    context = _from_knowledge_graph([name], name, data_store)
+    if not context:
+        context = _from_llm([name], name, data_store)
+    return context
+
+
+def _merge_contexts(contexts: list[SessionContext], combined_name: str) -> SessionContext:
+    """Union the per-session contexts into one (dedup, preserve order)."""
+    def _dedup(items):
+        return list(dict.fromkeys(items))
+
+    outcomes, concepts, scope_in, scope_out = [], [], [], []
+    kp_by_id: dict[str, KPMatch] = {}
+    csv_topics: list[TopicMatch] = []
+    types = []
+    for c in contexts:
+        outcomes += c.learning_outcomes
+        concepts += c.key_concepts
+        scope_in += c.scope_in
+        scope_out += c.scope_out
+        csv_topics += c.matched_csv_topics
+        types.append(c.session_type)
+        for kp in c.matched_kp_ids:
+            kp_by_id.setdefault(kp.kp_id, kp)
+
+    if "code_heavy" in types:
+        session_type = "code_heavy"
+    elif types and all(t == "theory_heavy" for t in types):
+        session_type = "theory_heavy"
+    else:
+        session_type = "mixed"
+
+    matched_kps = list(kp_by_id.values())
+    kp_ids = [kp.kp_id for kp in matched_kps]
+    # merge each session's prerequisite chain plus the unioned KP set
+    chain_union = _dedup([k for c in contexts for k in c.prerequisite_kp_chain] + kp_ids)
+
+    return SessionContext(
+        session_name=combined_name,
+        learning_outcomes=_dedup(outcomes),
+        key_concepts=_dedup(concepts),
+        scope_in=_dedup(scope_in),
+        scope_out=_dedup(scope_out),
+        session_type=session_type,
+        matched_kp_ids=matched_kps,
+        matched_csv_topics=csv_topics,
+        prerequisite_kp_chain=chain_union,
+        difficulty_distribution={"easy": 0.3, "medium": 0.5, "hard": 0.2},
+    )
 
 
 def _from_knowledge_graph(
@@ -174,7 +226,7 @@ def _from_llm(
 
     result = chat_completion_json(
         system_prompt=LLM_SYSTEM_PROMPT,
-        user_prompt=f"## Session: {combined_name}\n\n## Reading Material\n{rm_content[:6000]}\n\n## KP Catalog\n{kp_list}",
+        user_prompt=f"## Session: {combined_name}\n\n## Reading Material\n{rm_content[:8000]}\n\n## KP Catalog\n{kp_list}",
         max_tokens=2048,
     )
 

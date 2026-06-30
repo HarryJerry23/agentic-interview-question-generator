@@ -1,4 +1,4 @@
-"""EvaluationAgent — balances difficulty, checks coverage, generates answers, submits."""
+"""EvaluationAgent — balances difficulty, checks coverage, submits."""
 
 from __future__ import annotations
 from typing import TYPE_CHECKING
@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 _TOOL_NAMES = {
     "check_difficulty_balance",
     "check_outcome_coverage",
-    "generate_expected_answers",
     "generate_coding_questions",
     "remove_question",
     "submit_question_set",
@@ -68,9 +67,10 @@ Use `remove_question` for flagged IDs, then re-check and submit.
 ## Workflow (in order)
 1. `check_difficulty_balance` — check Easy/Medium/Hard distribution
 2. `check_outcome_coverage` — check outcome coverage
-3. `generate_expected_answers` — fill answers for questions missing them
-4. {coding_section}
-5. `submit_question_set` — LAST step, ends this agent's run
+3. {coding_section}
+4. `submit_question_set` — LAST step, ends this agent's run
+
+Do NOT generate expected answers — answers are not produced.
 
 ## Rules
 - Target difficulty: 30% Easy, 50% Medium, 20% Hard
@@ -89,7 +89,7 @@ Use `remove_question` for flagged IDs, then re-check and submit.
             )
         return (
             f"Evaluate and finalize {q_count} questions for {state.config.session_name}.\n"
-            f"Session type: {session_type}. Run checks, generate answers, then submit."
+            f"Session type: {session_type}. Run checks, then submit."
         )
 
     def _should_stop_after(self, tool_name: str, tool_result: dict, state: AgentState) -> bool:

@@ -1,6 +1,6 @@
 """Question Bank — TF-IDF searchable index over pre-prepared JSON question files.
 
-Loads interview_questions.json + scraped_questions.json into a single searchable
+Loads interview_questions.json into a single searchable
 corpus. Uses TF-IDF cosine similarity for ranked retrieval.
 
 No SQLite, no live scraping — all data comes from data/ JSON files.

@@ -93,7 +93,31 @@ _NOT_COMPANY = {
     "rag", "agent", "agentic", "interview", "questions", "answers", "guide", "preparation", "prep",
     "mle", "sde", "swe", "pm", "ds", "da", "llms", "gen", "intelligence", "artificial", "neural", "network",
     "prompt", "prompts", "prompting", "engineering",
+    # generic roles / seniority levels — NOT companies (Glassdoor listing pages embed these)
+    "manager", "lead", "associate", "consultant", "specialist", "architect", "intern",
+    "trainee", "executive", "officer", "head", "director", "principal", "staff", "vp",
+    "l1", "l2", "l3", "fullstack", "backend", "frontend", "devops", "cloud", "qa",
+    "tester", "support", "graduate", "entry", "level", "role", "position",
+    # page UI / navigation noise that precedes the word "interview" on web pages
+    "share", "save", "saved", "apply", "follow", "following", "jobs", "job", "salary",
+    "salaries", "reviews", "review", "photos", "benefits", "home", "login", "log",
+    "sign", "menu", "search", "posted", "read", "more", "view", "see", "all", "your",
+    "company", "companies", "overview", "about", "contact", "help", "blog", "news",
 }
+
+
+def _valid_company(name: Optional[str]) -> Optional[str]:
+    """Return the name only if it looks like a real company — i.e. not made up
+    purely of generic/role words. Otherwise None, so callers fall back to an
+    honest source label instead of a misleading 'Manager'/'L1'."""
+    if not name:
+        return None
+    tokens = [t for t in re.split(r"\s+", name.strip()) if t]
+    if not tokens:
+        return None
+    if all(t.lower().strip(".&-") in _NOT_COMPANY for t in tokens):
+        return None
+    return name
 _COMPANY_BEFORE_INTERVIEW = re.compile(
     r"([A-Z][A-Za-z0-9&.\-]*(?:\s+[A-Z][A-Za-z0-9&.\-]*){0,2})\s+[Ii]nterview")
 
@@ -113,7 +137,9 @@ def _company_from_text(text: str) -> Optional[str]:
 _MD_LINK = re.compile(r"\[([^\]]+)\]\([^)]*\)?")
 _MD_DANGLING = re.compile(r"\s*\]\([^\s)]*\)?")
 _MD_NOISE = re.compile(r"[`*_]+")
-_LEAD_MARKER = re.compile(r"^\s*(?:[•\-*]\s*)?(?:\d+[.)]\s*)?")
+# Strips leading list/question markers: bullets, "1.", "1)", "Q1.", "Q1)", "Q1:",
+# "Question 1.", "Question 1:" — so question content never starts with a number/label.
+_LEAD_MARKER = re.compile(r"^\s*(?:[•\-*]\s*)?(?:(?:q(?:uestion)?\s*)?\d+\s*[.):]\s*)?", re.IGNORECASE)
 
 
 def _clean_seg(s: str) -> str:
@@ -121,6 +147,7 @@ def _clean_seg(s: str) -> str:
     s = _MD_DANGLING.sub("", s)
     s = _MD_NOISE.sub("", s)
     s = re.sub(r"^[#>\[\]\-•*\s]+", "", s)
+    s = _LEAD_MARKER.sub("", s)  # drop any leading Q1./1)/Question 2: prefix
     s = s.rstrip(" \t`]")
     return re.sub(r"\s+", " ", s).strip()
 
@@ -154,7 +181,20 @@ def _extract_from_text(text: str) -> List[str]:
     return out
 
 
-def _search(client, query: str, include_domains: Optional[list] = None):
+def _summarize_tavily_error(errors: list) -> str:
+    """Turn raw Tavily exception strings into one human-readable status."""
+    joined = " ".join(errors).lower()
+    if "usage limit" in joined or "exceeds your plan" in joined or "forbidden" in joined:
+        return "Tavily quota/usage limit reached — web search unavailable (upgrade or replace TAVILY_API_KEY)."
+    if "unauthorized" in joined or "401" in joined or "invalid api key" in joined:
+        return "Tavily API key invalid or unauthorized — web search unavailable."
+    if "rate limit" in joined or "429" in joined:
+        return "Tavily rate limit hit — web search temporarily unavailable."
+    return f"Tavily web search failed: {errors[0]}"
+
+
+def _search(client, query: str, include_domains: Optional[list] = None,
+            errors: Optional[list] = None):
     try:
         kw = dict(query=query, max_results=config.TAVILY_MAX_RESULTS,
                   search_depth="basic", include_raw_content="markdown")
@@ -162,7 +202,13 @@ def _search(client, query: str, include_domains: Optional[list] = None):
             kw["include_domains"] = include_domains
         resp = client.search(**kw)
         return resp.get("results") or []
-    except Exception:
+    except Exception as e:
+        # Don't swallow silently — record so callers can surface WHY web search
+        # returned nothing (e.g. expired key, quota/usage limit, rate limit).
+        msg = f"{type(e).__name__}: {e}"
+        print(f"[tavily] search failed for {query!r}: {msg}")
+        if errors is not None:
+            errors.append(msg)
         return []
 
 
@@ -175,7 +221,9 @@ def _records_from_results(results, allow: set, seen: set) -> List[Record]:
             continue
         text = r.get("raw_content") or r.get("content") or ""
         title = r.get("title", "") or ""
-        company = _company_from_url(url) or _company_from_text(title) or _company_from_text(text[:200])
+        company = _valid_company(
+            _company_from_url(url) or _company_from_text(title) or _company_from_text(text[:200])
+        )
         for cand in _extract_from_text(text):
             cand = _strip_trailing_company(cand, company)
             key = " ".join(cand.lower().split())
@@ -191,34 +239,41 @@ class TavilyConnector:
     name = "tavily"
 
     def fetch(self, outcomes: List[str]) -> tuple:
-        """Return (records, search_call_count) — call count for API usage tracking."""
+        """Return (records, search_call_count, error).
+
+        error is None on success, or a short string describing why searches
+        failed (e.g. quota/usage limit) so callers can surface it instead of
+        silently looking like 'no results found'.
+        """
         if not config.TAVILY_API_KEY:
-            return [], 0
+            return [], 0, "TAVILY_API_KEY not set"
         allow = set(config.INTERVIEW_SOURCE_ALLOWLIST or [])
         client = _client()
         records: List[Record] = []
         seen: set = set()
+        errors: list = []
         search_count = 0
         for outcome in (outcomes or [])[:_MAX_OUTCOMES]:
             q = outcome.replace("_", " ").strip()
             # Pass 1 (broad — community + attribution): catch forum/community questions
             records.extend(_records_from_results(
                 _search(client, f"{q} interview question asked at company",
-                        include_domains=_BROAD_DOMAINS), allow, seen))
+                        include_domains=_BROAD_DOMAINS, errors=errors), allow, seen))
             search_count += 1
             # Pass 2 (attribution — company-keyed sites only)
             records.extend(_records_from_results(
                 _search(client, f"{q} interview questions",
-                        include_domains=_ATTRIBUTION_DOMAINS), allow, seen))
-            search_count += 1
-            # Pass 3 (technical qualifier — avoids hiring-process/prep pages)
-            records.extend(_records_from_results(
-                _search(client, f"{q} technical interview questions",
-                        include_domains=_ATTRIBUTION_DOMAINS), allow, seen))
+                        include_domains=_ATTRIBUTION_DOMAINS, errors=errors), allow, seen))
             search_count += 1
             if len(records) >= _MAX_RECORDS:
                 break
-        return records[:_MAX_RECORDS], search_count
+            # All searches erroring (e.g. quota exceeded) — stop early, don't burn calls
+            if errors and not records and search_count >= 2:
+                break
+        error = None
+        if not records and errors:
+            error = _summarize_tavily_error(errors)
+        return records[:_MAX_RECORDS], search_count, error
 
 
 def search_question(question: str) -> List[Record]:

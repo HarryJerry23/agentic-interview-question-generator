@@ -1,11 +1,34 @@
 from __future__ import annotations
 from typing import Literal
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, computed_field
+import re
 import uuid
 
 
 def new_uuid() -> str:
     return str(uuid.uuid4())
+
+
+NIAT = "NIAT"  # default company for questions without a real company attribution
+
+_QNUM_PREFIX = re.compile(r"^\s*(?:[•\-*]\s*)?(?:q(?:uestion)?\s*)?\d+\s*[.):]\s*", re.IGNORECASE)
+
+
+def strip_question_prefix(text: str) -> str:
+    """Remove a leading question number/label like 'Q1.', 'Q2)', 'Question 3:', '1.'."""
+    if not text:
+        return text
+    return _QNUM_PREFIX.sub("", text).strip()
+
+
+def attribution_label(asked_in_company: str | None, source: str | None = None,
+                      source_url: str | None = None) -> str:
+    """Company attribution for output: the real company in UPPERCASE if known,
+    otherwise the org placeholder "NIAT". Never a website name or fragment —
+    garbage values are filtered upstream (tavily `_valid_company`)."""
+    if asked_in_company and asked_in_company.strip():
+        return asked_in_company.strip().upper()
+    return NIAT
 
 
 # --- Generation Config (user input) ---
@@ -14,6 +37,7 @@ class GenerationConfig(BaseModel):
     session_names: list[str]          # One or more sessions to combine
     max_questions: int = 15
     min_questions: int = 5
+    model: str | None = None          # runtime-selected LLM (OpenRouter id); None → configured default
     difficulty_bias: dict[str, float] = Field(
         default_factory=lambda: {"easy": 0.3, "medium": 0.5, "hard": 0.2}
     )
@@ -79,6 +103,12 @@ class QuestionDetail(BaseModel):
             return "\n".join(str(item) for item in v)
         return v
 
+    @computed_field
+    @property
+    def attribution(self) -> str:
+        """Real company if known, else honest source label (never fabricated)."""
+        return attribution_label(self.asked_in_company, self.source, self.source_url)
+
 
 class CodingQuestion(BaseModel):
     id: str = Field(default_factory=new_uuid)
@@ -95,6 +125,12 @@ class CodingQuestion(BaseModel):
     asked_in_company: str | None = None
     source: Literal["curriculum", "interview_db", "web", "generated"]
     expected_answer: str | None = None
+
+    @computed_field
+    @property
+    def attribution(self) -> str:
+        """Real company if known, else honest source label (never fabricated)."""
+        return attribution_label(self.asked_in_company, self.source, None)
 
 
 class CodeSnippet(BaseModel):

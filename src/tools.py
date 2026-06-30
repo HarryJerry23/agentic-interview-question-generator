@@ -33,22 +33,6 @@ def _usage_cb(state: "AgentState"):
     return _cb
 
 
-def _url_is_alive(url: str, timeout: float = 4.0) -> bool:
-    """HEAD-check a URL; returns True if reachable (or no URL / network error)."""
-    if not url:
-        return True
-    try:
-        import requests
-        r = requests.head(url, timeout=timeout, allow_redirects=True,
-                          headers={"User-Agent": "nxtwave-iqg-bot/1.0"})
-        # Anti-bot blocks mean the page exists
-        if r.status_code in (401, 403, 429):
-            return True
-        return r.status_code < 400
-    except Exception:
-        return True  # network error ≠ dead
-
-
 from src.config import DEDUP_THRESHOLD
 from src.question_bank import get_retriever
 
@@ -524,24 +508,12 @@ def tool_check_outcome_coverage(state: AgentState) -> dict:
 
 
 def tool_generate_expected_answers(state: AgentState) -> dict:
-    needs_answers = [q for q in state.questions.values() if not q.expected_answer]
-    if not needs_answers:
-        return {"generated": 0, "message": "All questions already have answers"}
-    batch = needs_answers[:15]
-    q_list = "\n".join(f"{i+1}. {q.content[:250]}" for i, q in enumerate(batch))
-    result = chat_completion_json(
-        system_prompt="""Generate concise expected answer outlines for these interview questions.
-For each, provide 2-3 bullet points as a SINGLE STRING with bullets separated by newlines.
-Respond in JSON: {"answers": ["- point1\\n- point2", ...]}""",
-        user_prompt=f"Questions:\n{q_list}", max_tokens=3000,
-        on_usage=_usage_cb(state),
-    )
-    answers = result.get("answers", [])
-    for i, q in enumerate(batch):
-        if i < len(answers):
-            ans = answers[i]
-            q.expected_answer = "\n".join(str(a) for a in ans) if isinstance(ans, list) else str(ans) if ans else None
-    return {"generated": min(len(answers), len(batch))}
+    """Disabled — expected answers are no longer produced."""
+    return {
+        "generated": 0,
+        "blocked": True,
+        "reason": "Expected-answer generation is disabled. Proceed to submit_question_set.",
+    }
 
 
 def tool_generate_interview_questions(state: AgentState, count: int, outcomes: list[str], difficulty_mix: str = None) -> dict:
@@ -680,17 +652,16 @@ def tool_search_web_questions(state: AgentState, outcomes: list) -> dict:
     for out in outcomes:
         if out.lower() not in {t.lower() for t in search_terms}:
             search_terms.append(out)
-    search_terms = search_terms[:8]
-    records, tavily_calls = TavilyConnector().fetch(search_terms or outcomes)
+    # Cap terms for latency — each term costs several Tavily calls; recall is already
+    # high (hundreds of records) with a handful of terms.
+    search_terms = search_terms[:4]
+    records, tavily_calls, tavily_error = TavilyConnector().fetch(search_terms or outcomes)
     state.api_usage["tavily_calls"] += tavily_calls
 
-    # Link-aliveness check: filter dead source URLs (HEAD-check first 10, keep rest unchecked)
-    if len(records) >= 5:
-        import concurrent.futures
-        to_check, rest = records[:10], records[10:]
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
-            alive_flags = list(ex.map(lambda r: _url_is_alive(r.source_url), to_check))
-        records = [r for r, ok in zip(to_check, alive_flags) if ok] + rest
+    # Surface a real failure (quota/auth/rate limit) instead of silently looking
+    # like "no web questions found".
+    if tavily_error and not records:
+        return {"found": 0, "added": 0, "status": "error", "error": tavily_error}
 
     current = len(state.questions) + len(state.coding_questions)
     capacity = state.config.max_questions - current

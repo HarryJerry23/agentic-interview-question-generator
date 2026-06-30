@@ -8,13 +8,36 @@ export default function Sidebar() {
 
   const [topics, setTopics] = useState({})
   const [selectedTopic, setSelectedTopic] = useState('')
-  const [maxQuestions, setMaxQuestions] = useState(12)
+  const [maxQuestions, setMaxQuestions] = useState(7)
   const [starting, setStarting] = useState(false)
   const [history, setHistory] = useState([])
+  const [meta, setMeta] = useState(null)
+  const [selectedModel, setSelectedModel] = useState(() => {
+    try { return localStorage.getItem('iqg-model') || '' } catch { return '' }
+  })
+  const [theme, setTheme] = useState(
+    () => (typeof document !== 'undefined' && document.documentElement.dataset.theme) || 'dark'
+  )
+
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    document.documentElement.dataset.theme = next
+    try { localStorage.setItem('iqg-theme', next) } catch {}
+  }
+
+  function pickModel(id) {
+    setSelectedModel(id)
+    try { localStorage.setItem('iqg-model', id) } catch {}
+  }
 
   useEffect(() => {
     api.getTopics().then(d => setTopics(d.topics || {})).catch(() => {})
     api.getHistory().then(d => setHistory(d.runs || [])).catch(() => {})
+    api.getMeta().then(m => {
+      setMeta(m)
+      setSelectedModel(prev => prev || m.model || '')  // default to active model
+    }).catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -26,7 +49,7 @@ export default function Sidebar() {
     setStarting(true)
     try {
       const sessionNames = topics[selectedTopic] || []
-      const { run_id } = await api.generate(sessionNames, maxQuestions)
+      const { run_id } = await api.generate(sessionNames, maxQuestions, selectedModel || undefined)
       navigate(`/progress/${run_id}`)
     } catch {
       // stay on page
@@ -80,6 +103,21 @@ export default function Sidebar() {
 
       {/* Generate area */}
       <div className="sidebar-generate-area">
+        {meta?.models?.length > 0 && (
+          <>
+            <div className="sidebar-maxq-label" style={{ marginBottom: '0.3rem' }}>Model</div>
+            <select
+              className="sidebar-topic-select"
+              style={{ marginBottom: '0.65rem' }}
+              value={selectedModel}
+              onChange={e => pickModel(e.target.value)}
+            >
+              {meta.models.map(m => (
+                <option key={m.id} value={m.id}>{m.label || m.id}</option>
+              ))}
+            </select>
+          </>
+        )}
         <div className="sidebar-maxq-label">
           Max questions: <strong>{maxQuestions}</strong>
         </div>
@@ -124,8 +162,19 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="sidebar-footer">
         <div className="sidebar-model-label">Model</div>
-        <span className="sidebar-model-chip">claude-haiku-4-5</span>
+        <span className="sidebar-model-chip">
+          {(selectedModel || meta?.model || '').replace(/^.*\//, '') || '—'}
+        </span>
         <div className="sidebar-model-via">via OpenRouter</div>
+        <div className="sidebar-model-via" style={{ marginTop: '0.35rem' }}>
+          {meta?.credits?.remaining != null
+            ? `Credits: $${meta.credits.remaining.toFixed(2)} left${meta.credits.scope === 'key' ? ' (key)' : ''}`
+            : 'Credits: —'}
+        </div>
+        <button className="theme-toggle" onClick={toggleTheme} title="Toggle light / dark theme">
+          <span className="tt-ico">{theme === 'dark' ? '☀️' : '🌙'}</span>
+          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+        </button>
       </div>
     </aside>
   )

@@ -7,8 +7,9 @@ import gspread
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from src.models import CuratedOutput, QualityReport
+from src.models import CuratedOutput, QualityReport, strip_question_prefix
 from src.config import PROJECT_ROOT
+from src.data_loader import get_topic_for_session
 from datetime import datetime
 
 
@@ -17,7 +18,6 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-FEEDBACK_OPTIONS = ["Good", "Remove", "Wrong Topic", "Too Easy", "Too Hard"]
 TOKEN_PATH = PROJECT_ROOT / "token.json"
 
 
@@ -72,15 +72,17 @@ def write_to_sheets(
     """Write CuratedOutput to a new Google Sheet. Returns the Sheet URL."""
     client = _get_gspread_client()
 
-    # Per-run IDs and derived values
+    # Per-run IDs and derived values — include coding-question IDs in the count
     org_id = str(uuid.uuid4())
     interview_id = str(uuid.uuid4())
-    question_ids_str = ", ".join(q.question_id for q in output.question_details)
-    q_count = len(output.question_details)
+    all_ids = ([q.question_id for q in output.question_details]
+               + [q.id for q in output.coding_questions])
+    question_ids_str = ", ".join(all_ids)
+    q_count = len(all_ids)
 
-    # Create new spreadsheet — name: Topic_Name_NxtMock_Unit
-    topic_slug = "_".join(w for w in session_name.replace("|", "").split())
-    title = f"{topic_slug}_NxtMock_Unit"
+    # Create new spreadsheet — name: "<Topic> - <session(s)> (NxtMock)"
+    topic = get_topic_for_session(session_name)
+    title = f"{topic} - {session_name} (NxtMock)" if topic else f"{session_name} (NxtMock)"
     spreadsheet = client.create(title)
 
     # --- Tab 1: QuestionDetails ---
@@ -90,21 +92,18 @@ def write_to_sheets(
     qd_headers = [
         "question_id", "category", "content", "topic", "sub_topic",
         "difficulty", "language", "framework", "tool", "asked_in_company",
-        "source", "expected_answer", "feedback",
     ]
     qd_rows = [qd_headers]
     for q in output.question_details:
         qd_rows.append([
-            q.question_id, q.category, q.content, q.topic,
-            q.sub_topic or "", q.difficulty or "",
-            q.language or "", q.framework or "", q.tool or "",
-            q.asked_in_company or "", q.source, q.expected_answer or "", "",
+            q.question_id, q.category, strip_question_prefix(q.content), "GEN_AI",
+            q.sub_topic or "", (q.difficulty or "").upper(),
+            q.language or "", "GEN_AI", q.tool or "",
+            q.attribution,
         ])
 
     if qd_rows:
         ws_qd.update(range_name="A1", values=qd_rows)
-
-    _add_dropdown_validation(ws_qd, col_index=13, row_count=len(output.question_details))
 
     # --- Tab 2: Organisation ---
     ws_org = spreadsheet.add_worksheet(title="Organisation", rows=2, cols=3)
@@ -126,12 +125,12 @@ def write_to_sheets(
         ["video_enabled", True],
         ["is_proctoring_enabled", True],
         ["category", "TESTING_CATEGORY"],
-        ["Tags", "INTENSIVE_OFFLINE_JAVA7"],
+        ["Tags", "NIAT_GEN_AI"],
         ["visibility", "should_show_report"],
         [None, True],
         ["slot_start_datetime", None],
         ["slot_end_datetime", None],
-        ["lp_enroll_plans_supported", "CCBP_TECH_INTENSIVE_OFFLINE"],
+        ["lp_enroll_plans_supported", "NIAT"],
         # assess_entity table header
         ["assess_entity", "no_of_questions", "language", "topic", "sub_topic",
          "difficulty", "asked_in_company", "framework", "tool", "prompt_name_enum",
@@ -165,18 +164,15 @@ def write_to_sheets(
         cq_headers = [
             "id", "category", "title", "content", "code_id", "topic", "sub_topic",
             "difficulty", "language", "framework", "tool", "asked_in_company",
-            "source", "expected_answer", "feedback",
         ]
         cq_rows = [cq_headers]
         for q in output.coding_questions:
             cq_rows.append([
-                q.id, q.category, q.title, q.content[:1000], q.code_id or "",
-                q.topic, q.sub_topic or "", q.difficulty or "", q.language,
-                q.framework or "", q.tool or "", q.asked_in_company or "",
-                q.source, q.expected_answer or "", "",
+                q.id, q.category, q.title, strip_question_prefix(q.content[:1000]), q.code_id or "",
+                "GEN_AI", q.sub_topic or "", (q.difficulty or "").upper(), q.language,
+                "GEN_AI", q.tool or "", q.attribution,
             ])
         ws_cq.update(range_name="A1", values=cq_rows)
-        _add_dropdown_validation(ws_cq, col_index=15, row_count=len(output.coding_questions))
 
     # --- Tab 6: CodeAnalysisQuestion (headers only — generation not yet wired) ---
     ws_caq = spreadsheet.add_worksheet(title="CodeAnalysisQuestion", rows=2, cols=6)
@@ -185,20 +181,3 @@ def write_to_sheets(
     ])
 
     return spreadsheet.url
-
-
-def _add_dropdown_validation(worksheet, col_index: int, row_count: int):
-    """Add data validation dropdown to the feedback column."""
-    if row_count == 0:
-        return
-    try:
-        from gspread.utils import rowcol_to_a1
-        start = rowcol_to_a1(2, col_index)
-        end = rowcol_to_a1(row_count + 1, col_index)
-        rule = gspread.worksheet.DataValidationRule(
-            gspread.worksheet.BooleanCondition("ONE_OF_LIST", FEEDBACK_OPTIONS),
-            showCustomUi=True,
-        )
-        worksheet.set_data_validation(f"{start}:{end}", rule)
-    except Exception:
-        pass

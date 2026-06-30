@@ -9,12 +9,13 @@ export const api = {
   getSessions: () => fetch('/api/sessions').then(j),
   getTopics: () => fetch('/api/topics').then(j),
   getHistory: () => fetch('/api/history').then(j),
+  getMeta: () => fetch('/api/meta').then(j),
 
-  generate: (sessionNames, maxQuestions) =>
+  generate: (sessionNames, maxQuestions, model) =>
     fetch('/api/generate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session_names: sessionNames, max_questions: maxQuestions }),
+      body: JSON.stringify({ session_names: sessionNames, max_questions: maxQuestions, model }),
     }).then(j),
 
   getResult: (runId) => fetch(`/api/result/${runId}`).then(j),

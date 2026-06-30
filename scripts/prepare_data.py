@@ -5,7 +5,6 @@ Run once: python scripts/prepare_data.py
 Outputs:
   data/interview_questions.json  — filtered interview questions from CSV
   data/knowledge_graph.json      — KPs + session mapping + prerequisites
-  data/scraped_questions.json    — questions extracted from curated URLs
   eval/eval_sets.json            — updated evaluation sets
 """
 
@@ -380,96 +379,7 @@ def prepare_knowledge_graph():
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# PART 3: Scraped Questions — Curated URLs -> Permanent JSON
-# ═══════════════════════════════════════════════════════════════════════════
-
-def prepare_scraped_questions():
-    """Scrape curated URLs once, extract questions via LLM, save as JSON."""
-    out_path = DATA_DIR / "scraped_questions.json"
-    if out_path.exists():
-        with open(out_path, "r", encoding="utf-8") as f:
-            existing = json.load(f)
-        count = existing.get("metadata", {}).get("total_questions", 0)
-        if count > 0:
-            print(f"  Already scraped ({count} questions). Skipping.")
-            return
-
-    from src.utils.web import scrape_url
-    from src.llm_client import chat_completion_json
-
-    urls_path = PROJECT_ROOT / "curated_urls.md"
-    if not urls_path.exists():
-        print("  ERROR: curated_urls.md not found")
-        return
-
-    urls = [
-        line.strip() for line in urls_path.read_text(encoding="utf-8").splitlines()
-        if line.strip().startswith("http")
-    ]
-    print(f"  Found {len(urls)} URLs to scrape")
-
-    all_questions = []
-
-    for url in urls:
-        print(f"  Scraping: {url[:70]}...")
-        text = scrape_url(url)
-        if not text:
-            print(f"    Failed to fetch")
-            continue
-
-        result = chat_completion_json(
-            system_prompt="""Extract ALL interview questions from this webpage.
-
-For each question return:
-- question: full question text as a string
-- topic: clean short topic label (2-4 words, e.g., "Prompt Engineering", "LLM Architecture")
-- difficulty: "Easy", "Medium", or "Hard" (distribute as 30% Easy, 50% Medium, 20% Hard)
-- category: one of GEN_AI, LLM, AI_ML, PYTHON, ML_OPS, PROMPT_ENGINEERING, RAG, AGENTS
-
-Respond in JSON: {"questions": [{"question": "...", "topic": "...", "difficulty": "Medium", "category": "GEN_AI"}]}
-
-Extract EVERY interview question. Do NOT include answers.""",
-            user_prompt=f"Webpage content:\n{text}",
-            max_tokens=4096,
-        )
-
-        questions = result.get("questions", [])
-        count = 0
-        for q in questions:
-            q_text = q.get("question", "").strip()
-            if not q_text or len(q_text) < 20:
-                continue
-
-            all_questions.append({
-                "id": str(uuid.uuid4()),
-                "content": q_text,
-                "topic": q.get("topic", "General"),
-                "difficulty": q.get("difficulty", "Medium"),
-                "category": q.get("category", "GEN_AI"),
-                "source_url": url,
-            })
-            count += 1
-
-        print(f"    Extracted {count} questions")
-
-    output = {
-        "metadata": {
-            "total_questions": len(all_questions),
-            "total_urls": len(urls),
-            "scraped_at": datetime.now().isoformat(),
-        },
-        "questions": all_questions,
-    }
-
-    out_path = DATA_DIR / "scraped_questions.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-
-    print(f"  Written {len(all_questions)} questions to {out_path}")
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# PART 4: Updated Eval Sets
+# PART 3: Updated Eval Sets
 # ═══════════════════════════════════════════════════════════════════════════
 
 def prepare_eval_sets():
@@ -630,21 +540,13 @@ if __name__ == "__main__":
     print("DATA PREPARATION")
     print("=" * 60)
 
-    print("\n[1/4] Interview Questions (CSV -> JSON)...")
+    print("\n[1/3] Interview Questions (CSV -> JSON)...")
     prepare_interview_questions()
 
-    print("\n[2/4] Knowledge Graph (KPs + Sessions + Prerequisites)...")
+    print("\n[2/3] Knowledge Graph (KPs + Sessions + Prerequisites)...")
     prepare_knowledge_graph()
 
-    print("\n[3/4] Scraped Questions (URLs -> JSON)...")
-    print("  This requires LLM calls and may take 1-2 minutes...")
-    try:
-        prepare_scraped_questions()
-    except Exception as e:
-        print(f"  ERROR: {e}")
-        print("  Skipping URL scraping — you can re-run later")
-
-    print("\n[4/4] Eval Sets...")
+    print("\n[3/3] Eval Sets...")
     prepare_eval_sets()
 
     print("\n" + "=" * 60)

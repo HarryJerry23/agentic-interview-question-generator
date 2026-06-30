@@ -36,6 +36,12 @@ def init_db():
             created_at      TEXT DEFAULT (datetime('now'))
         );
 
+        CREATE TABLE IF NOT EXISTS run_results (
+            run_id       TEXT PRIMARY KEY,
+            payload_json TEXT NOT NULL,
+            created_at   TEXT DEFAULT (datetime('now'))
+        );
+
         CREATE TABLE IF NOT EXISTS question_feedback (
             question_id TEXT NOT NULL,
             run_id      TEXT NOT NULL,
@@ -111,6 +117,27 @@ def save_run(run_id: str, session_name: str, question_count: int,
     )
     conn.commit()
     conn.close()
+
+
+def save_run_result(run_id: str, payload: dict):
+    """Persist the full run payload ({context, output, report}) so Review and
+    re-export survive server restarts."""
+    conn = get_connection()
+    conn.execute(
+        "INSERT OR REPLACE INTO run_results (run_id, payload_json) VALUES (?, ?)",
+        (run_id, json.dumps(payload))
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_run_result(run_id: str) -> dict | None:
+    conn = get_connection()
+    row = conn.execute(
+        "SELECT payload_json FROM run_results WHERE run_id = ?", (run_id,)
+    ).fetchone()
+    conn.close()
+    return json.loads(row["payload_json"]) if row else None
 
 
 def get_run_history(limit: int = 100) -> list[dict]:

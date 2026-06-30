@@ -3,7 +3,7 @@
 Reads from data/ directory (prepared by scripts/prepare_data.py):
   - interview_questions.json — filtered interview questions
   - knowledge_graph.json — KPs, sessions, prerequisites
-  - scraped_questions.json — questions from curated URLs
+  - reading_materials/session_map.json — per-session reading material
 
 Also loads reading materials from markdown files for session content.
 """
@@ -13,11 +13,20 @@ import re
 import networkx as nx
 from pathlib import Path
 from src.config import (
-    PROJECT_ROOT,
-    INTERVIEW_QUESTIONS_JSON, KNOWLEDGE_GRAPH_JSON, SCRAPED_QUESTIONS_JSON,
-    GEN_AI_RM, LLM_APPS_RM, CURATED_URLS,
+    PROJECT_ROOT, DATA_DIR,
+    INTERVIEW_QUESTIONS_JSON, KNOWLEDGE_GRAPH_JSON,
+    GEN_AI_RM, LLM_APPS_RM, SESSION_MAP_JSON,
     GEN_AI_JSON, LLM_APPS_JSON, FLASK_JSON,
 )
+
+
+def _normalize_session_key(name: str) -> str:
+    """Normalize a session name for tolerant exact-ish matching (case, spacing,
+    punctuation around 'Part N')."""
+    s = name.lower().strip()
+    s = re.sub(r"[|:]", " ", s)        # treat "| Part 1" / ": Part 1" uniformly
+    s = re.sub(r"\s+", " ", s)
+    return s
 
 
 class DataStore:
@@ -31,17 +40,16 @@ class DataStore:
         self.sessions: dict[str, dict] = {}          # session_name -> {course, kp_ids, outcomes, ...}
         self.prerequisite_dag: nx.DiGraph = nx.DiGraph()
 
-        # From interview_questions.json + scraped_questions.json
+        # From interview_questions.json
         self.interview_questions: list[dict] = []
-        self.scraped_questions: list[dict] = []
         self.curriculum_questions: list[dict] = []
 
         # From reading materials
         self.reading_materials: dict[str, str] = {}  # session_name -> section text
+        self._rm_norm_index: dict[str, str] = {}     # normalized name -> canonical key
 
         # From curriculum JSONs (for KP catalog building)
         self.csv_taxonomy: list[dict] = []
-        self.curated_urls: list[str] = []
 
         self._loaded = False
 
@@ -50,9 +58,7 @@ class DataStore:
             return
         self._load_knowledge_graph()
         self._load_interview_questions()
-        self._load_scraped_questions()
         self._load_reading_materials()
-        self._load_curated_urls()
         self._load_curriculum_kps()
         self._loaded = True
 
@@ -94,68 +100,24 @@ class DataStore:
         self.interview_questions = data.get("questions", [])
         print(f"Loaded {len(self.interview_questions)} interview questions")
 
-    def _load_scraped_questions(self):
-        """Load scraped questions from JSON."""
-        if not SCRAPED_QUESTIONS_JSON.exists():
-            return
-
-        with open(SCRAPED_QUESTIONS_JSON, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        self.scraped_questions = data.get("questions", [])
-        print(f"Loaded {len(self.scraped_questions)} scraped questions")
-
     def _load_reading_materials(self):
-        """Parse reading material markdown files into session sections."""
-        rm_files = [
-            (GEN_AI_RM, "gen_ai"),
-            (LLM_APPS_RM, "llm_applications"),
-        ]
-        for filepath, prefix in rm_files:
-            if not filepath.exists():
-                continue
-            text = filepath.read_text(encoding="utf-8")
-            sessions = self._parse_rm_sessions(text)
-            for name, content in sessions.items():
-                self.reading_materials[name] = content
+        """Load the precise per-session reading-material map.
 
-    def _parse_rm_sessions(self, text: str) -> dict[str, str]:
-        """Split reading material into sessions by top-level headings."""
-        clean_text = re.sub(r'```[\s\S]*?```', '', text)
-        pattern = r'^"?#\s+([A-Z][^\n]+)'
-        sections: dict[str, str] = {}
-        skip_titles = {
-            "introduction", "common issues you may encounter",
-            "setting the scheduler to run every week",
-        }
-
-        matches = list(re.finditer(pattern, clean_text, re.MULTILINE))
-        for i, match in enumerate(matches):
-            title = match.group(1).strip().strip('"').strip()
-            if title.lower() in skip_titles or re.match(r'^\d+\.', title) or len(title) < 8:
-                continue
-
-            title_pattern = re.escape(title[:40])
-            orig_match = re.search(r'^"?#\s+' + title_pattern, text, re.MULTILINE)
-            if not orig_match:
-                continue
-
-            start = orig_match.start()
-            next_heading = re.search(r'\n"?#\s+[A-Z]', text[start + 1:])
-            end = start + 1 + next_heading.start() if next_heading else len(text)
-            sections[title] = text[start:end].strip()[:8000]
-
-        return sections
-
-    def _load_curated_urls(self):
-        """Load URLs from curated_urls.md."""
-        if not CURATED_URLS.exists():
+        The map (data/reading_materials/session_map.json) is keyed by canonical
+        session names and built by scripts/build_session_reading_material.py.
+        We rely on exact/normalized keys — no fuzzy substring guessing — so a
+        session always gets its OWN content (or none, falling back to the KG).
+        """
+        if not SESSION_MAP_JSON.exists():
+            print("WARNING: session_map.json not found. "
+                  "Run: python scripts/build_session_reading_material.py")
             return
-        text = CURATED_URLS.read_text(encoding="utf-8")
-        self.curated_urls = [
-            line.strip() for line in text.splitlines()
-            if line.strip() and line.strip().startswith("http")
-        ]
+        with open(SESSION_MAP_JSON, "r", encoding="utf-8") as f:
+            self.reading_materials = json.load(f)
+        self._rm_norm_index = {
+            _normalize_session_key(name): name for name in self.reading_materials
+        }
+        print(f"Loaded reading material for {len(self.reading_materials)} sessions")
 
     def _load_curriculum_kps(self):
         """Load KP catalog from curriculum JSONs and add questions to bank."""
@@ -205,13 +167,18 @@ class DataStore:
         return sorted(all_names)
 
     def get_session_content(self, session_name: str) -> str | None:
-        """Get reading material content for a session."""
+        """Get reading material content for a session.
+
+        Exact key first, then a normalized (case/spacing/'| Part N') match.
+        No broad substring fallback — a near-miss must return None so
+        understand_session falls back to the knowledge graph rather than
+        feeding the wrong session's content.
+        """
         if session_name in self.reading_materials:
             return self.reading_materials[session_name]
-        lower = session_name.lower()
-        for name, content in self.reading_materials.items():
-            if lower in name.lower() or name.lower() in lower:
-                return content
+        canonical = self._rm_norm_index.get(_normalize_session_key(session_name))
+        if canonical:
+            return self.reading_materials[canonical]
         return None
 
     def get_session_info(self, session_name: str) -> dict | None:
@@ -240,9 +207,37 @@ class DataStore:
             return list(all_kps)
 
     def get_all_questions(self) -> list[dict]:
-        """Return only interview questions with verified company attribution.
-        Scraped questions are excluded — they lack company/role tags required for output."""
+        """Return the interview questions with verified company attribution."""
         return self.interview_questions
+
+
+_COURSE_STRUCTURE = DATA_DIR / "course_structure.json"
+_topic_index: dict[str, str] | None = None  # session name (lower) -> topic name
+
+
+def get_topic_for_session(session_name: str) -> str | None:
+    """Reverse-lookup the course topic for a (possibly combined) session name.
+
+    `session_name` may be "A + B + C"; returns the course_structure topic whose
+    session list contains any of those sessions. Returns None if not found
+    (e.g. a custom topic). Cached after first load.
+    """
+    global _topic_index
+    if _topic_index is None:
+        _topic_index = {}
+        try:
+            with open(_COURSE_STRUCTURE, "r", encoding="utf-8") as f:
+                structure = json.load(f)
+            for topic, sessions in structure.items():
+                for s in sessions:
+                    _topic_index[s.strip().lower()] = topic
+        except Exception:
+            _topic_index = {}
+    for part in session_name.split(" + "):
+        topic = _topic_index.get(part.strip().lower())
+        if topic:
+            return topic
+    return None
 
 
 # Singleton

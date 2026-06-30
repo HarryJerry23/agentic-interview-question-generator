@@ -67,20 +67,20 @@ class RetrievalAgent(BaseAgent):
 ## Session: {ctx.session_name}  |  Type: {ctx.session_type}
 ## Target: {min_q}–{max_q} questions
 
-## Retrieval Strategy
-1. Call `search_question_bank` 3–5 times, once per query below
-2. Call `search_github_questions` — always, for structured technical questions from curated repos
-3. Call `search_web_questions` — always, to get real company-attributed questions from Glassdoor, AmbitionBox, Exponent etc.
+## Retrieval Strategy (interview data first, then the web)
+1. Call `search_question_bank` 3–5 times, once per query below — this is the provided interview data, always check it first
+2. Call `search_web_questions` — always, to get real company-attributed questions from Glassdoor, AmbitionBox, Exponent etc.
    Pass SHORT topic keywords (2–4 words each), NOT full outcome sentences.
    Good: ["LangChain RAG", "AI agents memory", "RAG retrieval augmented generation"]
    Bad:  ["Implement LangChain RecursiveCharacterTextSplitter", "Build RAG pipelines using LangChain"]
+3. Call `search_github_questions` — for additional structured technical questions from curated repos
 4. Stop once you reach {max_q} questions or all queries are exhausted
 
 ## Queries to Use
 {queries}
 
 ## Rules
-- DO NOT generate questions — only retrieve from real sources
+- DO NOT generate questions — only retrieve from real sources (generation is disabled)
 - Use the exact queries listed above; do not invent generic terms
 - Do NOT repeat the same query twice
 - {bank_hint}

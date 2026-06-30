@@ -75,6 +75,7 @@ export default function History() {
                 <thead>
                   <tr>
                     <th>Date</th>
+                    <th>Topic</th>
                     <th>Sessions</th>
                     <th style={{ textAlign: 'right' }}>Questions</th>
                     <th>Score</th>
@@ -91,6 +92,7 @@ export default function History() {
                       onClick={() => navigate(`/review/${run.run_id}`)}
                     >
                       <td className="hist-date">{formatDate(run.created_at)}</td>
+                      <td className="hist-session" title={run.topic || ''}>{run.topic || '—'}</td>
                       <td className="hist-session" title={run.session_name}>{run.session_name}</td>
                       <td className="hist-count">{run.question_count ?? '—'}</td>
                       <td><ScoreBadge score={run.composite_score} /></td>

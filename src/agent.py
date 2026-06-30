@@ -202,7 +202,6 @@ def run_agent(
         session_name=config.session_name,
         min_q=config.min_questions,
         max_q=config.max_questions,
-        curated_urls=data_store.curated_urls,
     )
 
     messages = [
@@ -322,14 +321,13 @@ def run_agent(
         diff = state.difficulty_counts
         sources = state.source_counts
 
-        # Four weighted metrics
+        # Three weighted metrics (answers are no longer generated)
         size_score = 1.0 if MIN_QUESTIONS <= total_q <= MAX_QUESTIONS else max(0.0, 1.0 - abs(total_q - 10) / 10)
         diversity_score = min(1.0, len(sources) / 2)
         diff_target = {"Easy": 0.3, "Medium": 0.5, "Hard": 0.2}
         diff_score = 1.0 - sum(abs(diff.get(k, 0) / max(total_q, 1) - v) for k, v in diff_target.items()) / 2 if total_q > 0 else 0
-        answer_score = sum(1 for q in state.questions.values() if q.expected_answer) / max(len(state.questions), 1) if state.questions else 0
 
-        composite = round(0.30 * size_score + 0.25 * diversity_score + 0.25 * diff_score + 0.20 * answer_score, 3)
+        composite = round(0.40 * size_score + 0.25 * diversity_score + 0.35 * diff_score, 3)
         # Hard floor: if below min questions, cap at 0.4
         if total_q < MIN_QUESTIONS:
             composite = min(composite, 0.4)
@@ -340,7 +338,6 @@ def run_agent(
                 "set_size": round(size_score, 2),
                 "source_diversity": round(diversity_score, 2),
                 "difficulty_balance": round(diff_score, 2),
-                "answer_coverage": round(answer_score, 2),
             },
             pass_fail="pass" if composite >= 0.6 and total_q >= MIN_QUESTIONS else "fail",
             loops_used=revision_round,

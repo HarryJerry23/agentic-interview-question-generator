@@ -11,9 +11,9 @@ export default function QuestionCard({ question, decision, onDecide }) {
     <div className={`q-card ${isAccepted ? 'q-accepted' : isRejected ? 'q-rejected' : ''}`}>
       <div className="q-meta">
         <span className="q-badge q-diff">{question.difficulty || 'Medium'}</span>
-        {question.asked_in_company && (
-          <span className="q-badge q-company">🏢 {question.asked_in_company}</span>
-        )}
+        <span className="q-badge q-company">
+          🏢 {question.attribution || question.asked_in_company || question.source}
+        </span>
         <span className="q-badge q-source">{question.source}</span>
         {question.topic && <span className="q-badge q-topic">{question.topic}</span>}
       </div>

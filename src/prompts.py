@@ -130,7 +130,7 @@ Use `remove_question` for each flagged ID, then re-check and submit.
 
 # ── Legacy shim (kept for any direct callers) ─────────────────────────────────
 
-def build_system_prompt(session_name: str, min_q: int, max_q: int, curated_urls: list[str]) -> str:
+def build_system_prompt(session_name: str, min_q: int, max_q: int) -> str:
     """Deprecated single-agent prompt — kept for backwards compatibility."""
     return f"""You are an expert interview question curator for a technical training program.
 

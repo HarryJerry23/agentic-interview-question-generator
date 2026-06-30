@@ -280,7 +280,7 @@ export default function Review() {
                   id={q.question_id}
                   content={q.question || q.content}
                   difficulty={q.difficulty_level || q.difficulty}
-                  company={q.asked_in_company}
+                  company={q.attribution || q.asked_in_company}
                   role={q.role}
                   topic={q.topic}
                   subTopic={q.sub_topic}
@@ -311,7 +311,7 @@ export default function Review() {
                   title={q.title}
                   content={q.problem_statement || q.content}
                   difficulty={q.difficulty}
-                  company={q.asked_in_company}
+                  company={q.attribution || q.asked_in_company}
                   topic={q.topic}
                   subTopic={q.sub_topic}
                   language={q.language}

@@ -29,6 +29,56 @@ _results: dict[str, PipelineResult] = {}
 _running: dict[str, threading.Thread] = {}
 
 
+def _payload(result: "PipelineResult", run_id: str) -> dict:
+    """Build the /api/result response shape from a PipelineResult."""
+    ctx = result.context
+    return {
+        "run_id": run_id,
+        "context": ctx.model_dump() if ctx else None,
+        "output": result.curated_output.model_dump() if result.curated_output else None,
+        "report": result.quality_report.model_dump() if result.quality_report else None,
+    }
+
+
+def _persist_result(run_id: str, result: "PipelineResult"):
+    """Persist a completed run so Review + re-export survive server restarts,
+    and surface it in History immediately (approved=0)."""
+    try:
+        if not result or result.error or not result.curated_output:
+            return
+        memory.save_run_result(run_id, _payload(result, run_id))
+        total_q = (len(result.curated_output.question_details)
+                   + len(result.curated_output.coding_questions))
+        memory.save_run(
+            run_id=run_id,
+            session_name=result.context.session_name if result.context else "Unknown",
+            question_count=total_q,
+            composite_score=result.quality_report.composite_score if result.quality_report else 0,
+            loops_used=result.quality_report.loops_used if result.quality_report else 0,
+            approved=False,
+            api_usage=dict(result.quality_report.api_usage) if result.quality_report else None,
+        )
+    except Exception:
+        pass
+
+
+def _load_result(run_id: str) -> "PipelineResult | None":
+    """In-memory result, or reconstruct one from the persisted payload."""
+    result = _results.get(run_id)
+    if result:
+        return result
+    payload = memory.get_run_result(run_id)
+    if not payload:
+        return None
+    from src.models import CuratedOutput, SessionContext, QualityReport
+    r = PipelineResult()
+    r.run_id = run_id
+    r.context = SessionContext.model_validate(payload["context"]) if payload.get("context") else None
+    r.curated_output = CuratedOutput.model_validate(payload["output"]) if payload.get("output") else None
+    r.quality_report = QualityReport.model_validate(payload["report"]) if payload.get("report") else None
+    return r
+
+
 # ── Legacy Jinja routes (active only when React is NOT built) ─────────────────
 
 if not _has_react:
@@ -67,6 +117,7 @@ if not _has_react:
         def _run():
             result = run_pipeline(config, run_id=run_id)
             _results[run_id] = result
+            _persist_result(run_id, result)
 
         thread = threading.Thread(target=_run, daemon=True)
         _running[run_id] = thread
@@ -84,7 +135,7 @@ if not _has_react:
         def generate_events():
             while True:
                 try:
-                    event = q.get(timeout=120)
+                    event = q.get(timeout=300)
                     yield f"data: {json.dumps(event)}\n\n"
                     if event.get("step") in ("review", "error", "complete"):
                         break
@@ -100,7 +151,7 @@ if not _has_react:
     def review(run_id: str):
         thread = _running.get(run_id)
         if thread and thread.is_alive():
-            thread.join(timeout=120)
+            thread.join(timeout=300)
         result = _results.get(run_id)
         if not result:
             flash("Run not found or still processing.", "error")
@@ -124,6 +175,18 @@ if not _has_react:
 
 # ── JSON API ─────────────────────────────────────────────────────────────────
 
+@app.route("/api/meta")
+def api_meta():
+    """Runtime info for the UI: active model, selectable models, credit balance."""
+    from src.config import MODEL_OPTIONS
+    from src.llm_client import get_credit_balance, get_active_model
+    return jsonify({
+        "model": get_active_model(),
+        "models": MODEL_OPTIONS,
+        "credits": get_credit_balance(),
+    })
+
+
 @app.route("/api/sessions")
 def api_sessions():
     data_store = get_data_store()
@@ -145,8 +208,9 @@ def api_topics():
 def api_generate():
     body = request.get_json(force=True) or {}
     session_names = body.get("session_names", [])
-    max_questions = int(body.get("max_questions", 12))
+    max_questions = int(body.get("max_questions", 7))
     custom_topic = body.get("custom_topic", "").strip()
+    model = (body.get("model") or "").strip() or None
 
     if custom_topic:
         session_names.append(custom_topic)
@@ -156,13 +220,17 @@ def api_generate():
     config = GenerationConfig(
         session_names=session_names,
         max_questions=min(max_questions, 15),
+        model=model,
     )
     run_id = str(uuid.uuid4())
     get_progress_queue(run_id)
 
     def _run():
+        from src.llm_client import set_active_model
+        set_active_model(config.model)
         result = run_pipeline(config, run_id=run_id)
         _results[run_id] = result
+        _persist_result(run_id, result)
 
     t = threading.Thread(target=_run, daemon=True)
     _running[run_id] = t
@@ -195,26 +263,24 @@ def api_stream(run_id: str):
 def api_result(run_id: str):
     thread = _running.get(run_id)
     if thread and thread.is_alive():
-        thread.join(timeout=120)
+        thread.join(timeout=300)
 
     result = _results.get(run_id)
     if not result:
+        # Fall back to the persisted run (survives server restarts / history).
+        payload = memory.get_run_result(run_id)
+        if payload:
+            return jsonify(payload)
         return jsonify({"error": "Run not found or still processing"}), 404
     if result.error:
         return jsonify({"error": result.error}), 500
 
-    ctx = result.context
-    return jsonify({
-        "run_id": run_id,
-        "context": ctx.model_dump() if ctx else None,
-        "output": result.curated_output.model_dump() if result.curated_output else None,
-        "report": result.quality_report.model_dump() if result.quality_report else None,
-    })
+    return jsonify(_payload(result, run_id))
 
 
 @app.route("/api/approve/<run_id>", methods=["POST"])
 def api_approve(run_id: str):
-    result = _results.get(run_id)
+    result = _load_result(run_id)
     if not result:
         return jsonify({"error": "Run not found"}), 404
 
@@ -290,7 +356,9 @@ def api_approve(run_id: str):
                 pass
 
         session_names = result.context.session_name.split(" + ")
-        config = GenerationConfig(session_names=session_names, max_questions=15)
+        from src.llm_client import get_active_model
+        config = GenerationConfig(session_names=session_names, max_questions=15,
+                                  model=get_active_model())
         try:
             conn = memory.get_connection()
             conn.execute("DELETE FROM session_resolutions WHERE session_name = ?",
@@ -304,8 +372,11 @@ def api_approve(run_id: str):
         get_progress_queue(new_run_id)
 
         def _rerun():
+            from src.llm_client import set_active_model
+            set_active_model(config.model)
             new_result = run_pipeline(config, run_id=new_run_id)
             _results[new_run_id] = new_result
+            _persist_result(new_run_id, new_result)
 
         t = threading.Thread(target=_rerun, daemon=True)
         _running[new_run_id] = t
@@ -336,6 +407,10 @@ def api_history():
             db_runs.insert(0, {"run_id": run_id, "session_name": session_name,
                                 "question_count": q_count, "composite_score": None,
                                 "approved": 0, "created_at": None, "api_usage": {}})
+    # Annotate each run with its derived course topic for display
+    from src.data_loader import get_topic_for_session
+    for r in db_runs:
+        r["topic"] = get_topic_for_session(r.get("session_name", "") or "")
     return jsonify({"runs": db_runs})
 
 

@@ -103,12 +103,9 @@ def _build_quality_report(state: AgentState, revision_round: int) -> QualityRepo
         1.0 - sum(abs(diff.get(k, 0) / max(total_q, 1) - v) for k, v in diff_target.items()) / 2
         if total_q > 0 else 0
     )
-    answer_score = (
-        sum(1 for q in state.questions.values() if q.expected_answer) / max(len(state.questions), 1)
-        if state.questions else 0
-    )
 
-    composite = round(0.30 * size_score + 0.25 * diversity_score + 0.25 * diff_score + 0.20 * answer_score, 3)
+    # Three weighted metrics (answers are no longer generated)
+    composite = round(0.40 * size_score + 0.25 * diversity_score + 0.35 * diff_score, 3)
     if total_q < MIN_QUESTIONS:
         composite = min(composite, 0.4)
 
@@ -118,7 +115,6 @@ def _build_quality_report(state: AgentState, revision_round: int) -> QualityRepo
             "set_size": round(size_score, 2),
             "source_diversity": round(diversity_score, 2),
             "difficulty_balance": round(diff_score, 2),
-            "answer_coverage": round(answer_score, 2),
         },
         pass_fail="pass" if composite >= 0.6 and total_q >= MIN_QUESTIONS else "fail",
         loops_used=revision_round,
